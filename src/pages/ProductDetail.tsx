@@ -125,7 +125,7 @@ export default function ProductDetail() {
   };
 
   const whatsappMessage = `Hi P&N, I'm interested in purchasing ${product.name} (Net Wt. ${product.netWeight || ""}). Can you please share the details?`;
-  const whatsappUrl = `https://wa.me/919548300211?text=${encodeURIComponent(whatsappMessage)}`;
+  const whatsappUrl = `https://wa.me/916200065378?text=${encodeURIComponent(whatsappMessage)}`;
 
 
 
