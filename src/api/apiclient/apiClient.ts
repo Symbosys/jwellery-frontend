@@ -3,7 +3,8 @@ import axios from "axios";
 export const apiClient = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL
     ? `${process.env.NEXT_PUBLIC_API_URL}/api`
-    : "http://192.168.1.10:4000/api",
+    : // : "http://192.168.1.10:4000/api",
+      "https://protien-backend.vercel.app/api",
   headers: {
     "Content-Type": "application/json",
   },
