@@ -1,10 +1,10 @@
 import axios from "axios";
 
+const API_BASE_URL = "https://protien-backend.vercel.app/api";
+// const API_BASE_URL = "http://localhost:4000/api";
+
 export const apiClient = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL
-    ? `${process.env.NEXT_PUBLIC_API_URL}/api`
-    : // : "http://192.168.1.10:4000/api",
-      "https://protien-backend.vercel.app/api",
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
