@@ -73,7 +73,7 @@ export default function CategoriesPage() {
                 if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) return url;
                 const baseUrl = process.env.NEXT_PUBLIC_API_URL
                   ? process.env.NEXT_PUBLIC_API_URL.replace("/api", "")
-                  : "http://localhost:4000";
+                  : "http://192.168.1.2:4000";
                 return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
               };
 

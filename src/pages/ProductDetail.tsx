@@ -1,4 +1,7 @@
-import { useProductDetailQuery, useProductsQuery } from "@/api/hooks/product.hooks";
+import {
+  useProductDetailQuery,
+  useProductsQuery,
+} from "@/api/hooks/product.hooks";
 import type { ProductCardItem } from "@/components/product/ProductCard";
 import MainLayout from "@/components/layout/MainLayout";
 import ProductCard from "@/components/product/ProductCard";
@@ -8,13 +11,13 @@ import { products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import {
-    AlertCircle,
-    Heart,
-    Maximize,
-    MessageCircle,
-    Minus,
-    Plus,
-    Share2,
+  AlertCircle,
+  Heart,
+  Maximize,
+  MessageCircle,
+  Minus,
+  Plus,
+  Share2,
 } from "lucide-react";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -40,9 +43,9 @@ export default function ProductDetail() {
   const processImageUrl = (url: string) => {
     if (!url) return "";
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL
+        const baseUrl = process.env.NEXT_PUBLIC_API_URL
       ? process.env.NEXT_PUBLIC_API_URL.replace("/api", "")
-      : "http://localhost:4000";
+      : "http://192.168.1.2:4000";
     return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
@@ -127,14 +130,16 @@ export default function ProductDetail() {
   const whatsappMessage = `Hi P&N, I'm interested in purchasing ${product.name} (Net Wt. ${product.netWeight || ""}). Can you please share the details?`;
   const whatsappUrl = `https://wa.me/916200065378?text=${encodeURIComponent(whatsappMessage)}`;
 
-
-
-  const FALLBACK = "https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=800";
+  const FALLBACK =
+    "https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=800";
   function resolveImg(url: any) {
     const s = typeof url === "string" ? url : "";
     if (!s) return FALLBACK;
-    if (s.startsWith("http") || s.startsWith("data:") || s.startsWith("blob:")) return s;
-    const base = (process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000").replace("/api", "");
+    if (s.startsWith("http") || s.startsWith("data:") || s.startsWith("blob:"))
+      return s;
+        const base = (
+      process.env.NEXT_PUBLIC_API_URL ?? "http://192.168.1.2:4000"
+    ).replace("/api", "");
     return `${base}${s.startsWith("/") ? "" : "/"}${s}`;
   }
 
@@ -147,7 +152,9 @@ export default function ProductDetail() {
             id: p.id,
             name: p.name,
             price: Number(p.price),
-            originalPrice: p.discountPrice ? Number(p.discountPrice) : undefined,
+            originalPrice: p.discountPrice
+              ? Number(p.discountPrice)
+              : undefined,
             images: [
               resolveImg(p.image),
               ...(Array.isArray(p.images) ? p.images.map(resolveImg) : []),
@@ -156,9 +163,7 @@ export default function ProductDetail() {
             rating: p.rating,
             inStock: p.quantity > 0,
           }))
-      : products
-          .filter((p) => p.id !== id)
-          .slice(0, 4);
+      : products.filter((p) => p.id !== id).slice(0, 4);
 
   return (
     <MainLayout>
