@@ -9,7 +9,6 @@ import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
 import { products } from "@/data/products";
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
 import {
   AlertCircle,
   Heart,
@@ -115,7 +114,7 @@ export default function ProductDetail() {
     return (
       <MainLayout>
         <div className="pt-32 pb-16 max-w-7xl mx-auto px-4 text-center">
-          <h1 className="font-display text-2xl font-bold mb-4 text-primary animate-pulse">
+          <h1 className="font-display text-2xl font-bold mb-4 text-primary">
             Loading Product...
           </h1>
         </div>
@@ -196,7 +195,7 @@ export default function ProductDetail() {
 
   return (
     <MainLayout>
-      <div className="pt-24 lg:pt-32 pb-16 bg-[#FAF9F6]">
+      <div className="pt-24 lg:pt-32 pb-16 bg-[#FAF9F6] text-black">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           {/* Breadcrumbs */}
           <nav className="text-[10px] lg:text-xs uppercase tracking-widest text-[#888] mb-8 font-semibold">
@@ -242,14 +241,11 @@ export default function ProductDetail() {
 
               {/* Main Image Frame */}
               <div className="flex-1 order-1 md:order-2 bg-card border border-border rounded-xl overflow-hidden relative aspect-square shadow-sm flex items-center justify-center p-3">
-                <motion.img
-                  key={selectedImage}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                <img
                   src={product.images[selectedImage]}
                   alt={product.name}
                   className={cn(
-                    "w-full h-full object-cover rounded-lg transition-transform duration-300",
+                    "w-full h-full object-cover rounded-lg",
                     zoomScale ? "scale-150 cursor-zoom-out" : "scale-100",
                   )}
                   onClick={() => setZoomScale(!zoomScale)}
@@ -258,7 +254,7 @@ export default function ProductDetail() {
                 {/* Main Zoom Frame Button overlay */}
                 <button
                   onClick={() => setZoomScale(!zoomScale)}
-                  className="absolute bottom-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-black/75 hover:bg-primary text-white text-[10px] uppercase font-bold tracking-wider rounded-full shadow transition-colors z-10"
+                  className="absolute bottom-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-black/75 hover:bg-primary text-white text-[10px] uppercase font-bold tracking-wider rounded-full shadow z-10"
                 >
                   <Maximize className="h-3 w-3 stroke-[2]" />
                   Zoom
@@ -271,7 +267,7 @@ export default function ProductDetail() {
               {/* Title & Icons line */}
               <div className="flex justify-between items-start gap-4">
                 <div>
-                  <h1 className="font-display text-2xl lg:text-3xl font-bold text-[#2C2C2C] tracking-wide">
+                  <h1 className="font-display text-2xl lg:text-3xl font-bold text-black tracking-wide">
                     {product.name}
                   </h1>
                   <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider block mt-1">
@@ -347,22 +343,22 @@ export default function ProductDetail() {
               </div>
 
               {/* Specifications list */}
-              <div className="space-y-3.5 text-xs lg:text-sm text-muted-foreground">
+              <div className="space-y-3.5 text-xs lg:text-sm text-black">
                 {product.netWeight && (
                   <div className="flex justify-between border-b border-border pb-2">
-                    <span className="font-semibold text-foreground">
+                    <span className="font-semibold text-black">
                       Weight :
                     </span>
-                    <span className="font-bold text-primary">
+                    <span className="font-bold text-black">
                       {product.netWeight}
                     </span>
                   </div>
                 )}
                 <div className="flex justify-between border-b border-border pb-2">
-                  <span className="font-semibold text-foreground">
+                  <span className="font-semibold text-black">
                     Category :
                   </span>
-                  <span className="font-bold text-primary">
+                  <span className="font-bold text-black">
                     {product.category}
                   </span>
                 </div>
@@ -375,17 +371,17 @@ export default function ProductDetail() {
                   <button
                     type="button"
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    className="p-1 text-[#555] hover:text-[#8A1B28] transition-colors"
+                    className="p-1 text-black hover:text-[#8A1B28]"
                   >
                     <Minus className="h-3.5 w-3.5" />
                   </button>
-                  <span className="w-12 text-center text-xs lg:text-sm font-bold text-[#2C2C2C]">
+                  <span className="w-12 text-center text-xs lg:text-sm font-bold text-black">
                     {quantity}
                   </span>
                   <button
                     type="button"
                     onClick={() => setQuantity(quantity + 1)}
-                    className="p-1 text-[#555] hover:text-[#8A1B28] transition-colors"
+                    className="p-1 text-black hover:text-[#8A1B28]"
                   >
                     <Plus className="h-3.5 w-3.5" />
                   </button>
@@ -408,7 +404,7 @@ export default function ProductDetail() {
                       quantity: quantity,
                     });
                   }}
-                  className="flex-1 h-12 bg-black hover:bg-black/90 text-white text-xs lg:text-sm font-bold uppercase tracking-widest rounded transition-colors shadow-sm"
+                  className="flex-1 h-12 bg-black hover:bg-black/90 text-white text-xs lg:text-sm font-bold uppercase tracking-widest rounded shadow-sm"
                 >
                   Add to Cart
                 </button>
@@ -423,7 +419,7 @@ export default function ProductDetail() {
                       image: product.images[0],
                     })
                   }
-                  className="p-3 border border-[#E5D5B5]/60 hover:border-[#8A1B28] hover:text-[#8A1B28] text-[#555] rounded bg-white shadow-sm transition-colors h-12 flex items-center justify-center aspect-square"
+                  className="p-3 border border-[#E5D5B5]/60 hover:border-[#8A1B28] hover:text-[#8A1B28] text-black rounded bg-white shadow-sm h-12 flex items-center justify-center aspect-square"
                   title="Add to wishlist"
                 >
                   <Heart
@@ -431,37 +427,12 @@ export default function ProductDetail() {
                       "h-5 w-5 stroke-[1.8]",
                       isInWishlist(product.id)
                         ? "fill-[#8A1B28] text-[#8A1B28]"
-                        : "text-[#555]",
+                        : "text-black",
                     )}
                   />
                 </button>
               </div>
 
-              {/* Buy It Now Button */}
-              <div className="pt-2">
-                <button
-                  onClick={() => {
-                    const firstSize = Array.isArray(product.sizes) && product.sizes.length > 0 ? product.sizes[0] : undefined;
-                    const firstColor = Array.isArray(product.colors) && product.colors.length > 0 
-                      ? (typeof product.colors[0] === "string" ? product.colors[0] : (product.colors[0] as any).name)
-                      : undefined;
-                    
-                    addItem({
-                      id: product.id,
-                      name: product.name,
-                      price: product.price,
-                      image: product.images[0] ?? "",
-                      size: firstSize,
-                      color: firstColor,
-                      quantity: quantity,
-                    });
-                    openCart();
-                  }}
-                  className="w-full h-12 bg-white hover:bg-[#FAF9F6] border-2 border-black text-black text-xs lg:text-sm font-bold uppercase tracking-widest rounded transition-colors shadow-sm text-center"
-                >
-                  Buy It Now
-                </button>
-              </div>
 
               {/* WhatsApp To Buy CTA Button */}
               <div className="pt-2">
@@ -498,7 +469,7 @@ export default function ProductDetail() {
             <div className="border border-[#E5D5B5] rounded-xl overflow-hidden shadow-sm">
               <button
                 onClick={() => setIsMainDetailOpen(!isMainDetailOpen)}
-                className="w-full flex justify-between items-center p-4 bg-white hover:bg-[#FAF9F6] text-xs lg:text-sm font-bold uppercase tracking-wider text-[#2C2C2C]"
+                className="w-full flex justify-between items-center p-4 bg-white hover:bg-[#FAF9F6] text-xs lg:text-sm font-bold uppercase tracking-wider text-black"
               >
                 <span>Main Detail</span>
                 {isMainDetailOpen ? (
@@ -508,68 +479,63 @@ export default function ProductDetail() {
                 )}
               </button>
 
-              <AnimatePresence>
-                {isMainDetailOpen && (
-                  <motion.div
-                    initial={{ height: 0 }}
-                    animate={{ height: "auto" }}
-                    exit={{ height: 0 }}
-                    className="overflow-hidden bg-[#FAF9F6]/60"
-                  >
-                    <div className="p-5 border-t border-border grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-xs lg:text-sm text-muted-foreground">
-                      <div className="flex justify-between border-b border-border pb-2">
-                        <span className="font-semibold text-foreground">
-                          Label/Tag Name
-                        </span>
-                        <span className="font-bold text-foreground uppercase">
-                          {product.category}
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b border-border pb-2">
-                        <span className="font-semibold text-foreground">
-                          Brand
-                        </span>
-                        <span className="font-bold text-foreground">
-                          {product.brand || "Protein & Nutrients"}
-                        </span>
-                      </div>
-                      {product.subcategory && (
-                        <div className="flex justify-between border-b border-border pb-2">
-                          <span className="font-semibold text-foreground">
-                            Subcategory
-                          </span>
-                          <span className="font-bold text-foreground">
-                            {product.subcategory}
-                          </span>
-                        </div>
-                      )}
-                      <div className="flex justify-between border-b border-border pb-2">
-                        <span className="font-semibold text-foreground">
-                          Net Weight
-                        </span>
-                        <span className="font-bold text-foreground">
-                          {product.netWeight || "N/A"}
-                        </span>
-                      </div>
-                      <div className="flex justify-between border-b border-border pb-2 md:col-span-2">
-                        <span className="font-semibold text-foreground">
-                          Category Name
-                        </span>
-                        <span className="font-bold text-foreground">
-                          {product.category}
-                        </span>
-                      </div>
+              {isMainDetailOpen && (
+                <div
+                  className="overflow-hidden bg-[#FAF9F6]/60"
+                >
+                  <div className="p-5 border-t border-border grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-xs lg:text-sm text-black">
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <span className="font-semibold text-black">
+                        Label/Tag Name
+                      </span>
+                      <span className="font-bold text-black uppercase">
+                        {product.category}
+                      </span>
                     </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <span className="font-semibold text-black">
+                        Brand
+                      </span>
+                      <span className="font-bold text-black">
+                        {product.brand || "Protein & Nutrients"}
+                      </span>
+                    </div>
+                    {product.subcategory && (
+                      <div className="flex justify-between border-b border-border pb-2">
+                        <span className="font-semibold text-black">
+                          Subcategory
+                        </span>
+                        <span className="font-bold text-black">
+                          {product.subcategory}
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex justify-between border-b border-border pb-2">
+                      <span className="font-semibold text-black">
+                        Net Weight
+                      </span>
+                      <span className="font-bold text-black">
+                        {product.netWeight || "N/A"}
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-b border-border pb-2 md:col-span-2">
+                      <span className="font-semibold text-black">
+                        Category Name
+                      </span>
+                      <span className="font-bold text-black">
+                        {product.category}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
           {/* Product Reviews Section */}
           <div className="mt-16 max-w-4xl mx-auto border-t border-[#E5D5B5]/60 pt-12">
             <div className="flex items-center justify-between mb-8">
-              <h2 className="font-display text-2xl font-bold text-[#2C2C2C] tracking-wide">
+              <h2 className="font-display text-2xl font-bold text-black tracking-wide">
                 Customer Reviews
               </h2>
               <div className="flex items-center gap-1.5 bg-[#8A1B28]/5 text-[#8A1B28] px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
@@ -582,15 +548,15 @@ export default function ProductDetail() {
               {/* Reviews List */}
               <div className="md:col-span-2 space-y-6">
                 {!dbProduct?.reviews || dbProduct.reviews.length === 0 ? (
-                  <p className="text-muted-foreground text-sm py-4">No reviews yet. Be the first to review this product!</p>
+                  <p className="text-black text-sm py-4">No reviews yet. Be the first to review this product!</p>
                 ) : (
                   dbProduct.reviews.map((rev) => (
                     <div key={rev.id} className="border-b border-border pb-6 last:border-b-0 space-y-2">
                       <div className="flex items-center justify-between">
-                        <span className="font-bold text-sm text-[#2C2C2C]">
+                        <span className="font-bold text-sm text-black">
                           {rev.user ? `${rev.user.firstName || ""} ${rev.user.lastName || ""}`.trim() : "Anonymous User"}
                         </span>
-                        <span className="text-[10px] text-muted-foreground">
+                        <span className="text-[10px] text-black">
                           {new Date(rev.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
                         </span>
                       </div>
@@ -605,7 +571,7 @@ export default function ProductDetail() {
                           />
                         ))}
                       </div>
-                      <p className="text-xs lg:text-sm text-[#555] leading-relaxed">
+                      <p className="text-xs lg:text-sm text-black leading-relaxed">
                         {rev.comment}
                       </p>
                       {rev.reply && (
@@ -613,7 +579,7 @@ export default function ProductDetail() {
                           <p className="text-[10px] font-bold text-[#8A1B28] uppercase tracking-wider">
                             Reply from P&N
                           </p>
-                          <p className="text-xs text-muted-foreground leading-relaxed">
+                          <p className="text-xs text-black leading-relaxed">
                             {rev.reply}
                           </p>
                         </div>
@@ -625,13 +591,13 @@ export default function ProductDetail() {
 
               {/* Add Review Form */}
               <div className="bg-card border border-[#E5D5B5] rounded-xl p-5 shadow-sm space-y-4">
-                <h3 className="font-bold text-sm uppercase tracking-wider text-[#2C2C2C]">
+                <h3 className="font-bold text-sm uppercase tracking-wider text-black">
                   Write a Review
                 </h3>
                 {isLoggedIn ? (
                   <form onSubmit={handlePostReview} className="space-y-4">
                     <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-muted-foreground uppercase tracking-wide block">
+                      <label className="text-xs font-bold text-black uppercase tracking-wide block">
                         Your Rating
                       </label>
                       <div className="flex gap-1.5">
@@ -640,11 +606,11 @@ export default function ProductDetail() {
                             key={s}
                             type="button"
                             onClick={() => setReviewRating(s)}
-                            className="focus:outline-none transition-transform hover:scale-110"
+                            className="focus:outline-none"
                           >
                             <Star
                               className={cn(
-                                "h-6 w-6 transition-colors",
+                                "h-6 w-6",
                                 s <= reviewRating ? "fill-[#8A1B28] text-[#8A1B28]" : "text-gray-300 hover:text-[#8A1B28]/50"
                               )}
                             />
@@ -654,7 +620,7 @@ export default function ProductDetail() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label htmlFor="rev-comment" className="text-xs font-bold text-muted-foreground uppercase tracking-wide block">
+                      <label htmlFor="rev-comment" className="text-xs font-bold text-black uppercase tracking-wide block">
                         Comment
                       </label>
                       <textarea
@@ -663,7 +629,7 @@ export default function ProductDetail() {
                         onChange={(e) => setReviewComment(e.target.value)}
                         placeholder="Share your thoughts about this product..."
                         rows={3}
-                        className="w-full text-xs lg:text-sm bg-white border border-[#E5D5B5] focus:border-[#8A1B28] focus:ring-1 focus:ring-[#8A1B28]/20 rounded-lg p-2.5 outline-none transition-all resize-none"
+                        className="w-full text-xs lg:text-sm bg-white border border-[#E5D5B5] focus:border-[#8A1B28] focus:ring-1 focus:ring-[#8A1B28]/20 rounded-lg p-2.5 outline-none resize-none"
                         required
                       />
                     </div>
@@ -671,14 +637,14 @@ export default function ProductDetail() {
                     <button
                       type="submit"
                       disabled={postReviewMutation.isPending}
-                      className="w-full py-2.5 bg-[#8A1B28] hover:bg-[#721620] text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-sm disabled:opacity-50"
+                      className="w-full py-2.5 bg-[#8A1B28] hover:bg-[#721620] text-white text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm disabled:opacity-50"
                     >
                       {postReviewMutation.isPending ? "Submitting..." : "Submit Review"}
                     </button>
                   </form>
                 ) : (
                   <div className="text-center py-4 space-y-2">
-                    <p className="text-xs text-muted-foreground leading-normal">
+                    <p className="text-xs text-black leading-normal">
                       You must be logged in to leave a review.
                     </p>
                     <Link
@@ -700,7 +666,7 @@ export default function ProductDetail() {
                 <div className="h-px bg-[#E5D5B5] w-12 lg:w-28 relative flex items-center justify-end">
                   <div className="w-2 h-2 bg-[#8A1B28] rounded-full border border-white absolute" />
                 </div>
-                <h2 className="font-display text-xl lg:text-2xl font-bold text-[#2C2C2C] text-center tracking-wide whitespace-nowrap">
+                <h2 className="font-display text-xl lg:text-2xl font-bold text-black text-center tracking-wide whitespace-nowrap">
                   Related Products
                 </h2>
                 <div className="h-px bg-[#E5D5B5] w-12 lg:w-28 relative flex items-center justify-start">
