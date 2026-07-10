@@ -45,6 +45,14 @@ export default function ProductDetail() {
   const [reviewComment, setReviewComment] = useState("");
 
   const isLoggedIn = typeof window !== "undefined" && (!!localStorage.getItem("user_token") || !!localStorage.getItem("token"));
+  
+  // Extract logged-in user's full name
+  const userStr = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const currentUser = userStr ? JSON.parse(userStr) : null;
+  const userFullName = currentUser
+    ? `${currentUser.firstName || ""} ${currentUser.lastName || ""}`.trim()
+    : "";
+
   const postReviewMutation = useCreateReviewMutation();
 
   const handlePostReview = (e: React.FormEvent) => {
@@ -554,7 +562,7 @@ export default function ProductDetail() {
                     <div key={rev.id} className="border-b border-border pb-6 last:border-b-0 space-y-2">
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-sm text-black">
-                          {rev.user ? `${rev.user.firstName || ""} ${rev.user.lastName || ""}`.trim() : "Anonymous User"}
+                          {rev.user ? (`${rev.user.firstName || ""} ${rev.user.lastName || ""}`.trim() || "Anonymous User") : "Anonymous User"}
                         </span>
                         <span className="text-[10px] text-black">
                           {new Date(rev.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
@@ -596,6 +604,9 @@ export default function ProductDetail() {
                 </h3>
                 {isLoggedIn ? (
                   <form onSubmit={handlePostReview} className="space-y-4">
+                    <p className="text-[10px] text-gray-500 italic">
+                      Posting as: <span className="font-bold text-[#8A1B28]">{userFullName || currentUser?.email || "Anonymous"}</span>
+                    </p>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-black uppercase tracking-wide block">
                         Your Rating
