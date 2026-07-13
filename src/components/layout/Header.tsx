@@ -1,14 +1,23 @@
 "use client";
 
-import { useCategoriesQuery } from '@/api/hooks/category.hooks';
-import { useCart } from '@/context/CartContext';
-import { useWishlist } from '@/context/WishlistContext';
-import { categories as mockCategories } from '@/data/products';
-import { cn } from '@/lib/utils';
-import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDown, Heart, Menu, Search, ShoppingBag, User, X, Gift } from 'lucide-react';
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useCategoriesQuery } from "@/api/hooks/category.hooks";
+import { useCart } from "@/context/CartContext";
+import { useWishlist } from "@/context/WishlistContext";
+import { categories as mockCategories } from "@/data/products";
+import { cn } from "@/lib/utils";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  ChevronDown,
+  Heart,
+  Menu,
+  Search,
+  ShoppingBag,
+  User,
+  X,
+  Gift,
+} from "lucide-react";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,19 +28,20 @@ export default function Header() {
   const location = useLocation();
 
   const { data: categoriesData } = useCategoriesQuery({ limit: 100 });
-  const categoriesList = categoriesData?.categories && categoriesData.categories.length > 0
-    ? categoriesData.categories.map(cat => ({
-        name: cat.name,
-      }))
-    : mockCategories;
+  const categoriesList =
+    categoriesData?.categories && categoriesData.categories.length > 0
+      ? categoriesData.categories.map((cat) => ({
+          name: cat.name,
+        }))
+      : mockCategories;
 
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === "/";
 
   const goalsList = [
-    { name: 'Muscle Building', slug: 'Muscle Building' },
-    { name: 'Weight Loss', slug: 'Weight Loss' },
-    { name: 'Recovery & Strength', slug: 'Recovery' },
-    { name: 'General Wellness', slug: 'Wellness' },
+    { name: "Muscle Building", slug: "Muscle Building" },
+    { name: "Weight Loss", slug: "Weight Loss" },
+    { name: "Recovery & Strength", slug: "Recovery" },
+    { name: "General Wellness", slug: "Wellness" },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -44,22 +54,44 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 right-0 z-50 bg-[#B5E12E] transition-all duration-300">
-        {/* Top Promo Banner */}
-        <div className="w-full text-black text-xs md:text-sm font-bold py-3 px-4 flex items-center justify-center gap-6 lg:gap-12 flex-wrap text-center">
-          <span>Standard delivery on orders over ₹999</span>
-          <span className="flex items-center gap-1.5 justify-center">
-            <Gift className="h-4 w-4" />
-            5% off on all prepaid orders use code prepaid
-          </span>
+        {/* Top Promo Banner - Infinite Scroll LTR */}
+        <div className="w-full overflow-hidden bg-[#B5E12E] py-3 text-black text-xs md:text-sm font-bold relative z-50">
+          <div className="animate-scroll-ltr flex">
+            {/* First scroll track container */}
+            <div className="flex shrink-0 items-center justify-around gap-12 px-6 min-w-full">
+              <span>Free delivery all over india</span>
+              <span className="flex items-center gap-1.5 justify-center">
+                <Gift className="h-4 w-4" />
+                5% off on all prepaid orders use code prepaid5
+              </span>
+              <span>Free delivery all over india</span>
+              <span className="flex items-center gap-1.5 justify-center">
+                <Gift className="h-4 w-4" />
+                5% off on all prepaid orders use code prepaid5
+              </span>
+            </div>
+            {/* Second scroll track container (must be identical for seamless loop) */}
+            <div className="flex shrink-0 items-center justify-around gap-12 px-6 min-w-full">
+              <span>Free delivery all over india</span>
+              <span className="flex items-center gap-1.5 justify-center">
+                <Gift className="h-4 w-4" />
+                5% off on all prepaid orders use code prepaid5
+              </span>
+              <span>Free delivery all over india</span>
+              <span className="flex items-center gap-1.5 justify-center">
+                <Gift className="h-4 w-4" />
+                5% off on all prepaid orders use code prepaid5
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* Main Header Container with rounded-t corners */}
         <div className="bg-white rounded-t-[24px] lg:rounded-t-[32px] w-full px-4 lg:px-8 py-3.5 shadow-md">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
-            
             {/* Left: Mobile Menu Trigger & Logo */}
             <div className="flex items-center gap-3">
-              <button 
+              <button
                 onClick={() => setIsMenuOpen(true)}
                 className="lg:hidden p-2 -ml-2 text-black hover:text-[#8CFF64]"
                 aria-label="Open menu"
@@ -68,10 +100,13 @@ export default function Header() {
               </button>
 
               {/* Logo - Image exactly like reference */}
-              <Link to="/" className="flex items-center gap-2 group flex-shrink-0">
-                <img 
-                  src="/logo.jpg" 
-                  alt="Protein & Nutrients Logo" 
+              <Link
+                to="/"
+                className="flex items-center gap-2 group flex-shrink-0"
+              >
+                <img
+                  src="/logo.jpg"
+                  alt="Protein & Nutrients Logo"
                   className="h-[50px] lg:h-[62px] w-auto object-contain"
                 />
               </Link>
@@ -79,22 +114,22 @@ export default function Header() {
 
             {/* Center: Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className={cn(
                   "text-sm font-bold tracking-wide transition-all relative pb-0.5",
-                  isHomePage 
-                    ? "text-black border-b-2 border-[#8CFF64]" 
-                    : "text-black hover:text-[#8CFF64]"
+                  isHomePage
+                    ? "text-black border-b-2 border-[#8CFF64]"
+                    : "text-black hover:text-[#8CFF64]",
                 )}
               >
                 Home
               </Link>
 
               {/* Shop Megamenu Dropdown */}
-              <div 
+              <div
                 className="relative"
-                onMouseEnter={() => setActiveCategory('shop')}
+                onMouseEnter={() => setActiveCategory("shop")}
                 onMouseLeave={() => setActiveCategory(null)}
               >
                 <Link
@@ -106,7 +141,7 @@ export default function Header() {
                 </Link>
 
                 <AnimatePresence>
-                  {activeCategory === 'shop' && (
+                  {activeCategory === "shop" && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -135,9 +170,9 @@ export default function Header() {
               </div>
 
               {/* Shop by Goal Dropdown */}
-              <div 
+              <div
                 className="relative"
-                onMouseEnter={() => setActiveCategory('goal')}
+                onMouseEnter={() => setActiveCategory("goal")}
                 onMouseLeave={() => setActiveCategory(null)}
               >
                 <span className="flex items-center gap-0.5 py-2 text-sm font-bold tracking-wide text-black hover:text-[#8CFF64] cursor-pointer transition-colors">
@@ -146,7 +181,7 @@ export default function Header() {
                 </span>
 
                 <AnimatePresence>
-                  {activeCategory === 'goal' && (
+                  {activeCategory === "goal" && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -175,8 +210,8 @@ export default function Header() {
               </div>
 
               {/* Shop by Brand */}
-              <Link 
-                to="/products" 
+              <Link
+                to="/products"
                 className="text-sm font-bold tracking-wide text-black hover:text-[#8CFF64] transition-colors"
               >
                 Shop by Brand
@@ -185,17 +220,22 @@ export default function Header() {
 
             {/* Right: Search, Account, Wishlist, Cart */}
             <div className="flex items-center gap-1.5 lg:gap-3 text-black">
-              
               {/* Search Bar - Inline style exactly like image */}
-              <form onSubmit={handleSearchSubmit} className="hidden md:flex items-center bg-transparent border-0 py-1 max-w-[180px] xl:max-w-[240px]">
-                <input 
-                  type="text" 
-                  placeholder="Start your search here..." 
+              <form
+                onSubmit={handleSearchSubmit}
+                className="hidden md:flex items-center bg-transparent border-0 py-1 max-w-[180px] xl:max-w-[240px]"
+              >
+                <input
+                  type="text"
+                  placeholder="Start your search here..."
                   className="bg-transparent text-sm text-black placeholder-gray-400 outline-none w-full font-medium"
                   value={searchVal}
                   onChange={(e) => setSearchVal(e.target.value)}
                 />
-                <button type="submit" className="p-1 hover:text-[#8CFF64] transition-colors flex-shrink-0">
+                <button
+                  type="submit"
+                  className="p-1 hover:text-[#8CFF64] transition-colors flex-shrink-0"
+                >
                   <Search className="h-5 w-5 text-black" />
                 </button>
               </form>
@@ -204,7 +244,7 @@ export default function Header() {
               <div className="hidden md:block h-6 w-px bg-gray-200 mx-1.5" />
 
               {/* Account profile */}
-              <Link 
+              <Link
                 to="/account"
                 className="p-2 hover:text-[#8CFF64] transition-colors text-black"
                 aria-label="Account"
@@ -213,7 +253,7 @@ export default function Header() {
               </Link>
 
               {/* Wishlist */}
-              <Link 
+              <Link
                 to="/wishlist"
                 className="p-2 hover:text-[#8CFF64] transition-colors relative text-black"
                 aria-label="Wishlist"
@@ -227,7 +267,7 @@ export default function Header() {
               </Link>
 
               {/* Cart - Green Circle design like reference */}
-              <button 
+              <button
                 onClick={openCart}
                 className="w-10 h-10 rounded-full bg-[#8CFF64] hover:bg-[#7be654] flex items-center justify-center relative transition-all duration-300 hover:scale-105"
                 aria-label="Cart"
@@ -259,15 +299,17 @@ export default function Header() {
               onClick={() => setIsMenuOpen(false)}
             />
             <motion.div
-              initial={{ x: '-100%' }}
+              initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'tween', duration: 0.3 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "tween", duration: 0.3 }}
               className="fixed top-0 left-0 bottom-0 w-full max-w-xs bg-white z-50 lg:hidden overflow-y-auto"
             >
               <div className="p-5">
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
-                  <span className="font-display text-lg font-black text-black uppercase">P&N</span>
+                  <span className="font-display text-lg font-black text-black uppercase">
+                    P&N
+                  </span>
                   <button onClick={() => setIsMenuOpen(false)} className="p-2">
                     <X className="h-6 w-6 text-black" />
                   </button>
@@ -339,15 +381,26 @@ export default function Header() {
                       onChange={(e) => setSearchVal(e.target.value)}
                       className="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 pl-4 pr-10 text-xs font-semibold outline-none focus:border-[#8CFF64]"
                     />
-                    <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2">
+                    <button
+                      type="submit"
+                      className="absolute right-3 top-1/2 -translate-y-1/2"
+                    >
                       <Search className="h-4 w-4 text-gray-400" />
                     </button>
                   </form>
 
-                  <Link to="/account" className="flex items-center gap-3 text-sm font-medium text-black pt-4" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="/account"
+                    className="flex items-center gap-3 text-sm font-medium text-black pt-4"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     <User className="h-5 w-5" /> Account Profile
                   </Link>
-                  <Link to="/wishlist" className="flex items-center gap-3 text-sm font-medium text-black" onClick={() => setIsMenuOpen(false)}>
+                  <Link
+                    to="/wishlist"
+                    className="flex items-center gap-3 text-sm font-medium text-black"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
                     <Heart className="h-5 w-5" /> My Wishlist
                   </Link>
                 </div>
