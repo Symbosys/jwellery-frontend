@@ -5,6 +5,7 @@ import { useProductsQuery } from "@/api/hooks/product.hooks";
 import { products as mockProducts } from "@/data/products";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 const FALLBACK_IMAGE =
   "https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=800";
@@ -31,6 +32,7 @@ export default function FeaturedProducts() {
     limit: 8,
     sort: "newest",
   });
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   // Map backend products → ProductCardItem, fallback to mock data while loading or if empty
   const featured: ProductCardItem[] =
@@ -56,7 +58,6 @@ export default function FeaturedProducts() {
         }))
       : mockProducts.slice(0, 8);
 
-  const repeatedProducts = [...featured, ...featured, ...featured];
 
   return (
     <section className="py-14 bg-white">
@@ -84,7 +85,7 @@ export default function FeaturedProducts() {
 
         {/* Product Cards - Horizontal Scrollable */}
         {isLoading ? (
-          <div className="flex gap-4 overflow-x-auto hide-scrollbar pb-4">
+          <div className="flex gap-4 overflow-hidden pb-4">
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
@@ -93,34 +94,18 @@ export default function FeaturedProducts() {
             ))}
           </div>
         ) : (
-          <div className="w-full overflow-hidden relative py-2">
-            <div 
-              className="animate-scroll-ltr flex hover:[animation-play-state:paused] cursor-pointer"
-              style={{ animationDuration: "40s" }}
-            >
-              {/* First track */}
-              <div className="flex shrink-0 items-center justify-start gap-3 sm:gap-4 md:gap-5 px-2 min-w-full">
-                {repeatedProducts.map((product, index) => (
-                  <div
-                    key={`track1-${product.id}-${index}`}
-                    className="min-w-[200px] sm:min-w-[240px] max-w-[260px] flex-shrink-0"
-                  >
-                    <ProductCard product={product} index={index} />
-                  </div>
-                ))}
+          <div
+            ref={scrollRef}
+            className="flex gap-4 overflow-x-auto hide-scrollbar pb-4"
+          >
+            {featured.map((product, index) => (
+              <div
+                key={product.id}
+                className="min-w-[220px] sm:min-w-[260px] max-w-[280px] flex-shrink-0"
+              >
+                <ProductCard product={product} index={index} />
               </div>
-              {/* Second track (identical for seamless loop) */}
-              <div className="flex shrink-0 items-center justify-start gap-3 sm:gap-4 md:gap-5 px-2 min-w-full">
-                {repeatedProducts.map((product, index) => (
-                  <div
-                    key={`track2-${product.id}-${index}`}
-                    className="min-w-[200px] sm:min-w-[240px] max-w-[260px] flex-shrink-0"
-                  >
-                    <ProductCard product={product} index={index} />
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         )}
       </div>
