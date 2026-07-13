@@ -76,7 +76,7 @@ export default function CategoryGrid() {
         <div className="w-full overflow-hidden relative py-2">
           <div
             className="animate-scroll-ltr flex hover:[animation-play-state:paused] cursor-pointer"
-            style={{ animationDuration: "50s" }}
+            style={{ animationDuration: "70s" }}
           >
             {/* First track */}
             <div className="flex shrink-0 items-center justify-start gap-4 md:gap-6 px-2 min-w-full">
