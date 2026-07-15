@@ -18,20 +18,20 @@
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 5%;
     
-    /* Primary - Neon Green (matching protein-and-nutrients.com) */
-    --primary: 105 100% 70%;
-    --primary-foreground: 0 0% 0%;
+    /* Primary - Refined Gold/Champagne */
+    --primary: 36 33% 54%;
+    --primary-foreground: 0 0% 100%;
     
-    /* Secondary - Light Gray */
-    --secondary: 0 0% 96%;
+    /* Secondary - Light Warm Cream */
+    --secondary: 36 20% 96%;
     --secondary-foreground: 0 0% 9%;
     
-    /* Muted - Soft Gray */
-    --muted: 0 0% 92%;
+    /* Muted - Soft Warm Gray */
+    --muted: 36 10% 92%;
     --muted-foreground: 0 0% 45%;
     
-    /* Accent - Deep Green */
-    --accent: 142 70% 45%;
+    /* Accent - Deep Premium Emerald */
+    --accent: 164 67% 18%;
     --accent-foreground: 0 0% 100%;
     
     /* Destructive */
@@ -41,7 +41,7 @@
     /* UI Elements */
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 105 100% 70%;
+    --ring: 36 33% 54%;
     --radius: 0.5rem;
     
     /* Success */
@@ -60,16 +60,16 @@
     /* Sidebar */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 0 0% 25%;
-    --sidebar-primary: 105 100% 70%;
-    --sidebar-primary-foreground: 0 0% 0%;
+    --sidebar-primary: 36 33% 54%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 95%;
     --sidebar-accent-foreground: 0 0% 10%;
     --sidebar-border: 0 0% 92%;
-    --sidebar-ring: 105 100% 70%;
+    --sidebar-ring: 36 33% 54%;
   }
 
   .dark {
-    /* Core backgrounds - Deep athletic dark */
+    /* Core backgrounds - Deep luxury dark */
     --background: 0 0% 4%;
     --foreground: 0 0% 98%;
     
@@ -81,9 +81,9 @@
     --popover: 0 0% 7%;
     --popover-foreground: 0 0% 98%;
     
-    /* Primary - Neon Green */
-    --primary: 105 100% 70%;
-    --primary-foreground: 0 0% 0%;
+    /* Primary - Gold/Champagne */
+    --primary: 36 33% 54%;
+    --primary-foreground: 0 0% 100%;
     
     /* Secondary */
     --secondary: 0 0% 12%;
@@ -93,8 +93,8 @@
     --muted: 0 0% 12%;
     --muted-foreground: 0 0% 65%;
     
-    /* Accent - Green */
-    --accent: 142 70% 45%;
+    /* Accent - Deep Premium Emerald */
+    --accent: 164 67% 18%;
     --accent-foreground: 0 0% 100%;
     
     /* Destructive */
@@ -104,7 +104,7 @@
     /* UI Elements */
     --border: 0 0% 16%;
     --input: 0 0% 16%;
-    --ring: 105 100% 70%;
+    --ring: 36 33% 54%;
     
     /* Success */
     --success: 142 60% 45%;

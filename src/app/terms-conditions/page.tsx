@@ -1,6 +1,6 @@
 "use client";
 
-import TermsConditions from "@/pages/TermsConditions";
+import TermsConditions from "@/views/TermsConditions";
 
 export default function Page() {
   return <TermsConditions />;

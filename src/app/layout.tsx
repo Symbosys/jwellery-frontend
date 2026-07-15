@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import { Suspense } from "react";
 // @ts-ignore: Allow importing global CSS without type declarations
 import "./globals.css";
@@ -10,14 +10,14 @@ const inter = Inter({
   variable: "--font-sans",
 });
 
-const outfit = Outfit({
+const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-display",
 });
 
 export const metadata: Metadata = {
-  title: "Protein and Nutrients | Premium Supplements",
-  description: "Buy High-Quality Whey Protein, Creatine, Pre-Workout, and Vitamins Online",
+  title: "Aura Jewels | Luxury & Fine Jewellery",
+  description: "Discover our premium collection of certified gold, diamond, and luxury jewellery. Handcrafted elegance for every special occasion.",
 };
 
 export default function RootLayout({
@@ -28,11 +28,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${outfit.variable} h-full antialiased`}
+      className={`${inter.variable} ${playfair.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <Providers>
-          <Suspense fallback={<div className="min-h-screen bg-[#111111] flex items-center justify-center text-xs uppercase tracking-widest text-[#FFF] animate-pulse">Loading Protein and Nutrients...</div>}>
+          <Suspense fallback={<div className="min-h-screen bg-[#111111] flex items-center justify-center text-xs uppercase tracking-widest text-[#FFF] animate-pulse">Loading Aura Jewels...</div>}>
             {children}
           </Suspense>
         </Providers>

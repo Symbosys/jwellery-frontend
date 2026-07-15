@@ -9,26 +9,26 @@ import { Link } from 'react-router-dom';
 const slides = [
   {
     id: 1,
-    subtitle: 'PREMIUM SPORTS NUTRITION',
-    title: 'PREMIUM\nPROTEIN SERIES',
-    price: 'START FROM ₹1999',
-    image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop',
+    subtitle: 'THE SIGNATURE DIAMOND COLLECTION',
+    title: 'CLASSIC\nSOLITAIRES',
+    price: 'STARTING FROM ₹45,000',
+    image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop',
     cta: { text: 'Shop Now', link: '/products' },
   },
   {
     id: 2,
-    subtitle: 'ENGINEERED FOR PERFORMANCE',
-    title: 'BREAK YOUR\nLIMITS',
-    price: 'UP TO 40% OFF',
-    image: 'https://images.unsplash.com/photo-1594882645126-14020914d58d?q=80&w=2085&auto=format&fit=crop',
+    subtitle: 'ELEGANCE IN EVERY DETAIL',
+    title: 'GOLDEN\nHOURS',
+    price: 'UP TO 15% OFF MAKING CHARGES',
+    image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=2070&auto=format&fit=crop',
     cta: { text: 'Explore Collections', link: '/products' },
   },
   {
     id: 3,
-    subtitle: 'NEW ARRIVALS',
-    title: 'ULTRA CLEAN\nWHEY PROTEIN',
-    price: 'JUST LAUNCHED',
-    image: 'https://images.unsplash.com/photo-1550989460-0adf9ea622e2?q=80&w=2070&auto=format&fit=crop',
+    subtitle: 'ROYAL HEIRLOOMS',
+    title: 'EMERALD\nHEAVEN',
+    price: 'NEW ARRIVALS JUST LAUNCHED',
+    image: 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?q=80&w=2070&auto=format&fit=crop',
     cta: { text: 'Shop Now', link: '/products' },
   },
 ];
@@ -106,7 +106,7 @@ export default function HeroSlider() {
                   {slides[current].title}
                 </h1>
 
-                <p className="text-[#8CFF64] font-bold text-lg sm:text-xl lg:text-2xl mb-6 tracking-wide">
+                <p className="text-[#C5A880] font-bold text-lg sm:text-xl lg:text-2xl mb-6 tracking-wide">
                   {slides[current].price}
                 </p>
 
@@ -148,7 +148,7 @@ export default function HeroSlider() {
               setCurrent(index);
             }}
             className={`h-2.5 rounded-full transition-all duration-300 ${
-              index === current ? 'w-8 bg-[#8CFF64]' : 'w-2.5 bg-white/50'
+              index === current ? 'w-8 bg-[#C5A880]' : 'w-2.5 bg-white/50'
             }`}
             aria-label={`Go to slide ${index + 1}`}
           />

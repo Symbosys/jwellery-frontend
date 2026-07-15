@@ -25,10 +25,8 @@ export default function BlogSection() {
 
   const rawBlogs = data?.blogs || [];
 
-  if (rawBlogs.length === 0) return null;
-
   const processImageUrl = (url: string | null) => {
-    if (!url) return "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600";
+    if (!url) return "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600";
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
     
     // Extract base URL from apiClient configuration
@@ -38,21 +36,50 @@ export default function BlogSection() {
     return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
-  const activeBlogPosts: BlogItem[] = rawBlogs.map((b: DBBlog) => {
-    // Determine category from tags array, fallback to General
-    const category = Array.isArray(b.tags) && b.tags.length > 0 && typeof b.tags[0] === "string"
-      ? b.tags[0]
-      : "General";
+  const fallbackBlogs: BlogItem[] = [
+    {
+      id: "blog-1",
+      category: "Diamonds Guide",
+      title: "Understanding the 4Cs of Diamonds",
+      excerpt: "Learn how Cut, Color, Clarity, and Carat weight determine the value and sparkle of your dream diamond before making your purchase.",
+      image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",
+      slug: "understanding-the-4cs-of-diamonds",
+    },
+    {
+      id: "blog-2",
+      category: "Gold Purity",
+      title: "22K vs 18K Gold: Which is Better?",
+      excerpt: "Deconstruct the differences in gold purity, durability, color intensity, and value, helping you select the perfect metal for your jewelry.",
+      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",
+      slug: "22k-vs-18k-gold-comparison",
+    },
+    {
+      id: "blog-3",
+      category: "Styling",
+      title: "Modern Jewelry Layering Essentials",
+      excerpt: "Discover the art of layering delicate chains, stacking rings, and styling mixed metal bangles for a sophisticated daily look.",
+      image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=600",
+      slug: "modern-jewelry-layering-essentials",
+    },
+  ];
 
-    return {
-      id: b.id,
-      category,
-      title: b.title,
-      excerpt: b.excerpt || "",
-      image: processImageUrl(b.image),
-      slug: b.slug,
-    };
-  });
+  const activeBlogPosts: BlogItem[] = rawBlogs.length > 0
+    ? rawBlogs.map((b: DBBlog) => {
+        // Determine category from tags array, fallback to General
+        const category = Array.isArray(b.tags) && b.tags.length > 0 && typeof b.tags[0] === "string"
+          ? b.tags[0]
+          : "General";
+
+        return {
+          id: b.id,
+          category,
+          title: b.title,
+          excerpt: b.excerpt || "",
+          image: processImageUrl(b.image),
+          slug: b.slug,
+        };
+      })
+    : fallbackBlogs;
 
 
   return (
@@ -71,10 +98,10 @@ export default function BlogSection() {
           </div>
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#5BBF3D] transition-colors group"
+            className="inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#C5A880] transition-colors group"
           >
             View All Posts
-            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#8CFF64] flex items-center justify-center transition-colors">
+            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#C5A880] flex items-center justify-center transition-colors">
               <ChevronRight className="h-4 w-4" />
             </span>
           </Link>
@@ -109,7 +136,7 @@ export default function BlogSection() {
                 </div>
 
                 {/* Content */}
-                <h3 className="font-bold text-sm sm:text-base text-black mb-2 leading-snug group-hover:text-[#2D7D46] transition-colors uppercase">
+                <h3 className="font-bold text-sm sm:text-base text-black mb-2 leading-snug group-hover:text-[#C5A880] transition-colors uppercase">
                   {post.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-500 leading-relaxed line-clamp-3">

@@ -28,24 +28,24 @@ export default function MobileNav() {
               <div className="relative">
                 <item.icon className={cn(
                   "h-6 w-6 transition-colors",
-                  isActive ? "text-[#5BBF3D]" : "text-gray-400"
+                  isActive ? "text-[#C5A880]" : "text-gray-400"
                 )} />
                 {isCart && itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-[#8CFF64] text-black text-[10px] font-bold flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-[#C5A880] text-white text-[10px] font-bold flex items-center justify-center">
                     {itemCount}
                   </span>
                 )}
               </div>
               <span className={cn(
                 "text-[10px] mt-1 transition-colors font-semibold uppercase tracking-wide",
-                isActive ? "text-[#5BBF3D]" : "text-gray-400"
+                isActive ? "text-[#C5A880]" : "text-gray-400"
               )}>
                 {item.label}
               </span>
               {isActive && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#8CFF64]"
+                  className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#C5A880]"
                   transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                 />
               )}

@@ -1,6 +1,6 @@
 "use client";
 
-import SavedAddresses from "@/pages/savedAddress";
+import SavedAddresses from "@/views/savedAddress";
 
 export default function Page() {
   return <SavedAddresses />;

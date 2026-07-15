@@ -61,11 +61,11 @@ export default function CategoryGrid() {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="heading-bold text-2xl sm:text-3xl lg:text-4xl text-black">
-            SHOP BY <span className="text-[#8CFF64]">CATEGORY</span>
+            SHOP BY <span className="text-[#C5A880]">CATEGORY</span>
           </h2>
           <Link
             to="/categories"
-            className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-black hover:text-[#5BBF3D] transition-colors"
+            className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-black hover:text-[#C5A880] transition-colors"
           >
             View All
             <ChevronRight className="h-4 w-4" />
@@ -88,7 +88,7 @@ export default function CategoryGrid() {
                     to={`/products?category=${encodeURIComponent(category.name)}`}
                     className="flex flex-col items-center group flex-shrink-0"
                   >
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#8A1B28] transition-all duration-300 shadow-sm">
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#C5A880] transition-all duration-300 shadow-sm">
                       <div className="w-full h-full rounded-full overflow-hidden">
                         <img
                           src={imageUrl}
@@ -97,7 +97,7 @@ export default function CategoryGrid() {
                         />
                       </div>
                     </div>
-                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#8A1B28] transition-colors text-center truncate w-20 md:w-24">
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#C5A880] transition-colors text-center truncate w-20 md:w-24">
                       {category.name}
                     </span>
                   </Link>
@@ -114,7 +114,7 @@ export default function CategoryGrid() {
                     to={`/products?category=${encodeURIComponent(category.name)}`}
                     className="flex flex-col items-center group flex-shrink-0"
                   >
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#8A1B28] transition-all duration-300 shadow-sm">
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#C5A880] transition-all duration-300 shadow-sm">
                       <div className="w-full h-full rounded-full overflow-hidden">
                         <img
                           src={imageUrl}
@@ -123,7 +123,7 @@ export default function CategoryGrid() {
                         />
                       </div>
                     </div>
-                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#8A1B28] transition-colors text-center truncate w-20 md:w-24">
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#C5A880] transition-colors text-center truncate w-20 md:w-24">
                       {category.name}
                     </span>
                   </Link>

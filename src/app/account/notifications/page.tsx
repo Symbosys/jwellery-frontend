@@ -1,6 +1,6 @@
 "use client";
 
-import Account from "@/pages/Account";
+import Account from "@/views/Account";
 
 export default function Page() {
   return <Account />;

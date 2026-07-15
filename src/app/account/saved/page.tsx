@@ -1,6 +1,6 @@
 "use client";
 
-import SavedItems from "@/pages/savedItem";
+import SavedItems from "@/views/savedItem";
 
 export default function Page() {
   return <SavedItems />;

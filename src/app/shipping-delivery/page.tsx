@@ -1,6 +1,6 @@
 "use client";
 
-import ShippingDelivery from "@/pages/ShippingDelivery";
+import ShippingDelivery from "@/views/ShippingDelivery";
 
 export default function Page() {
   return <ShippingDelivery />;
