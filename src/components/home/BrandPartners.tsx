@@ -7,35 +7,35 @@ import { useBrandsQuery } from '@/api/hooks/brand.hooks';
 
 const fallbackBrands = [
   {
-    id: 'cartier',
-    name: 'Cartier',
-    shortName: 'CA',
-    tagline: 'Timeless French Luxury',
-    color: '#8A1B28',
+    id: 'optimum-nutrition',
+    name: 'Optimum Nutrition',
+    shortName: 'ON',
+    tagline: 'Gold Standard Quality',
+    color: '#D4163C',
     logo: null
   },
   {
-    id: 'tiffany-co',
-    name: 'Tiffany & Co.',
-    shortName: 'TF',
-    tagline: 'Iconic Romantic Elegance',
-    color: '#0A5F5F',
+    id: 'muscletech',
+    name: 'Muscletech',
+    shortName: 'MT',
+    tagline: 'Science-Based Performance',
+    color: '#1E3A5F',
     logo: null
   },
   {
-    id: 'bvlgari',
-    name: 'Bvlgari',
-    shortName: 'BV',
-    tagline: 'Italian High Jewellery Heritage',
-    color: '#5B4E3E',
+    id: 'muscle-blaze',
+    name: 'Muscle Blaze',
+    shortName: 'MB',
+    tagline: "India's #1 Sports Nutrition",
+    color: '#FF6B00',
     logo: null
   },
   {
-    id: 'pandora',
-    name: 'Pandora',
-    shortName: 'PD',
-    tagline: 'Handcrafted Personalised Charms',
-    color: '#5C2D46',
+    id: 'hk-vitals',
+    name: 'HK Vitals',
+    shortName: 'HK',
+    tagline: 'Trusted by Millions',
+    color: '#6B21A8',
     logo: null
   }
 ];
@@ -56,7 +56,7 @@ export default function BrandPartners() {
   };
 
   const getBrandColor = (name: string) => {
-    const colors = ['#8A1B28', '#0A5F5F', '#5B4E3E', '#8B4513', '#2D7D46', '#5C2D46', '#0E7490'];
+    const colors = ['#D4163C', '#1E3A5F', '#FF6B00', '#8B4513', '#2D7D46', '#6B21A8', '#0E7490'];
     let hash = 0;
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
@@ -70,7 +70,7 @@ export default function BrandPartners() {
         id: b.id,
         name: b.name,
         shortName: getShortName(b.name),
-        tagline: b.description || 'Luxury Designer',
+        tagline: b.description || 'Premium Supplements',
         color: getBrandColor(b.name),
         logo: b.logo
       }))
@@ -84,18 +84,18 @@ export default function BrandPartners() {
         <div className="flex items-end justify-between mb-10">
           <div>
             <h2 className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-black">
-              SHOP BY <span className="text-[#C5A880]">DESIGNERS</span>
+              SHOP BY <span className="text-[#8CFF64]">BRANDS</span>
             </h2>
             <p className="text-sm text-gray-500 mt-2 font-medium">
-              World-renowned luxury fine jewelry designers
+              Top trusted brands in sports nutrition
             </p>
           </div>
           <Link
             to="/products"
-            className="hidden sm:inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#C5A880] transition-colors group"
+            className="hidden sm:inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#5BBF3D] transition-colors group"
           >
             View All Brands
-            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#C5A880] flex items-center justify-center transition-colors">
+            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#8CFF64] flex items-center justify-center transition-colors">
               <ChevronRight className="h-4 w-4" />
             </span>
           </Link>
@@ -147,7 +147,7 @@ export default function BrandPartners() {
                     </div>
 
                     {/* Arrow */}
-                    <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-[#C5A880]">
+                    <div className="absolute top-5 right-5 w-8 h-8 rounded-full bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:bg-[#8CFF64]">
                       <ChevronRight className="h-4 w-4 text-black" />
                     </div>
                   </div>

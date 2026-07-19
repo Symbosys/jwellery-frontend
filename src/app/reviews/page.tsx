@@ -1,6 +1,6 @@
 "use client";
 
-import Reviews from "@/views/Reviews";
+import Reviews from "@/pages/Reviews";
 
 export default function Page() {
   return <Reviews />;

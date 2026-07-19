@@ -1,6 +1,6 @@
 "use client";
 
-import ReturnAndRefund from "@/views/returnAndRefund";
+import ReturnAndRefund from "@/pages/returnAndRefund";
 
 export default function Page() {
   return <ReturnAndRefund />;

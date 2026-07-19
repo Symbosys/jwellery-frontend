@@ -1,6 +1,6 @@
 "use client";
 
-import BlogDetail from "@/views/BlogDetail";
+import BlogDetail from "@/pages/BlogDetail";
 
 export default function Page() {
   return <BlogDetail />;

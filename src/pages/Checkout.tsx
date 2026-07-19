@@ -1,18 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, CreditCard, Truck, MapPin, ChevronRight, Loader2 } from 'lucide-react';
+import { Check, CreditCard, Truck, MapPin, ChevronRight, Loader2, Plus } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
 import { cn } from '@/lib/utils';
 import { useCreateOrderMutation, useVerifyPaymentMutation } from '@/api/hooks/order.hooks';
+import { useAddressesQuery } from '@/api/hooks/address.hooks';
 import { toast } from 'sonner';
 
-const loadRazorpayScript = () => {
+const loadCashfreeScript = () => {
   return new Promise((resolve) => {
+    if ((window as any).Cashfree) {
+      resolve(true);
+      return;
+    }
     const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
     script.onload = () => resolve(true);
     script.onerror = () => resolve(false);
     document.body.appendChild(script);
@@ -35,17 +40,18 @@ export default function CheckoutPage() {
   
   const createOrderMutation = useCreateOrderMutation();
   const verifyPaymentMutation = useVerifyPaymentMutation();
+  const { data: addresses, isLoading } = useAddressesQuery();
+  const [selectedAddressId, setSelectedAddressId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (addresses && addresses.length > 0 && !selectedAddressId) {
+      const defaultAddr = addresses.find(a => a.isDefault);
+      setSelectedAddressId(defaultAddr ? defaultAddr.id : addresses[0].id);
+    }
+  }, [addresses, selectedAddressId]);
 
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: '',
-    city: '',
-    state: '',
-    pincode: '',
-    paymentMethod: 'Razorpay',
+    paymentMethod: 'Cashfree',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,72 +63,47 @@ export default function CheckoutPage() {
   const total = subtotal + shipping + tax;
 
   const handleComplete = () => {
-    const isRazorpay = formData.paymentMethod === 'Razorpay';
+    const isCashfree = formData.paymentMethod === 'Cashfree';
+    const selectedAddr = addresses?.find(a => a.id === selectedAddressId);
+    
+    if (!selectedAddr) {
+      toast.error("Please select a shipping address");
+      return;
+    }
     
     createOrderMutation.mutate(
       {
-        shippingName: `${formData.firstName} ${formData.lastName}`.trim(),
-        shippingPhone: formData.phone || "0000000000",
-        shippingAddress: formData.address,
-        shippingCity: formData.city,
-        shippingState: formData.state,
-        shippingPincode: formData.pincode,
-        paymentMethod: isRazorpay ? 'RAZORPAY' : 'COD',
+        shippingName: selectedAddr.name,
+        shippingPhone: selectedAddr.mobile || "0000000000",
+        shippingAddress: selectedAddr.address,
+        shippingCity: selectedAddr.city,
+        shippingState: selectedAddr.state,
+        shippingPincode: selectedAddr.pincode,
+        paymentMethod: isCashfree ? 'CASHFREE' : 'COD',
+        addressId: selectedAddr.id,
       },
       {
         onSuccess: async (data) => {
-          if (isRazorpay && data.razorpayOrder) {
-            const scriptLoaded = await loadRazorpayScript();
+          if (isCashfree && data.cashfreeOrder) {
+            const scriptLoaded = await loadCashfreeScript();
             if (!scriptLoaded) {
-              toast.error("Failed to load Razorpay payment gateway. Please try again.");
+              toast.error("Failed to load Cashfree payment gateway. Please try again.");
               return;
             }
 
-            const options = {
-              key: data.razorpayOrder.key,
-              amount: data.razorpayOrder.amount,
-              currency: data.razorpayOrder.currency,
-              name: "Protein Luxe Store",
-              description: `Payment for Order ${data.order.orderNumber}`,
-              order_id: data.razorpayOrder.id,
-              handler: function (response: any) {
-                verifyPaymentMutation.mutate(
-                  {
-                    orderId: data.order.id,
-                    razorpayOrderId: response.razorpay_order_id,
-                    razorpayPaymentId: response.razorpay_payment_id,
-                    razorpaySignature: response.razorpay_signature,
-                  },
-                  {
-                    onSuccess: (confirmedOrder) => {
-                      setOrderNumber(confirmedOrder.orderNumber);
-                      setIsComplete(true);
-                      clearCart();
-                      toast.success("Payment verified and order placed successfully!");
-                    },
-                    onError: (err: any) => {
-                      toast.error(err.response?.data?.message || "Payment verification failed.");
-                    },
-                  }
-                );
-              },
-              prefill: {
-                name: `${formData.firstName} ${formData.lastName}`.trim(),
-                email: formData.email,
-                contact: formData.phone,
-              },
-              theme: {
-                color: "#000000",
-              },
-              modal: {
-                ondismiss: function () {
-                  toast.warning("Payment cancelled by user.");
-                },
-              },
-            };
+            try {
+              const cashfree = (window as any).Cashfree({
+                mode: data.cashfreeOrder.sandbox ? "sandbox" : "production"
+              });
 
-            const rzp = new (window as any).Razorpay(options);
-            rzp.open();
+              cashfree.checkout({
+                paymentSessionId: data.cashfreeOrder.paymentSessionId,
+                returnUrl: `${window.location.origin}/order/${data.order.id}`
+              });
+            } catch (err: any) {
+              console.error("Cashfree Checkout error:", err);
+              toast.error("Could not load Cashfree checkout page. Please try again.");
+            }
           } else {
             setOrderNumber(data.order.orderNumber);
             setIsComplete(true);
@@ -228,105 +209,92 @@ export default function CheckoutPage() {
                   animate={{ opacity: 1, x: 0 }}
                   className="space-y-6"
                 >
-                  <h2 className="font-display text-xl mb-6">Shipping Address</h2>
-                  
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium block mb-2">First Name</label>
-                      <input
-                        type="text"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium block mb-2">Last Name</label>
-                      <input
-                        type="text"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                      />
-                    </div>
+                  <div className="flex justify-between items-center mb-6">
+                    <h2 className="font-display text-xl">Shipping Address</h2>
+                    <Link
+                      to="/account/addresses"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 border border-border rounded-lg hover:border-foreground text-xs font-semibold transition-colors bg-white text-black"
+                    >
+                      <Plus className="h-4 w-4" />
+                      Add Address
+                    </Link>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-sm font-medium block mb-2">Email</label>
-                      <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                      />
+                  {isLoading ? (
+                    <div className="flex items-center gap-2 py-6">
+                      <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
+                      <span className="text-sm text-muted-foreground">Loading saved addresses...</span>
                     </div>
-                    <div>
-                      <label className="text-sm font-medium block mb-2">Phone</label>
-                      <input
-                        type="tel"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                      />
+                  ) : !addresses || addresses.length === 0 ? (
+                    <div className="text-center py-12 border-2 border-dashed border-border rounded-xl bg-card p-6">
+                      <MapPin className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+                      <h3 className="text-sm font-bold text-foreground mb-1">No Saved Addresses Found</h3>
+                      <p className="text-xs text-muted-foreground mb-6">
+                        You need to add at least one shipping address to proceed.
+                      </p>
+                      <Link
+                        to="/account/addresses"
+                        className="inline-flex items-center gap-1.5 px-6 py-3 bg-foreground hover:bg-foreground/90 text-background text-xs uppercase tracking-wider font-bold rounded-lg shadow transition-colors"
+                      >
+                        <Plus className="h-4 w-4" />
+                        Add New Address
+                      </Link>
                     </div>
-                  </div>
-
-                  <div>
-                    <label className="text-sm font-medium block mb-2">Address</label>
-                    <input
-                      type="text"
-                      name="address"
-                      value={formData.address}
-                      onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                    />
-                  </div>
-
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    <div>
-                      <label className="text-sm font-medium block mb-2">City</label>
-                      <input
-                        type="text"
-                        name="city"
-                        value={formData.city}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                      />
+                  ) : (
+                    <div className="space-y-4">
+                      {addresses.map((addr) => (
+                        <div
+                          key={addr.id}
+                          onClick={() => setSelectedAddressId(addr.id)}
+                          className={cn(
+                            "p-5 border rounded-xl cursor-pointer bg-white text-black transition-all shadow-sm flex items-start gap-4",
+                            selectedAddressId === addr.id
+                              ? "border-black ring-2 ring-black/5"
+                              : "border-gray-200 hover:border-gray-300"
+                          )}
+                        >
+                          <input
+                            type="radio"
+                            name="checkoutAddress"
+                            checked={selectedAddressId === addr.id}
+                            onChange={() => setSelectedAddressId(addr.id)}
+                            className="mt-1 h-4 w-4 text-black accent-black"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-center gap-2 mb-1.5">
+                              <span className="font-semibold text-sm text-black">{addr.name}</span>
+                              <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-gray-100 text-gray-500 border border-gray-200">
+                                {addr.type}
+                              </span>
+                              {addr.isDefault && (
+                                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-black/5 text-black border border-black/10">
+                                  Default
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-600 mb-1 leading-relaxed">
+                              {addr.address}
+                              {addr.locality && `, ${addr.locality}`}
+                            </p>
+                            <p className="text-sm text-gray-600 mb-1">
+                              {addr.city}, {addr.state} - <span className="font-semibold">{addr.pincode}</span>
+                            </p>
+                            <p className="text-xs text-gray-400 font-medium">
+                              Phone: {addr.mobile}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                    <div>
-                      <label className="text-sm font-medium block mb-2">State</label>
-                      <input
-                        type="text"
-                        name="state"
-                        value={formData.state}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                      />
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium block mb-2">ZIP Code</label>
-                      <input
-                        type="text"
-                        name="pincode"
-                        value={formData.pincode}
-                        onChange={handleInputChange}
-                        className="w-full px-4 py-3 border border-border rounded-md bg-transparent focus:outline-none focus:border-foreground transition-colors"
-                      />
-                    </div>
-                  </div>
+                  )}
 
                   <Button
                     variant="hero"
                     size="lg"
-                    className="w-full mt-8"
+                    className="w-full mt-8 bg-black text-white hover:bg-black/90"
                     onClick={() => {
-                      if (!formData.firstName || !formData.address || !formData.city || !formData.state || !formData.pincode) {
-                        toast.error("Please fill in all shipping details");
+                      if (!selectedAddressId) {
+                        toast.error("Please select a shipping address");
                         return;
                       }
                       setCurrentStep(1);
@@ -347,8 +315,8 @@ export default function CheckoutPage() {
                   <h2 className="font-display text-xl mb-6">Payment Method</h2>
 
                   <div className="space-y-4">
-                    <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'Razorpay' ? "border-foreground" : "border-border hover:border-foreground/50")}>
-                      <input type="radio" name="paymentMethod" value="Razorpay" checked={formData.paymentMethod === 'Razorpay'} onChange={handleInputChange} className="w-4 h-4" />
+                    <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'Cashfree' ? "border-foreground" : "border-border hover:border-foreground/50")}>
+                      <input type="radio" name="paymentMethod" value="Cashfree" checked={formData.paymentMethod === 'Cashfree'} onChange={handleInputChange} className="w-4 h-4" />
                       <CreditCard className="h-5 w-5" />
                       <span>Pay Online (UPI, Cards, Netbanking)</span>
                     </label>

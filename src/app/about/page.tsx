@@ -1,6 +1,6 @@
 "use client";
 
-import About from "@/views/About";
+import About from "@/pages/About";
 
 export default function Page() {
   return <About />;

@@ -1,6 +1,6 @@
 "use client";
 
-import OrderDetails from "@/views/OrderDetails";
+import OrderDetails from "@/pages/OrderDetails";
 
 export default function Page() {
   return <OrderDetails />;

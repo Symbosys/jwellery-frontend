@@ -1,6 +1,6 @@
 "use client";
 
-import PersonalInformation from "@/views/personalinformation";
+import PersonalInformation from "@/pages/personalinformation";
 
 export default function Page() {
   return <PersonalInformation />;

@@ -1,7 +1,6 @@
-"use client";
 
-import Account from "@/views/Account";
+import MyOrder from "@/pages/myorder";
 
 export default function Page() {
-  return <Account />;
+  return <MyOrder />;
 }

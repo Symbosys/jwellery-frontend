@@ -1,6 +1,6 @@
 "use client";
 
-import LoginSecurity from "@/views/LoginSecurity";
+import LoginSecurity from "@/pages/LoginSecurity";
 
 export default function Page() {
   return <LoginSecurity />;

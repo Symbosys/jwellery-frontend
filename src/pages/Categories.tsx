@@ -103,15 +103,15 @@ export default function CategoriesPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
             <div>
               <h1 className="heading-bold text-4xl sm:text-5xl lg:text-6xl text-black uppercase tracking-tight">
-                SHOP BY <span className="text-[#C5A880]">CATEGORY</span>
+                SHOP BY <span className="text-[#8CFF64]">CATEGORY</span>
               </h1>
               <p className="text-gray-500 font-medium text-sm md:text-base mt-2 max-w-xl">
-                Discover handcrafted luxury. Select a category below to explore our exquisite rings, neck chains, diamonds, bangles, and pendants designed to elevate your style.
+                Fuel your ambition. Select a category below to explore premium protein powders, recovery aids, vitamins, and pre-workout formulas tailored for your goals.
               </p>
             </div>
             {/* Total categories badge */}
             <div className="flex-shrink-0">
-              <span className="inline-flex items-center bg-[#C5A880]/10 text-black border border-[#C5A880]/40 font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full">
+              <span className="inline-flex items-center bg-[#8CFF64]/10 text-black border border-[#8CFF64]/40 font-bold text-xs uppercase tracking-widest px-4 py-2 rounded-full">
                 {categories.length} Total Categories
               </span>
             </div>
@@ -133,7 +133,7 @@ export default function CategoriesPage() {
                 >
                   <Link
                     to={`/products?category=${encodeURIComponent(category.name)}`}
-                    className="group block relative aspect-[4/5] rounded-2xl overflow-hidden shadow-soft hover:shadow-medium border border-gray-100 hover:border-[#C5A880]/30 bg-black transition-all duration-500 hover:-translate-y-2"
+                    className="group block relative aspect-[4/5] rounded-2xl overflow-hidden shadow-soft hover:shadow-medium border border-gray-100 hover:border-[#8CFF64]/30 bg-black transition-all duration-500 hover:-translate-y-2"
                   >
                     {/* Background Image */}
                     <img
@@ -146,13 +146,13 @@ export default function CategoriesPage() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent group-hover:via-black/50 transition-all duration-300" />
 
                     {/* Hover Glow Effect */}
-                    <div className="absolute inset-x-0 bottom-0 h-1 bg-[#C5A880] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                    <div className="absolute inset-x-0 bottom-0 h-1 bg-[#8CFF64] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
 
                     {/* Content */}
                     <div className="absolute inset-0 flex flex-col justify-end p-6 lg:p-8 z-10">
                       <div>
                         {/* Title */}
-                        <h2 className="heading-bold text-2xl lg:text-3xl text-white group-hover:text-[#C5A880] transition-colors mb-3">
+                        <h2 className="heading-bold text-2xl lg:text-3xl text-white group-hover:text-[#8CFF64] transition-colors mb-3">
                           {category.name}
                         </h2>
 
@@ -164,7 +164,7 @@ export default function CategoriesPage() {
                                 key={sub}
                                 to={`/products?category=${encodeURIComponent(category.name)}&subcategory=${encodeURIComponent(sub)}`}
                                 onClick={(e: React.MouseEvent) => e.stopPropagation()}
-                                className="text-[10px] md:text-xs font-bold uppercase tracking-wider px-3 py-1.5 bg-white/10 hover:bg-[#C5A880] hover:text-black border border-white/10 hover:border-transparent text-white rounded-full transition-all duration-300"
+                                className="text-[10px] md:text-xs font-bold uppercase tracking-wider px-3 py-1.5 bg-white/10 hover:bg-[#8CFF64] hover:text-black border border-white/10 hover:border-transparent text-white rounded-full transition-all duration-300"
                               >
                                 {sub}
                               </Link>
@@ -178,7 +178,7 @@ export default function CategoriesPage() {
                         )}
 
                         {/* Call to Action */}
-                        <div className="flex items-center gap-1.5 text-[#C5A880] text-xs font-bold uppercase tracking-widest mt-4 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                        <div className="flex items-center gap-1.5 text-[#8CFF64] text-xs font-bold uppercase tracking-widest mt-4 transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                           <span>Explore Category</span>
                           <ChevronRight className="h-4 w-4" />
                         </div>

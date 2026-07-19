@@ -1,6 +1,6 @@
 "use client";
 
-import ExchangePolicy from "@/views/ExchangePolicy";
+import ExchangePolicy from "@/pages/ExchangePolicy";
 
 export default function Page() {
   return <ExchangePolicy />;

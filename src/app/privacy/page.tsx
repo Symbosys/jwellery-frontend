@@ -1,6 +1,6 @@
 "use client";
 
-import Privacy from "@/views/Privacy";
+import Privacy from "@/pages/Privacy";
 
 export default function Page() {
   return <Privacy />;

@@ -1,6 +1,6 @@
 "use client";
 
-import Search from "@/views/Search";
+import Search from "@/pages/Search";
 
 export default function Page() {
   return <Search />;

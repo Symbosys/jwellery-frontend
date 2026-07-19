@@ -1,6 +1,6 @@
 "use client";
 
-import TrackOrder from "@/views/trackOrder";
+import TrackOrder from "@/pages/trackOrder";
 
 export default function Page() {
   return <TrackOrder />;

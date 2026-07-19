@@ -1,6 +1,6 @@
 "use client";
 
-import Checkout from "@/views/Checkout";
+import Checkout from "@/pages/Checkout";
 
 export default function Page() {
   return <Checkout />;

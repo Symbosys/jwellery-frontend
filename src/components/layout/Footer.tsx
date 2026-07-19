@@ -8,8 +8,12 @@ import {
   Youtube,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useCategoriesQuery } from "@/api/hooks/category.hooks";
 
 export default function Footer() {
+  const { data: categoriesData } = useCategoriesQuery({ page: 1, limit: 6 });
+  const categories = categoriesData?.categories?.slice(0, 6) ?? [];
+
   return (
     <footer className="bg-black text-white pt-16 pb-8">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -17,14 +21,16 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 pb-10 border-b border-white/10 mb-12">
           {/* Logo */}
           <div className="w-[82px] h-[82px] bg-white flex items-center justify-center p-2 rounded-md">
-            <span className="font-display font-black text-black text-center text-[10px] leading-tight uppercase tracking-wider">
-              Aura Jewels
-            </span>
+            <img
+              src="/logo.jpg"
+              alt="Protein & Nutrients Logo"
+              className="w-full h-full object-contain"
+            />
           </div>
 
           {/* Email Support */}
           <div className="flex items-center gap-2.5">
-            <div className="text-[#C5A880]">
+            <div className="text-[#8CFF64]">
               <svg
                 viewBox="0 0 24 24"
                 className="h-5 w-5 fill-none stroke-current stroke-2"
@@ -34,16 +40,16 @@ export default function Footer() {
               </svg>
             </div>
             <a
-              href="mailto:support@aurajewels.com"
-              className="text-white hover:text-[#C5A880] transition-colors text-sm lg:text-base font-semibold"
+              href="mailto:akkigupta2411@gmail.com"
+              className="text-white hover:text-[#8CFF64] transition-colors text-sm lg:text-base font-semibold"
             >
-              support@aurajewels.com
+              support@protein-and-nutrients.com
             </a>
           </div>
 
           {/* Live Chat */}
           <div className="flex items-center gap-2.5">
-            <div className="text-[#C5A880]">
+            <div className="text-[#8CFF64]">
               <svg
                 viewBox="0 0 24 24"
                 className="h-5 w-5 fill-none stroke-current stroke-2"
@@ -55,7 +61,7 @@ export default function Footer() {
               href="https://wa.me/916200065378"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#C5A880] transition-colors text-sm lg:text-base font-semibold uppercase"
+              className="text-white hover:text-[#8CFF64] transition-colors text-sm lg:text-base font-semibold uppercase"
             >
               live chat
             </a>
@@ -111,28 +117,28 @@ export default function Footer() {
           {/* Column 1: Brand & Contact Info */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2 group">
-              <span className="font-display text-xl lg:text-2xl font-black tracking-wider text-[#C5A880] group-hover:text-white transition-colors uppercase">
-                AURA JEWELS
+              <span className="font-display text-xl lg:text-2xl font-black tracking-wider text-[#8CFF64] group-hover:text-white transition-colors uppercase">
+                PROTEIN & NUTRIENTS
               </span>
             </Link>
 
             <div className="space-y-4 text-xs lg:text-sm text-white/60 leading-relaxed">
               {/* Address 1 */}
               <div className="flex items-start gap-2.5">
-                <MapPin className="h-5 w-5 text-[#C5A880] flex-shrink-0 mt-0.5" />
+                <MapPin className="h-5 w-5 text-[#8CFF64] flex-shrink-0 mt-0.5" />
                 <span>Ratu road ranchi-5</span>
               </div>
 
               {/* Phone / Contact */}
               <div className="flex items-center gap-2.5">
-                <Phone className="h-5 w-5 text-[#C5A880] flex-shrink-0" />
+                <Phone className="h-5 w-5 text-[#8CFF64] flex-shrink-0" />
                 <div>
                   <span className="block font-semibold text-white text-xs">
                     Contact Us
                   </span>
                   <a
                     href="tel:6200065378"
-                    className="hover:text-[#C5A880] font-bold"
+                    className="hover:text-[#8CFF64] font-bold"
                   >
                     7759-957841
                   </a>
@@ -141,10 +147,10 @@ export default function Footer() {
 
               {/* Store Locator Link */}
               <div className="flex items-center gap-2.5 pt-2">
-                <Store className="h-5 w-5 text-[#C5A880] flex-shrink-0" />
+                <Store className="h-5 w-5 text-[#8CFF64] flex-shrink-0" />
                 <Link
                   to="/stores"
-                  className="hover:text-[#C5A880] font-semibold text-white underline"
+                  className="hover:text-[#8CFF64] font-semibold text-white underline"
                 >
                   Store Locator
                 </Link>
@@ -152,41 +158,41 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2: Categories */}
+          {/* Column 2: Categories — dynamic, max 6 */}
           <div className="space-y-6">
-            <h4 className="font-display text-base font-bold text-[#C5A880] border-b border-white/10 pb-2 uppercase">
+            <h4 className="font-display text-base font-bold text-[#8CFF64] border-b border-white/10 pb-2 uppercase">
               Categories
             </h4>
             <ul className="space-y-2.5 text-xs lg:text-sm text-white/60 font-medium">
-              {[
-                "Rings",
-                "Necklaces",
-                "Earrings",
-                "Bracelets",
-                "Pendants",
-              ].map((cat) => (
-                <li key={cat}>
-                  <Link
-                    to={`/products?category=${cat}`}
-                    className="hover:text-[#C5A880] transition-colors"
-                  >
-                    {cat}
-                  </Link>
-                </li>
-              ))}
+              {categories.length > 0
+                ? categories.map((cat) => (
+                    <li key={cat.id}>
+                      <Link
+                        to={`/products?category=${encodeURIComponent(cat.name)}`}
+                        className="hover:text-[#8CFF64] transition-colors"
+                      >
+                        {cat.name}
+                      </Link>
+                    </li>
+                  ))
+                : /* Skeleton placeholders while loading */
+                  Array.from({ length: 4 }).map((_, i) => (
+                    <li key={i} className="h-4 w-28 bg-white/10 rounded animate-pulse" />
+                  ))}
             </ul>
           </div>
 
+
           {/* Column 3: Quick Links */}
           <div className="space-y-6">
-            <h4 className="font-display text-base font-bold text-[#C5A880] border-b border-white/10 pb-2 uppercase">
+            <h4 className="font-display text-base font-bold text-[#8CFF64] border-b border-white/10 pb-2 uppercase">
               POLICIES
             </h4>
             <ul className="space-y-2.5 text-xs lg:text-sm text-white/60 font-medium">
               <li>
                 <Link
                   to="/about"
-                  className="hover:text-[#C5A880] transition-colors"
+                  className="hover:text-[#8CFF64] transition-colors"
                 >
                   Our Story
                 </Link>
@@ -194,7 +200,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/privacy"
-                  className="hover:text-[#C5A880] transition-colors"
+                  className="hover:text-[#8CFF64] transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -202,7 +208,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/terms-conditions"
-                  className="hover:text-[#C5A880] transition-colors"
+                  className="hover:text-[#8CFF64] transition-colors"
                 >
                   Terms & Conditions
                 </Link>
@@ -210,7 +216,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/shipping-delivery"
-                  className="hover:text-[#C5A880] transition-colors"
+                  className="hover:text-[#8CFF64] transition-colors"
                 >
                   Shipping & Delivery
                 </Link>
@@ -218,7 +224,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/exchange-policy"
-                  className="hover:text-[#C5A880] transition-colors"
+                  className="hover:text-[#8CFF64] transition-colors"
                 >
                   Exchange Policy
                 </Link>
@@ -228,11 +234,11 @@ export default function Footer() {
 
           {/* Column 4: App Download */}
           <div className="space-y-6">
-            <h4 className="font-display text-base font-bold text-[#C5A880] border-b border-white/10 pb-2 uppercase">
+            <h4 className="font-display text-base font-bold text-[#8CFF64] border-b border-white/10 pb-2 uppercase">
               Download Our App
             </h4>
             <p className="text-xs text-white/50 leading-relaxed">
-              Aura Jewels App, Customise & Track Your Elegant Designs!
+              Fitness App, Made To Track Your Macros & Gains!
             </p>
 
             {/* Store Badges */}
@@ -264,11 +270,12 @@ export default function Footer() {
         {/* Footer bottom */}
         <div className="border-t border-white/10 mt-12 pt-6 text-center text-xs text-white/40">
           <p>
-            © {new Date().getFullYear()} AURA JEWELS. All rights reserved.
+            © {new Date().getFullYear()} PROTEIN AND NUTRIENTS. All rights
+            reserved.
           </p>
           <p className="mt-2 font-semibold tracking-wide text-white/60 flex items-center justify-center gap-1.5">
             Powered By{" "}
-            <span className="text-[#C5A880] font-bold tracking-widest text-[10px] uppercase">
+            <span className="text-[#8CFF64] font-bold tracking-widest text-[10px] uppercase">
               symbosys
             </span>
           </p>

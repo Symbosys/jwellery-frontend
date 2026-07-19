@@ -1,7 +1,7 @@
 "use client";
 
 
-import IndexPage from "@/views/Index";
+import IndexPage from "@/pages/Index";
 
 export default function Page() {
   return <IndexPage />;
