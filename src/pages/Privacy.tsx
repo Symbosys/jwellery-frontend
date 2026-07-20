@@ -35,7 +35,7 @@ export default function Privacy() {
             {/* Who we are */}
             <section id="who-we-are" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Users className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -44,13 +44,13 @@ export default function Privacy() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  At Protein and Nutrients, we are passionate about helping people achieve their fitness, health, and performance goals through premium-quality nutrition supplements. Our mission is to provide trusted products that support strength, recovery, endurance, and overall wellness for every lifestyle.
+                  At Aura Fine Jewellery, we are passionate about crafting exquisite, certified gold, diamond, and solitaire jewellery that celebrate life's special moments. Our mission is to provide premium-quality ornaments that offer brilliance, purity, and timeless value.
                 </p>
                 <p>
-                  We believe that great results start with great nutrition. That’s why every product is carefully formulated using high-quality ingredients, advanced research, and strict quality standards to ensure effectiveness, safety, and consistency.
+                  We believe that luxury lies in precision. That's why every piece of jewellery is meticulously designed, ethically sourced, and certified by leading standards to ensure absolute purity and craftsmanship.
                 </p>
                 <p>
-                  Whether you are an athlete, gym enthusiast, or simply focused on living a healthier life, we are committed to supporting your journey with supplements you can rely on every day.
+                  Whether you are looking for an engagement ring, festive bridal sets, or elegant daily wear, we are committed to providing premium service and designs you can cherish forever.
                 </p>
               </div>
             </section>
@@ -58,7 +58,7 @@ export default function Privacy() {
             {/* Customer Information */}
             <section id="customer-info" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <UserCheck className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -73,14 +73,14 @@ export default function Privacy() {
                   <p className="font-semibold text-black mb-3">This information helps us:</p>
                   <ul className="space-y-2.5">
                     {[
-                      "Process and deliver orders",
-                      "Provide customer support",
-                      "Improve your shopping experience",
-                      "Send order updates and promotional offers",
+                      "Process and deliver orders securely",
+                      "Provide personalized customer support",
+                      "Improve your luxury shopping experience",
+                      "Send order updates and exclusive collection offers",
                       "Maintain website security and fraud prevention"
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3 pl-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -95,7 +95,7 @@ export default function Privacy() {
             {/* Product & Media Content */}
             <section id="media-content" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <FileText className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -104,10 +104,10 @@ export default function Privacy() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  All images, product descriptions, logos, graphics, and content displayed on this website are the property of Protein and Nutrients and are used for informational and promotional purposes only.
+                  All images, product designs, logos, graphics, and content displayed on this website are the property of Aura Fine Jewellery and are used for informational and promotional purposes only.
                 </p>
                 <p>
-                  We strive to provide accurate product images and descriptions, but actual packaging or appearance may vary slightly depending on manufacturing updates and screen settings.
+                  We strive to provide accurate product images and descriptions, but actual precious metal finishes or stone appearances may vary slightly depending on manufacturing casting and screen color settings.
                 </p>
                 <p className="font-medium text-black">
                   Unauthorized reproduction, distribution, or misuse of website content is prohibited.
@@ -118,7 +118,7 @@ export default function Privacy() {
             {/* Cookies */}
             <section id="cookies" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Cookie className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -133,13 +133,13 @@ export default function Privacy() {
                   <p className="font-semibold text-black mb-3">Cookies help us:</p>
                   <ul className="space-y-2.5">
                     {[
-                      "Remember your preferences",
+                      "Remember your design preferences",
                       "Improve website performance",
                       "Provide relevant product recommendations",
                       "Enhance security and user experience"
                     ].map((item, i) => (
                       <li key={i} className="flex items-start gap-3 pl-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                         <span>{item}</span>
                       </li>
                     ))}
@@ -154,7 +154,7 @@ export default function Privacy() {
             {/* Payment Security */}
             <section id="security" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Lock className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -171,7 +171,7 @@ export default function Privacy() {
             {/* Third-Party Services */}
             <section id="third-party" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Share2 className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -185,12 +185,12 @@ export default function Privacy() {
                 <ul className="space-y-2.5">
                   {[
                     "Payment processing",
-                    "Shipping and delivery",
+                    "Fully-insured shipping and delivery",
                     "Website analytics",
                     "Marketing communication"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -204,7 +204,7 @@ export default function Privacy() {
             {/* Your Rights */}
             <section id="rights" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Scale className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -223,7 +223,7 @@ export default function Privacy() {
                     "Unsubscribe from marketing emails at any time"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -237,7 +237,7 @@ export default function Privacy() {
             {/* Contact Us */}
             <section id="contact" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Mail className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -249,19 +249,19 @@ export default function Privacy() {
                   If you have any questions regarding this Privacy Policy or how your information is handled, please contact us:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a href="mailto:akkigupta2411@gmail.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
-                    <Mail className="h-5 w-5 text-[#5BBF3D]" />
+                  <a href="mailto:support@aurafinejewellery.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
+                    <Mail className="h-5 w-5 text-[#D4AF37]" />
                     <div>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Email Us</p>
-                      <p className="text-sm font-semibold text-black group-hover:text-[#5BBF3D] transition-colors">akkigupta2411@gmail.com</p>
+                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@aurafinejewellery.com</p>
                     </div>
                   </a>
                   
                   <a href="tel:+916200065378" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
-                    <Phone className="h-5 w-5 text-[#5BBF3D]" />
+                    <Phone className="h-5 w-5 text-[#D4AF37]" />
                     <div>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Call Us</p>
-                      <p className="text-sm font-semibold text-black group-hover:text-[#5BBF3D] transition-colors">+91 6200065378</p>
+                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">+91 6200065378</p>
                     </div>
                   </a>
                 </div>

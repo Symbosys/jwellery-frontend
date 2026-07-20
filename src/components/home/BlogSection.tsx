@@ -16,6 +16,33 @@ interface BlogItem {
   slug: string;
 }
 
+const fallbackBlogs: BlogItem[] = [
+  {
+    id: "blog-1",
+    category: "Guides",
+    title: "HOW TO MEASURE YOUR RING SIZE AT HOME",
+    excerpt: "Finding the perfect fit doesn't have to be a guessing game. Use our simple step-by-step guide to measure your ring size accurately at home using paper or string.",
+    image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",
+    slug: "how-to-measure-your-ring-size-at-home"
+  },
+  {
+    id: "blog-2",
+    category: "Care",
+    title: "CARING FOR YOUR GOLD & DIAMOND JEWELLERY",
+    excerpt: "Keep your precious pieces sparkling for generations. Discover the best practices for cleaning, storing, and maintaining your gold and diamonds safely.",
+    image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",
+    slug: "caring-for-your-gold-and-diamond-jewellery"
+  },
+  {
+    id: "blog-3",
+    category: "Trends",
+    title: "TOP 5 JEWELLERY TRENDS FOR THIS WEDDING SEASON",
+    excerpt: "From statement choker necklaces to elegant layered bangles, explore the hottest trends dominating wedding fashion this season and how to style them.",
+    image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",
+    slug: "top-5-jewellery-trends-for-this-wedding-season"
+  }
+];
+
 export default function BlogSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
   
@@ -25,10 +52,8 @@ export default function BlogSection() {
 
   const rawBlogs = data?.blogs || [];
 
-  if (rawBlogs.length === 0) return null;
-
   const processImageUrl = (url: string | null) => {
-    if (!url) return "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=600";
+    if (!url) return "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600";
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
     
     // Extract base URL from apiClient configuration
@@ -38,21 +63,22 @@ export default function BlogSection() {
     return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
-  const activeBlogPosts: BlogItem[] = rawBlogs.map((b: DBBlog) => {
-    // Determine category from tags array, fallback to General
-    const category = Array.isArray(b.tags) && b.tags.length > 0 && typeof b.tags[0] === "string"
-      ? b.tags[0]
-      : "General";
+  const activeBlogPosts: BlogItem[] = rawBlogs.length > 0
+    ? rawBlogs.map((b: DBBlog) => {
+        const category = Array.isArray(b.tags) && b.tags.length > 0 && typeof b.tags[0] === "string"
+          ? b.tags[0]
+          : "General";
 
-    return {
-      id: b.id,
-      category,
-      title: b.title,
-      excerpt: b.excerpt || "",
-      image: processImageUrl(b.image),
-      slug: b.slug,
-    };
-  });
+        return {
+          id: b.id,
+          category,
+          title: b.title,
+          excerpt: b.excerpt || "",
+          image: processImageUrl(b.image),
+          slug: b.slug,
+        };
+      })
+    : fallbackBlogs;
 
 
   return (
@@ -71,10 +97,10 @@ export default function BlogSection() {
           </div>
           <Link
             to="/blog"
-            className="inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#5BBF3D] transition-colors group"
+            className="inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#B8933D] transition-colors group"
           >
             View All Posts
-            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#8CFF64] flex items-center justify-center transition-colors">
+            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#D4AF37] flex items-center justify-center transition-colors">
               <ChevronRight className="h-4 w-4" />
             </span>
           </Link>
@@ -109,7 +135,7 @@ export default function BlogSection() {
                 </div>
 
                 {/* Content */}
-                <h3 className="font-bold text-sm sm:text-base text-black mb-2 leading-snug group-hover:text-[#2D7D46] transition-colors uppercase">
+                <h3 className="font-bold text-sm sm:text-base text-black mb-2 leading-snug group-hover:text-[#B8933D] transition-colors uppercase">
                   {post.title}
                 </h3>
                 <p className="text-xs sm:text-sm text-gray-500 leading-relaxed line-clamp-3">

@@ -7,9 +7,11 @@ import {
   ShieldCheck,
   LockKeyhole,
   Sparkles,
+  ArrowLeft,
+  Home,
 } from "lucide-react";
 import { useRequestOtpMutation, useVerifyOtpMutation } from "@/api/hooks/auth.hooks";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,9 +24,6 @@ export default function Login() {
 
   const requestOtpMutation = useRequestOtpMutation();
   const verifyOtpMutation = useVerifyOtpMutation();
-
-  // Your existing handlers (handlePhoneChange, handleOtpChange, handleKeyDown)
-  // ... keep them exactly as you have
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(/\D/g, "");
@@ -52,7 +51,7 @@ export default function Login() {
     }
   };
 
-  // Handle Send OTP - async with real API
+  // Handle Send OTP
   const handleSendOtp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (phoneNumber.length < 10) return;
@@ -75,7 +74,7 @@ export default function Login() {
     }
   };
 
-  // Handle Verify OTP - async
+  // Handle Verify OTP
   const handleVerifyOtp = async () => {
     const otpString = otp.join("");
     if (otpString.length !== 4) return;
@@ -91,7 +90,6 @@ export default function Login() {
 
       console.log("Login success:", data);
       
-      // Save token and user details to localStorage
       if (data.token) {
         localStorage.setItem("user_token", data.token);
         localStorage.setItem("token", data.token);
@@ -100,7 +98,6 @@ export default function Login() {
         localStorage.setItem("user", JSON.stringify(data.user));
       }
 
-      // Redirect to account dashboard
       navigate("/account");
     } catch (err: any) {
       console.error("OTP verification error:", err);
@@ -111,161 +108,189 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center relative overflow-hidden bg-background selection:bg-primary/20">
-      {/* Background Decor */}
-      <div className="absolute inset-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-primary/20 via-background to-background -z-10" />
-      <div className="absolute top-0 left-0 w-full h-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 -z-10 brightness-100 contrast-150"></div>
+    <div className="min-h-screen w-full flex bg-[#FAF9F6] text-black relative overflow-hidden font-sans">
+      
+      {/* LEFT COLUMN: Premium Jewellery Editorial Imagery (Hidden on Mobile) */}
+      <div className="hidden lg:block lg:w-1/2 relative overflow-hidden h-screen select-none">
+        <img
+          src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=80&w=1200&auto=format&fit=crop"
+          alt="Aura Fine Jewellery Editorial"
+          className="w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+        
+        {/* Editorial Text Overlay */}
+        <div className="absolute bottom-16 left-16 right-16 text-white space-y-6">
+          <div className="flex items-center gap-2 text-[#D4AF37]">
+            <Sparkles className="h-5 w-5" />
+            <span className="text-xs uppercase font-extrabold tracking-[0.25em]">Handcrafted Brilliance</span>
+          </div>
+          <h2 className="text-4xl xl:text-5xl font-display font-light leading-tight tracking-wide uppercase">
+            Aura Fine <br />
+            <span className="font-semibold text-[#D4AF37]">Jewellery</span>
+          </h2>
+          <p className="text-gray-300 font-light text-base xl:text-lg max-w-md leading-relaxed">
+            Step into our digital vault to manage your orders, check your gold harvesting schemes, and explore curated, certified diamonds.
+          </p>
+          <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400 font-semibold tracking-wider uppercase">
+            <span>© {new Date().getFullYear()} Aura Jewellery</span>
+            <span>BIS 100% Hallmarked</span>
+          </div>
+        </div>
+      </div>
 
-      {/* Main Container */}
-      <div className="container-luxe px-4 w-full flex justify-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="w-full max-w-md"
-        >
-          {/* Brand/Logo Area */}
-          <div className="text-center mb-8">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-primary/10 text-primary mb-4 ring-1 ring-primary/20 shadow-lg shadow-primary/5"
-            >
-              <Sparkles size={32} />
-            </motion.div>
-            <h1 className="text-4xl font-display font-semibold mb-2 tracking-tight">
-              Welcome Back
+      {/* RIGHT COLUMN: Minimalist Premium Login Form */}
+      <div className="w-full lg:w-1/2 flex flex-col justify-between px-6 sm:px-12 py-8 relative h-screen">
+        
+        {/* Navigation Header */}
+        <div className="flex items-center justify-between">
+          <Link
+            to="/"
+            className="inline-flex items-center gap-2 text-xs uppercase font-extrabold tracking-wider text-gray-500 hover:text-black transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4 text-[#D4AF37]" />
+            Back to Store
+          </Link>
+          <Link
+            to="/"
+            className="p-2 bg-white rounded-full border border-gray-100 hover:border-[#D4AF37] transition-all flex items-center justify-center shadow-sm text-gray-400 hover:text-black"
+          >
+            <Home className="h-4 w-4" />
+          </Link>
+        </div>
+
+        {/* Centered Login Card */}
+        <div className="my-auto max-w-md w-full mx-auto space-y-8">
+          
+          {/* Header Description */}
+          <div className="text-left space-y-3">
+            <span className="text-[10px] uppercase font-black tracking-widest text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1.5 rounded-full inline-block">
+              Secure Digital Portal
+            </span>
+            <h1 className="text-3xl sm:text-4xl font-display font-bold text-black uppercase tracking-wide leading-tight">
+              Welcome <span className="text-gray-400 italic font-bold">Back</span>
             </h1>
-            <p className="text-muted-foreground">
-              Sign in to access your premium account
+            <p className="text-gray-500 text-sm sm:text-base font-light">
+              Enter your mobile number to securely sign in or register with OTP verification.
             </p>
           </div>
 
-          {/* Login Card */}
-          <div className="glass rounded-2xl p-8 shadow-2xl shadow-black/5 ring-1 ring-white/20 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-            <form onSubmit={handleSendOtp} className="space-y-6 relative z-10">
+          {/* Form */}
+          <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(212,175,55,0.04)] border border-[#E5D5B5]/20 relative overflow-hidden">
+            <form onSubmit={handleSendOtp} className="space-y-6">
               <div className="space-y-2">
-                <label className="text-sm font-medium text-foreground/80 ml-1">
-                  Phone Number
+                <label className="text-xs uppercase font-extrabold tracking-wider text-gray-400">
+                  Mobile Number
                 </label>
-                <div className="relative group/input">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground group-focus-within/input:text-primary transition-colors duration-300">
-                    <Phone size={20} />
+                <div className="relative">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+                    <span className="text-sm font-extrabold text-[#D4AF37] tracking-wider">+91</span>
                   </div>
                   <input
                     type="text"
                     value={phoneNumber}
                     onChange={handlePhoneChange}
-                    placeholder="Enter your mobile number"
-                    className="w-full bg-secondary/50 border border-input rounded-xl py-4 pl-12 pr-4 outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/50 focus:bg-background transition-all duration-300 placeholder:text-muted-foreground/50 font-medium text-lg"
+                    placeholder="99999 99999"
+                    className="w-full bg-[#FAF9F6] border border-gray-100 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/10 rounded-xl py-4 pl-16 pr-4 outline-none transition-all placeholder:text-gray-300 font-bold text-lg text-black"
                   />
                 </div>
               </div>
 
+              {/* Error Message */}
+              {error && !isOtpOpen && (
+                <div className="p-3.5 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-xs font-semibold leading-relaxed">
+                  {error}
+                </div>
+              )}
+
               <button
                 type="submit"
                 disabled={phoneNumber.length < 10 || loading}
-                className="btn-premium w-full bg-primary text-primary-foreground py-4 rounded-xl font-medium text-lg shadow-lg shadow-primary/20 hover:shadow-primary/40 focus:ring-4 focus:ring-primary/20 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group/btn"
+                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#C5A880] text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-md shadow-[#D4AF37]/20 hover:shadow-lg hover:shadow-[#D4AF37]/30 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
               >
                 {loading ? (
                   <>
                     <motion.div
-                      animate={{ rotate: 360 }}
-                      transition={{
-                        duration: 1,
-                        repeat: Infinity,
-                        ease: "linear",
-                      }}
-                    >
-                      <Sparkles size={20} />
-                    </motion.div>
-                    Sending OTP...
+                      className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                    />
+                    Sending Code...
                   </>
                 ) : (
                   <>
-                    Continue Securely
-                    <ArrowRight
-                      size={20}
-                      className="group-hover/btn:translate-x-1 transition-transform"
-                    />
+                    Request Secure OTP
+                    <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </button>
             </form>
           </div>
+        </div>
 
-          {/* Error Message */}
-          {error && !isOtpOpen && (
-            <p className="text-red-500 text-center mt-4">{error}</p>
-          )}
-
-          <p className="text-center mt-8 text-sm text-muted-foreground">
-            By continuing, you agree to our{" "}
-            <a
-              href="#"
-              className="underline hover:text-primary transition-colors"
-            >
-              Terms of Service
-            </a>{" "}
+        {/* Footer Links */}
+        <div className="text-center space-y-4">
+          <p className="text-xs text-gray-400 font-light max-w-sm mx-auto leading-relaxed">
+            By proceeding, you agree to Aura Fine Jewellery's{" "}
+            <Link to="/terms-conditions" className="text-black font-semibold underline hover:text-[#B8933D] transition-colors">
+              Terms & Conditions
+            </Link>{" "}
             and{" "}
-            <a
-              href="#"
-              className="underline hover:text-primary transition-colors"
-            >
+            <Link to="/privacy" className="text-black font-semibold underline hover:text-[#B8933D] transition-colors">
               Privacy Policy
-            </a>
+            </Link>.
           </p>
-        </motion.div>
+        </div>
       </div>
 
       {/* OTP Modal */}
       <AnimatePresence>
         {isOtpOpen && (
           <>
+            {/* Backdrop with frosted glass effect */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOtpOpen(false)}
-              className="fixed inset-0 bg-background/80 backdrop-blur-sm z-[50]"
+              className="fixed inset-0 bg-black/60 backdrop-blur-md z-[50]"
             />
+            {/* Modal Content */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, x: "-50%", y: "-50%" }}
+              initial={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}
               animate={{ opacity: 1, scale: 1, x: "-50%", y: "-50%" }}
-              exit={{ opacity: 0, scale: 0.9, x: "-50%", y: "-50%" }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="fixed z-[51] left-1/2 top-1/2 w-full max-w-sm"
+              exit={{ opacity: 0, scale: 0.95, x: "-50%", y: "-50%" }}
+              transition={{ type: "spring", duration: 0.4 }}
+              className="fixed z-[51] left-1/2 top-1/2 w-full max-w-md px-4"
             >
-              <div className="glass rounded-3xl p-8 shadow-strong ring-1 ring-white/30 relative">
+              <div className="bg-white rounded-3xl p-8 border border-[#E5D5B5]/20 shadow-2xl relative">
+                {/* Close Button */}
                 <button
                   onClick={() => setIsOtpOpen(false)}
-                  className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
+                  className="absolute top-5 right-5 p-2 bg-gray-50 hover:bg-gray-100 rounded-full text-gray-400 hover:text-black transition-colors"
                 >
-                  <X size={20} />
+                  <X className="h-4 w-4" />
                 </button>
+
                 <div className="text-center mb-8">
-                  <div className="w-14 h-14 bg-success/10 text-success rounded-full flex items-center justify-center mx-auto mb-4 ring-1 ring-success/20">
-                    <ShieldCheck size={28} />
+                  <div className="w-14 h-14 bg-gradient-to-br from-[#D4AF37]/20 to-[#C5A880]/20 text-[#D4AF37] rounded-full flex items-center justify-center mx-auto mb-4 border border-[#D4AF37]/20">
+                    <ShieldCheck className="h-7 w-7" />
                   </div>
-                  <h2 className="text-2xl font-display font-semibold">
-                    Verification Code
+                  <h2 className="text-2xl font-display font-bold text-black uppercase tracking-wide">
+                    Verify Account
                   </h2>
-                  <p className="text-muted-foreground mt-2 text-sm">
-                    We've sent a 4-digit code to <br />
-                    <span className="font-semibold text-foreground">
-                      +91 {phoneNumber}
-                    </span>
+                  <p className="text-gray-500 mt-2 text-sm font-light leading-relaxed">
+                    We've dispatched a secure 4-digit code to <br />
+                    <span className="font-extrabold text-black tracking-wider">+91 {phoneNumber}</span>
                   </p>
+                  
                   {successMessage && (
-                    <div className="mt-3 text-sm text-green-600 dark:text-green-400 bg-green-500/10 py-2 px-3 rounded-xl border border-green-500/20 inline-block font-medium">
+                    <div className="mt-4 text-xs font-semibold text-[#D4AF37] bg-[#D4AF37]/10 py-2 px-4.5 rounded-lg border border-[#D4AF37]/20 inline-block">
                       {successMessage}
                     </div>
                   )}
                 </div>
 
-                <div className="flex justify-center gap-3 mb-8">
+                {/* 4-Digit Input Fields */}
+                <div className="flex justify-center gap-4 mb-8">
                   {otp.map((digit, index) => (
                     <input
                       key={index}
@@ -277,35 +302,42 @@ export default function Login() {
                         handleOtpChange(e.target as HTMLInputElement, index)
                       }
                       onKeyDown={(e) => handleKeyDown(e, index)}
-                      className="w-14 h-16 rounded-xl border border-input bg-secondary/30 text-center text-2xl font-semibold focus:border-primary focus:ring-4 focus:ring-primary/10 focus:bg-background transition-all outline-none"
+                      className="w-14 h-16 rounded-xl border border-gray-100 bg-[#FAF9F6] text-center text-2xl font-bold focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/10 focus:bg-white transition-all outline-none text-black"
                     />
                   ))}
                 </div>
 
-                {/* Error in modal */}
+                {/* Error inside modal */}
                 {error && (
-                  <p className="text-red-500 text-center mb-4">{error}</p>
+                  <div className="p-3.5 mb-6 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 text-xs font-semibold leading-relaxed text-center">
+                    {error}
+                  </div>
                 )}
 
                 <button
                   onClick={handleVerifyOtp}
                   disabled={otp.join("").length !== 4 || loading}
-                  className="btn-premium w-full bg-foreground text-background py-4 rounded-xl font-medium text-lg shadow-lg hover:shadow-xl active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
+                  className="w-full bg-black text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs hover:bg-gray-900 active:scale-[0.98] transition-all flex items-center justify-center gap-2 disabled:opacity-50"
                 >
                   {loading ? (
-                    "Verifying..."
+                    <>
+                      <motion.div
+                        className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
+                      />
+                      Verifying...
+                    </>
                   ) : (
                     <>
-                      <LockKeyhole size={20} />
+                      <LockKeyhole className="h-4 w-4" />
                       Verify & Sign In
                     </>
                   )}
                 </button>
 
                 <div className="mt-6 text-center">
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs text-gray-400 font-light">
                     Didn't receive the code?{" "}
-                    <button className="text-primary font-medium hover:underline">
+                    <button className="text-[#D4AF37] font-bold hover:underline">
                       Resend
                     </button>
                   </p>

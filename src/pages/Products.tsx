@@ -175,6 +175,7 @@ export default function ProductsPage() {
   }, [
     productsData,
     selectedCategory,
+    selectedBrandId,
     selectedKarat,
     selectedWeight,
     selectedPriceRange,

@@ -6,22 +6,22 @@ import { Link } from "react-router-dom";
 const banners = [
   {
     id: 1,
-    title: "PREMIUM\nPROTEIN SERIES",
+    title: "ROYAL GOLD\nNECKLACES",
     subtitle: "START FROM",
-    price: "₹1999",
+    price: "₹24,999",
     cta: "Shop Now",
-    link: "/products?category=Whey Protein",
-    bgImage: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=1200&auto=format&fit=crop",
+    link: "/products?category=Necklaces",
+    bgImage: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1200&auto=format&fit=crop",
     dark: true,
   },
   {
     id: 2,
-    title: "ULTRA CLEAN\nWHEY PROTEIN",
+    title: "DIAMOND ENGAGEMENT\nRINGS",
     subtitle: "NOW AVAILABLE",
-    price: "₹2499",
+    price: "₹49,999",
     cta: "Shop Now",
-    link: "/products?category=Whey Protein Isolate",
-    bgImage: "https://images.unsplash.com/photo-1594882645126-14020914d58d?w=1200&auto=format&fit=crop",
+    link: "/products?category=Rings",
+    bgImage: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1200&auto=format&fit=crop",
     dark: true,
   },
 ];
@@ -62,7 +62,7 @@ export default function PromoBanners() {
                     <p className="text-xs uppercase tracking-widest text-white/60 font-medium mb-1">
                       {banner.subtitle}
                     </p>
-                    <p className="text-[#8CFF64] font-black text-2xl lg:text-3xl">
+                    <p className="text-[#D4AF37] font-black text-2xl lg:text-3xl">
                       {banner.price}
                     </p>
                   </div>

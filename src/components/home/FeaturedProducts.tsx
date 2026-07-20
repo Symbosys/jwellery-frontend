@@ -67,18 +67,18 @@ export default function FeaturedProducts() {
         <div className="flex items-end justify-between mb-8">
           <div>
             <h2 className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-black">
-              TOP PICKS <span className="text-[#8CFF64]">FOR</span>
+              TOP PICKS <span className="text-[#D4AF37]">FOR</span>
             </h2>
-            <h2 className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-[#8CFF64]">
+            <h2 className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-[#D4AF37]">
               YOU
             </h2>
           </div>
           <Link
             to="/products"
-            className="inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#5BBF3D] transition-colors group"
+            className="inline-flex items-center gap-2 text-xs uppercase font-bold tracking-wider text-black hover:text-[#B8933D] transition-colors group"
           >
             Shop All Products
-            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#8CFF64] flex items-center justify-center transition-colors">
+            <span className="w-8 h-8 rounded-full border-2 border-black group-hover:border-[#D4AF37] flex items-center justify-center transition-colors">
               <ChevronRight className="h-4 w-4" />
             </span>
           </Link>

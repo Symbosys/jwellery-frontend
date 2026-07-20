@@ -20,7 +20,7 @@ export default function FlashSale() {
           {/* Background Image */}
           <div className="absolute inset-0">
             <img
-              src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?w=1400&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=1400&auto=format&fit=crop"
               alt="Best Sellers"
               className="w-full h-full object-cover"
             />
@@ -32,7 +32,7 @@ export default function FlashSale() {
             <h2 className="heading-bold text-5xl sm:text-6xl lg:text-8xl text-white leading-none mb-2">
               BEST
             </h2>
-            <h2 className="heading-bold text-5xl sm:text-6xl lg:text-8xl text-[#8CFF64] leading-none">
+            <h2 className="heading-bold text-5xl sm:text-6xl lg:text-8xl text-[#D4AF37] leading-none">
               SELLERS
             </h2>
           </div>
@@ -41,7 +41,7 @@ export default function FlashSale() {
           <div className="relative z-10 p-8 lg:p-12">
             <Link
               to="/products?sort=bestselling"
-              className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-[#8CFF64] transition-all duration-300 shadow-lg"
+              className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-[#D4AF37] transition-all duration-300 shadow-lg"
             >
               Shop All Best Seller Products
               <ArrowRight className="h-4 w-4" />
@@ -61,19 +61,19 @@ export default function FlashSale() {
             className="bg-black text-white p-7 rounded-2xl flex flex-col justify-between min-h-[300px]"
           >
             <div>
-              <div className="w-14 h-14 rounded-full bg-[#8CFF64] flex items-center justify-center mb-5">
+              <div className="w-14 h-14 rounded-full bg-[#D4AF37] flex items-center justify-center mb-5">
                 <span className="text-black font-black text-lg">✓</span>
               </div>
               <h3 className="heading-bold text-xl lg:text-2xl text-white mb-3">
-                100% AUTHENTIC
+                BIS HALLMARKED
               </h3>
               <p className="text-sm text-white/70 leading-relaxed">
-                Every product is sourced directly from manufacturers. Lab tested for purity and potency. GMP certified facility.
+                Every piece of gold and diamond jewellery is certified by BIS, GIA or IGI, guaranteeing the highest standards of purity and quality.
               </p>
             </div>
             <div className="pt-4">
-              <span className="text-[11px] uppercase tracking-widest font-bold text-[#8CFF64] border-b border-[#8CFF64] pb-0.5 cursor-pointer">
-                View Certifications
+              <span className="text-[11px] uppercase tracking-widest font-bold text-[#D4AF37] border-b border-[#D4AF37] pb-0.5 cursor-pointer">
+                View Trust & Quality
               </span>
             </div>
           </motion.div>
@@ -84,15 +84,15 @@ export default function FlashSale() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.4 }}
-            className="bg-[#8CFF64] text-black p-7 rounded-2xl flex flex-col justify-between min-h-[300px]"
+            className="bg-[#C5A880] text-black p-7 rounded-2xl flex flex-col justify-between min-h-[300px]"
           >
             <div>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-black/60 mb-2 block">Smart Savings</span>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-black/60 mb-2 block">Rate Protection</span>
               <h3 className="heading-bold text-2xl lg:text-3xl text-black mb-3 leading-tight">
-                SUBSCRIBE &<br />SAVE 20%
+                GOLD SAVINGS<br />SCHEMES
               </h3>
               <p className="text-xs text-black/70 leading-relaxed font-medium">
-                Get your favorite protein and pre-workout delivered monthly. Never run out of your essentials again.
+                Plan monthly savings and protect yourself against rising gold rates. Start plans with as low as ₹2,000.
               </p>
             </div>
             <div className="pt-4">
@@ -115,22 +115,22 @@ export default function FlashSale() {
             className="bg-[#111] text-white p-7 rounded-2xl flex flex-col justify-between min-h-[300px] relative overflow-hidden"
           >
             <div>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-[#8CFF64] mb-2 block">Gifting</span>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-[#D4AF37] mb-2 block">Gifting</span>
               <h3 className="heading-bold text-xl lg:text-2xl text-white mb-3">
-                GIVE THE GIFT<br/>OF GAINS
+                GIVE THE GIFT<br/>OF BRILLIANCE
               </h3>
               <p className="text-xs text-white/60 leading-relaxed">
-                Perfect for every occasion. A gift card from P&N lets your gym partner pick their favorite supplements.
+                Perfect for weddings, anniversaries, or birthdays. An e-gift card from Aura lets them choose their dream piece.
               </p>
             </div>
 
             {/* Gift Card Visual */}
-            <div className="w-full h-28 border border-[#8CFF64]/30 bg-[#1A1A1A] rounded-xl p-4 flex items-center justify-between mt-4">
+            <div className="w-full h-28 border border-[#D4AF37]/30 bg-[#1A1A1A] rounded-xl p-4 flex items-center justify-between mt-4">
               <div>
-                <span className="font-bold text-sm text-[#8CFF64] block">PROTEIN & NUTRIENTS</span>
+                <span className="font-bold text-sm text-[#D4AF37] block">AURA FINE JEWELLERY</span>
                 <span className="text-[8px] uppercase tracking-widest text-white/40">E-GIFT CARD</span>
               </div>
-              <div className="w-12 h-12 rounded-full bg-[#8CFF64] flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center">
                 <span className="text-2xl">🎁</span>
               </div>
             </div>
@@ -138,7 +138,7 @@ export default function FlashSale() {
             <div className="pt-4">
               <Link
                 to="/gift-card"
-                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest font-bold text-[#8CFF64] hover:text-white transition-colors"
+                className="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest font-bold text-[#D4AF37] hover:text-white transition-colors"
               >
                 Get Gift Card
                 <ArrowRight className="h-3.5 w-3.5" />

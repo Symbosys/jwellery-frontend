@@ -8,29 +8,29 @@ import { Link } from "react-router-dom";
 const slides = [
   {
     id: 1,
-    subtitle: "PREMIUM SPORTS NUTRITION",
-    title: "PREMIUM\nPROTEIN SERIES",
-    price: "START FROM ₹1999",
+    subtitle: "ELEGANT & TIMELESS",
+    title: "THE ROYAL\nGOLD COLLECTION",
+    price: "DESIGNS FROM ₹9,999",
     image:
-      "https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=2070&auto=format&fit=crop",
     cta: { text: "Shop Now", link: "/products" },
   },
   {
     id: 2,
-    subtitle: "ENGINEERED FOR PERFORMANCE",
-    title: "BREAK YOUR\nLIMITS",
-    price: "UP TO 40% OFF",
+    subtitle: "SPARKLING ELEGANCE",
+    title: "DIAMONDS THAT\nSPEAK FOR YOU",
+    price: "UP TO 20% OFF ON MAKING CHARGES",
     image:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop",
     cta: { text: "Explore Collections", link: "/products" },
   },
   {
     id: 3,
     subtitle: "NEW ARRIVALS",
-    title: "ULTRA CLEAN\nWHEY PROTEIN",
-    price: "JUST LAUNCHED",
+    title: "MINIMALIST\nROSE GOLD",
+    price: "LATEST EXCLUSIVE DESIGNS",
     image:
-      "https://images.unsplash.com/photo-1579722820308-d74e571900a9?q=80&w=2070&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=2070&auto=format&fit=crop",
     cta: { text: "Shop Now", link: "/products" },
   },
 ];
@@ -94,7 +94,7 @@ export default function HeroSlider() {
               <img
                 src={slides[current].image}
                 alt={slides[current].title}
-                className="w-full h-full object-cover object-top opacity-80"
+                className="w-full h-full object-cover object-center opacity-80"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
             </div>
@@ -116,7 +116,7 @@ export default function HeroSlider() {
                     {slides[current].title}
                   </h1>
 
-                  <p className="text-[#8CFF64] font-bold text-lg sm:text-xl lg:text-2xl mb-6 tracking-wide">
+                  <p className="text-[#D4AF37] font-bold text-lg sm:text-xl lg:text-2xl mb-6 tracking-wide">
                     {slides[current].price}
                   </p>
 
@@ -158,7 +158,7 @@ export default function HeroSlider() {
                 setCurrent(index);
               }}
               className={`h-2.5 rounded-full transition-all duration-300 ${
-                index === current ? "w-8 bg-[#8CFF64]" : "w-2.5 bg-white/50"
+                index === current ? "w-8 bg-[#D4AF37]" : "w-2.5 bg-white/50"
               }`}
               aria-label={`Go to slide ${index + 1}`}
             />

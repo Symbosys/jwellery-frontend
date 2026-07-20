@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, Paperclip, Smile, Bot, User } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
@@ -24,23 +24,25 @@ export default function ChatSupport() {
   const [isTyping, setIsTyping] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const dbMessages = activeSession?.messages || [];
-  const uiMessages: Message[] = dbMessages.map((m: any) => ({
-    id: m.id,
-    text: m.text,
-    sender: m.sender === 'USER' ? 'user' : 'agent',
-    timestamp: new Date(m.createdAt),
-  }));
+  const displayMessages: Message[] = useMemo(() => {
+    const dbMessages = activeSession?.messages || [];
+    const uiMessages: Message[] = dbMessages.map((m: any) => ({
+      id: m.id,
+      text: m.text,
+      sender: m.sender === 'USER' ? 'user' : 'agent',
+      timestamp: new Date(m.createdAt),
+    }));
 
-  const displayMessages: Message[] = [
-    {
-      id: '__welcome__',
-      text: "Hi! 👋 Welcome to Protein & Nutrients support. I'm here to help you with your orders, products, or any questions you have.",
-      sender: 'agent',
-      timestamp: new Date(Date.now() - 60000),
-    },
-    ...uiMessages,
-  ];
+    return [
+      {
+        id: '__welcome__',
+        text: "Hi! 👋 Welcome to Aura Fine Jewellery support. I'm here to help you with your orders, custom sizes, BIS certifications, or any questions you have.",
+        sender: 'agent',
+        timestamp: new Date(Date.now() - 60000),
+      },
+      ...uiMessages,
+    ];
+  }, [activeSession?.messages]);
 
   useEffect(() => {
     if (scrollRef.current) {

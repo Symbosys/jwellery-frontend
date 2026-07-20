@@ -23,14 +23,14 @@ export default function Footer() {
           <div className="w-[82px] h-[82px] bg-white flex items-center justify-center p-2 rounded-md">
             <img
               src="/logo.jpg"
-              alt="Protein & Nutrients Logo"
+              alt="Aura Fine Jewellery Logo"
               className="w-full h-full object-contain"
             />
           </div>
 
           {/* Email Support */}
           <div className="flex items-center gap-2.5">
-            <div className="text-[#8CFF64]">
+            <div className="text-[#D4AF37]">
               <svg
                 viewBox="0 0 24 24"
                 className="h-5 w-5 fill-none stroke-current stroke-2"
@@ -40,16 +40,16 @@ export default function Footer() {
               </svg>
             </div>
             <a
-              href="mailto:akkigupta2411@gmail.com"
-              className="text-white hover:text-[#8CFF64] transition-colors text-sm lg:text-base font-semibold"
+              href="mailto:sakio.business@gmail.com.com"
+              className="text-white hover:text-[#D4AF37] transition-colors text-sm lg:text-base font-semibold"
             >
-              support@protein-and-nutrients.com
+              support@aurafinejewellery.com
             </a>
           </div>
 
           {/* Live Chat */}
           <div className="flex items-center gap-2.5">
-            <div className="text-[#8CFF64]">
+            <div className="text-[#D4AF37]">
               <svg
                 viewBox="0 0 24 24"
                 className="h-5 w-5 fill-none stroke-current stroke-2"
@@ -61,7 +61,7 @@ export default function Footer() {
               href="https://wa.me/916200065378"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white hover:text-[#8CFF64] transition-colors text-sm lg:text-base font-semibold uppercase"
+              className="text-white hover:text-[#D4AF37] transition-colors text-sm lg:text-base font-semibold uppercase"
             >
               live chat
             </a>
@@ -117,40 +117,43 @@ export default function Footer() {
           {/* Column 1: Brand & Contact Info */}
           <div className="space-y-6">
             <Link to="/" className="flex items-center gap-2 group">
-              <span className="font-display text-xl lg:text-2xl font-black tracking-wider text-[#8CFF64] group-hover:text-white transition-colors uppercase">
-                PROTEIN & NUTRIENTS
+              <span className="font-display text-xl lg:text-2xl font-black tracking-wider text-[#D4AF37] group-hover:text-white transition-colors uppercase">
+                AURA FINE JEWELLERY
               </span>
             </Link>
 
             <div className="space-y-4 text-xs lg:text-sm text-white/60 leading-relaxed">
               {/* Address 1 */}
               <div className="flex items-start gap-2.5">
-                <MapPin className="h-5 w-5 text-[#8CFF64] flex-shrink-0 mt-0.5" />
-                <span>Ratu road ranchi-5</span>
+                <MapPin className="h-5 w-5 text-[#D4AF37] flex-shrink-0 mt-0.5" />
+                <span>
+                  Flat no -105 Rash Bihari Apartment Nibaranpur, Doranda Ranchi
+                  834002, Jharkhand, Ranchi, 834002
+                </span>
               </div>
 
               {/* Phone / Contact */}
               <div className="flex items-center gap-2.5">
-                <Phone className="h-5 w-5 text-[#8CFF64] flex-shrink-0" />
+                <Phone className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
                 <div>
                   <span className="block font-semibold text-white text-xs">
                     Contact Us
                   </span>
                   <a
-                    href="tel:6200065378"
-                    className="hover:text-[#8CFF64] font-bold"
+                    href="tel:9431104323  "
+                    className="hover:text-[#D4AF37] font-bold"
                   >
-                    7759-957841
+                    9431104323
                   </a>
                 </div>
               </div>
 
               {/* Store Locator Link */}
               <div className="flex items-center gap-2.5 pt-2">
-                <Store className="h-5 w-5 text-[#8CFF64] flex-shrink-0" />
+                <Store className="h-5 w-5 text-[#D4AF37] flex-shrink-0" />
                 <Link
                   to="/stores"
-                  className="hover:text-[#8CFF64] font-semibold text-white underline"
+                  className="hover:text-[#D4AF37] font-semibold text-white underline"
                 >
                   Store Locator
                 </Link>
@@ -160,7 +163,7 @@ export default function Footer() {
 
           {/* Column 2: Categories — dynamic, max 6 */}
           <div className="space-y-6">
-            <h4 className="font-display text-base font-bold text-[#8CFF64] border-b border-white/10 pb-2 uppercase">
+            <h4 className="font-display text-base font-bold text-[#D4AF37] border-b border-white/10 pb-2 uppercase">
               Categories
             </h4>
             <ul className="space-y-2.5 text-xs lg:text-sm text-white/60 font-medium">
@@ -169,7 +172,7 @@ export default function Footer() {
                     <li key={cat.id}>
                       <Link
                         to={`/products?category=${encodeURIComponent(cat.name)}`}
-                        className="hover:text-[#8CFF64] transition-colors"
+                        className="hover:text-[#D4AF37] transition-colors"
                       >
                         {cat.name}
                       </Link>
@@ -177,22 +180,24 @@ export default function Footer() {
                   ))
                 : /* Skeleton placeholders while loading */
                   Array.from({ length: 4 }).map((_, i) => (
-                    <li key={i} className="h-4 w-28 bg-white/10 rounded animate-pulse" />
+                    <li
+                      key={i}
+                      className="h-4 w-28 bg-white/10 rounded animate-pulse"
+                    />
                   ))}
             </ul>
           </div>
 
-
           {/* Column 3: Quick Links */}
           <div className="space-y-6">
-            <h4 className="font-display text-base font-bold text-[#8CFF64] border-b border-white/10 pb-2 uppercase">
+            <h4 className="font-display text-base font-bold text-[#D4AF37] border-b border-white/10 pb-2 uppercase">
               POLICIES
             </h4>
             <ul className="space-y-2.5 text-xs lg:text-sm text-white/60 font-medium">
               <li>
                 <Link
                   to="/about"
-                  className="hover:text-[#8CFF64] transition-colors"
+                  className="hover:text-[#D4AF37] transition-colors"
                 >
                   Our Story
                 </Link>
@@ -200,7 +205,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/privacy"
-                  className="hover:text-[#8CFF64] transition-colors"
+                  className="hover:text-[#D4AF37] transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -208,7 +213,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/terms-conditions"
-                  className="hover:text-[#8CFF64] transition-colors"
+                  className="hover:text-[#D4AF37] transition-colors"
                 >
                   Terms & Conditions
                 </Link>
@@ -216,7 +221,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/shipping-delivery"
-                  className="hover:text-[#8CFF64] transition-colors"
+                  className="hover:text-[#D4AF37] transition-colors"
                 >
                   Shipping & Delivery
                 </Link>
@@ -224,7 +229,7 @@ export default function Footer() {
               <li>
                 <Link
                   to="/exchange-policy"
-                  className="hover:text-[#8CFF64] transition-colors"
+                  className="hover:text-[#D4AF37] transition-colors"
                 >
                   Exchange Policy
                 </Link>
@@ -234,11 +239,11 @@ export default function Footer() {
 
           {/* Column 4: App Download */}
           <div className="space-y-6">
-            <h4 className="font-display text-base font-bold text-[#8CFF64] border-b border-white/10 pb-2 uppercase">
+            <h4 className="font-display text-base font-bold text-[#D4AF37] border-b border-white/10 pb-2 uppercase">
               Download Our App
             </h4>
             <p className="text-xs text-white/50 leading-relaxed">
-              Fitness App, Made To Track Your Macros & Gains!
+              Exclusive App, Access Premium Designs & Gold Rates Daily!
             </p>
 
             {/* Store Badges */}
@@ -270,12 +275,12 @@ export default function Footer() {
         {/* Footer bottom */}
         <div className="border-t border-white/10 mt-12 pt-6 text-center text-xs text-white/40">
           <p>
-            © {new Date().getFullYear()} PROTEIN AND NUTRIENTS. All rights
+            © {new Date().getFullYear()} AURA FINE JEWELLERY. All rights
             reserved.
           </p>
           <p className="mt-2 font-semibold tracking-wide text-white/60 flex items-center justify-center gap-1.5">
             Powered By{" "}
-            <span className="text-[#8CFF64] font-bold tracking-widest text-[10px] uppercase">
+            <span className="text-[#D4AF37] font-bold tracking-widest text-[10px] uppercase">
               symbosys
             </span>
           </p>

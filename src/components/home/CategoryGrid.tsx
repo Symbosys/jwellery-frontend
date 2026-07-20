@@ -10,6 +10,14 @@ interface CategoryItem {
   image: string | null;
 }
 
+const mockCategories = [
+  { name: 'Rings', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600' },
+  { name: 'Necklaces', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600' },
+  { name: 'Bracelets', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600' },
+  { name: 'Earrings', image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600' },
+  { name: 'Solitaires', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600' },
+];
+
 export default function CategoryGrid() {
   const { data, isLoading } = useCategoriesQuery({ limit: 50 });
 
@@ -38,16 +46,16 @@ export default function CategoryGrid() {
 
   const rawCategories = data?.categories || [];
 
-  if (rawCategories.length === 0) {
-    return null;
-  }
-
-  const categoriesList: CategoryItem[] = rawCategories.map(
-    (cat: DBCategory) => ({
-      name: cat.name,
-      image: cat.image,
-    }),
-  );
+  const categoriesList: CategoryItem[] =
+    rawCategories.length > 0
+      ? rawCategories.map((cat: DBCategory) => ({
+          name: cat.name,
+          image: cat.image,
+        }))
+      : mockCategories.map((cat) => ({
+          name: cat.name,
+          image: cat.image,
+        }));
 
   const repeatedCategories = [
     ...categoriesList,
@@ -61,11 +69,11 @@ export default function CategoryGrid() {
         {/* Section Header */}
         <div className="flex items-center justify-between mb-8">
           <h2 className="heading-bold text-2xl sm:text-3xl lg:text-4xl text-black">
-            SHOP BY <span className="text-[#8CFF64]">CATEGORY</span>
+            SHOP BY <span className="text-[#D4AF37]">CATEGORY</span>
           </h2>
           <Link
             to="/categories"
-            className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-black hover:text-[#5BBF3D] transition-colors"
+            className="inline-flex items-center gap-1 text-xs uppercase font-bold tracking-wider text-black hover:text-[#B8933D] transition-colors"
           >
             View All
             <ChevronRight className="h-4 w-4" />
@@ -88,7 +96,7 @@ export default function CategoryGrid() {
                     to={`/products?category=${encodeURIComponent(category.name)}`}
                     className="flex flex-col items-center group flex-shrink-0"
                   >
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#8A1B28] transition-all duration-300 shadow-sm">
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#D4AF37] transition-all duration-300 shadow-sm">
                       <div className="w-full h-full rounded-full overflow-hidden">
                         <img
                           src={imageUrl}
@@ -97,7 +105,7 @@ export default function CategoryGrid() {
                         />
                       </div>
                     </div>
-                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#8A1B28] transition-colors text-center truncate w-20 md:w-24">
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#D4AF37] transition-colors text-center truncate w-20 md:w-24">
                       {category.name}
                     </span>
                   </Link>
@@ -114,7 +122,7 @@ export default function CategoryGrid() {
                     to={`/products?category=${encodeURIComponent(category.name)}`}
                     className="flex flex-col items-center group flex-shrink-0"
                   >
-                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#8A1B28] transition-all duration-300 shadow-sm">
+                    <div className="w-16 h-16 md:w-20 md:h-20 rounded-full p-1 bg-white border border-[#E5D5B5] group-hover:border-[#D4AF37] transition-all duration-300 shadow-sm">
                       <div className="w-full h-full rounded-full overflow-hidden">
                         <img
                           src={imageUrl}
@@ -123,7 +131,7 @@ export default function CategoryGrid() {
                         />
                       </div>
                     </div>
-                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#8A1B28] transition-colors text-center truncate w-20 md:w-24">
+                    <span className="text-[10px] md:text-xs font-bold uppercase tracking-wider mt-3 text-[#2C2C2C] group-hover:text-[#D4AF37] transition-colors text-center truncate w-20 md:w-24">
                       {category.name}
                     </span>
                   </Link>

@@ -37,11 +37,11 @@ export default function Header() {
 
   const isHomePage = location.pathname === "/";
 
-  const goalsList = [
-    { name: "Muscle Building", slug: "Muscle Building" },
-    { name: "Weight Loss", slug: "Weight Loss" },
-    { name: "Recovery & Strength", slug: "Recovery" },
-    { name: "General Wellness", slug: "Wellness" },
+  const occasionsList = [
+    { name: "Wedding & Bridal", slug: "Wedding" },
+    { name: "Daily Wear", slug: "Daily" },
+    { name: "Gifts for Her", slug: "Gifts" },
+    { name: "Festive Wear", slug: "Festive" },
   ];
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -53,34 +53,34 @@ export default function Header() {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[#B5E12E] transition-all duration-300">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-[#C5A880] transition-all duration-300">
         {/* Top Promo Banner - Infinite Scroll LTR */}
-        <div className="w-full overflow-hidden bg-[#B5E12E] py-3 text-black text-xs md:text-sm font-bold relative z-50">
+        <div className="w-full overflow-hidden bg-[#C5A880] py-3 text-black text-xs md:text-sm font-bold relative z-50">
           <div className="animate-scroll-ltr flex">
             {/* First scroll track container */}
             <div className="flex shrink-0 items-center justify-around gap-12 px-6 min-w-full">
-              <span>Free delivery all over india</span>
+              <span>Free fully-insured delivery all over India</span>
               <span className="flex items-center gap-1.5 justify-center">
                 <Gift className="h-4 w-4" />
-                5% off on all prepaid orders use code prepaid5
+                Extra 5% off on all prepaid orders use code PREPAID5
               </span>
-              <span>Free delivery all over india</span>
+              <span>Free fully-insured delivery all over India</span>
               <span className="flex items-center gap-1.5 justify-center">
                 <Gift className="h-4 w-4" />
-                5% off on all prepaid orders use code prepaid5
+                Extra 5% off on all prepaid orders use code PREPAID5
               </span>
             </div>
             {/* Second scroll track container (must be identical for seamless loop) */}
             <div className="flex shrink-0 items-center justify-around gap-12 px-6 min-w-full">
-              <span>Free delivery all over india</span>
+              <span>Free fully-insured delivery all over India</span>
               <span className="flex items-center gap-1.5 justify-center">
                 <Gift className="h-4 w-4" />
-                5% off on all prepaid orders use code prepaid5
+                Extra 5% off on all prepaid orders use code PREPAID5
               </span>
-              <span>Free delivery all over india</span>
+              <span>Free fully-insured delivery all over India</span>
               <span className="flex items-center gap-1.5 justify-center">
                 <Gift className="h-4 w-4" />
-                5% off on all prepaid orders use code prepaid5
+                Extra 5% off on all prepaid orders use code PREPAID5
               </span>
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function Header() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setIsMenuOpen(true)}
-                className="lg:hidden p-2 -ml-2 text-black hover:text-[#8CFF64]"
+                className="lg:hidden p-2 -ml-2 text-black hover:text-[#D4AF37]"
                 aria-label="Open menu"
               >
                 <Menu className="h-6 w-6" />
@@ -106,7 +106,7 @@ export default function Header() {
               >
                 <img
                   src="/logo.jpg"
-                  alt="Protein & Nutrients Logo"
+                  alt="Aura Fine Jewellery Logo"
                   className="h-[50px] lg:h-[62px] w-auto object-contain"
                 />
               </Link>
@@ -119,8 +119,8 @@ export default function Header() {
                 className={cn(
                   "text-sm font-bold tracking-wide transition-all relative pb-0.5",
                   isHomePage
-                    ? "text-black border-b-2 border-[#8CFF64]"
-                    : "text-black hover:text-[#8CFF64]",
+                    ? "text-black border-b-2 border-[#D4AF37]"
+                    : "text-black hover:text-[#D4AF37]",
                 )}
               >
                 Home
@@ -134,7 +134,7 @@ export default function Header() {
               >
                 <Link
                   to="/products"
-                  className="flex items-center gap-0.5 py-2 text-sm font-bold tracking-wide text-black hover:text-[#8CFF64] transition-colors"
+                  className="flex items-center gap-0.5 py-2 text-sm font-bold tracking-wide text-black hover:text-[#D4AF37] transition-colors"
                 >
                   Shop
                   <ChevronDown className="h-4 w-4" />
@@ -155,7 +155,7 @@ export default function Header() {
                             <li key={cat.name}>
                               <Link
                                 to={`/products?category=${encodeURIComponent(cat.name)}`}
-                                className="text-xs uppercase font-semibold text-gray-700 hover:text-[#8CFF64] flex justify-between items-center transition-colors py-1"
+                                className="text-xs uppercase font-semibold text-gray-700 hover:text-[#D4AF37] flex justify-between items-center transition-colors py-1"
                                 onClick={() => setActiveCategory(null)}
                               >
                                 {cat.name}
@@ -169,19 +169,19 @@ export default function Header() {
                 </AnimatePresence>
               </div>
 
-              {/* Shop by Goal Dropdown */}
+              {/* Shop by Occasion Dropdown */}
               <div
                 className="relative"
-                onMouseEnter={() => setActiveCategory("goal")}
+                onMouseEnter={() => setActiveCategory("occasion")}
                 onMouseLeave={() => setActiveCategory(null)}
               >
-                <span className="flex items-center gap-0.5 py-2 text-sm font-bold tracking-wide text-black hover:text-[#8CFF64] cursor-pointer transition-colors">
-                  Shop by Goal
+                <span className="flex items-center gap-0.5 py-2 text-sm font-bold tracking-wide text-black hover:text-[#D4AF37] cursor-pointer transition-colors">
+                  Shop by Occasion
                   <ChevronDown className="h-4 w-4" />
                 </span>
 
                 <AnimatePresence>
-                  {activeCategory === "goal" && (
+                  {activeCategory === "occasion" && (
                     <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -191,14 +191,14 @@ export default function Header() {
                     >
                       <div className="bg-white border border-gray-100 rounded-xl shadow-xl p-5 min-w-[220px]">
                         <ul className="space-y-2">
-                          {goalsList.map((goal) => (
-                            <li key={goal.name}>
+                          {occasionsList.map((occ) => (
+                            <li key={occ.name}>
                               <Link
-                                to={`/products?goal=${encodeURIComponent(goal.slug)}`}
-                                className="text-xs uppercase font-semibold text-gray-700 hover:text-[#8CFF64] flex justify-between items-center transition-colors py-1"
+                                to={`/products?occasion=${encodeURIComponent(occ.slug)}`}
+                                className="text-xs uppercase font-semibold text-gray-700 hover:text-[#D4AF37] flex justify-between items-center transition-colors py-1"
                                 onClick={() => setActiveCategory(null)}
                               >
-                                {goal.name}
+                                {occ.name}
                               </Link>
                             </li>
                           ))}
@@ -209,12 +209,12 @@ export default function Header() {
                 </AnimatePresence>
               </div>
 
-              {/* Shop by Brand */}
+              {/* Shop by Collections */}
               <Link
                 to="/products"
-                className="text-sm font-bold tracking-wide text-black hover:text-[#8CFF64] transition-colors"
+                className="text-sm font-bold tracking-wide text-black hover:text-[#D4AF37] transition-colors"
               >
-                Shop by Brand
+                Shop by Collections
               </Link>
             </nav>
 
@@ -234,7 +234,7 @@ export default function Header() {
                 />
                 <button
                   type="submit"
-                  className="p-1 hover:text-[#8CFF64] transition-colors flex-shrink-0"
+                  className="p-1 hover:text-[#D4AF37] transition-colors flex-shrink-0"
                 >
                   <Search className="h-5 w-5 text-black" />
                 </button>
@@ -246,7 +246,7 @@ export default function Header() {
               {/* Account profile */}
               <Link
                 to="/account"
-                className="p-2 hover:text-[#8CFF64] transition-colors text-black"
+                className="p-2 hover:text-[#D4AF37] transition-colors text-black"
                 aria-label="Account"
               >
                 <User className="h-5 w-5 stroke-[1.8]" />
@@ -255,26 +255,26 @@ export default function Header() {
               {/* Wishlist */}
               <Link
                 to="/wishlist"
-                className="p-2 hover:text-[#8CFF64] transition-colors relative text-black"
+                className="p-2 hover:text-[#D4AF37] transition-colors relative text-black"
                 aria-label="Wishlist"
               >
                 <Heart className="h-5 w-5 stroke-[1.8]" />
                 {items && items.length > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-[#B5E12E] text-black text-[8px] font-bold flex items-center justify-center border border-white">
+                  <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-[#C5A880] text-black text-[8px] font-bold flex items-center justify-center border border-white">
                     {items.length}
                   </span>
                 )}
               </Link>
 
-              {/* Cart - Green Circle design like reference */}
+              {/* Cart - Gold Circle design like reference */}
               <button
                 onClick={openCart}
-                className="w-10 h-10 rounded-full bg-[#8CFF64] hover:bg-[#7be654] flex items-center justify-center relative transition-all duration-300 hover:scale-105"
+                className="w-10 h-10 rounded-full bg-[#D4AF37] hover:bg-[#B8933D] flex items-center justify-center relative transition-all duration-300 hover:scale-105"
                 aria-label="Cart"
               >
                 <ShoppingBag className="h-[21px] w-[21px] text-black stroke-[1.8]" />
                 {itemCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-black text-[#8CFF64] text-[10px] font-bold flex items-center justify-center border-2 border-white">
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-black text-[#D4AF37] text-[10px] font-bold flex items-center justify-center border-2 border-white">
                     {itemCount}
                   </span>
                 )}
@@ -308,7 +308,7 @@ export default function Header() {
               <div className="p-5">
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
                   <span className="font-display text-lg font-black text-black uppercase">
-                    P&N
+                    Aura
                   </span>
                   <button onClick={() => setIsMenuOpen(false)} className="p-2">
                     <X className="h-6 w-6 text-black" />
@@ -318,7 +318,7 @@ export default function Header() {
                 <nav className="space-y-4">
                   <Link
                     to="/"
-                    className="text-sm font-bold uppercase block py-2 text-black hover:text-[#8CFF64]"
+                    className="text-sm font-bold uppercase block py-2 text-black hover:text-[#D4AF37]"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     Home
@@ -328,12 +328,12 @@ export default function Header() {
                     <span className="text-sm font-bold uppercase block mb-3 text-black">
                       Shop Categories
                     </span>
-                    <ul className="space-y-2 pl-3 border-l-2 border-[#8CFF64]">
+                    <ul className="space-y-2 pl-3 border-l-2 border-[#D4AF37]">
                       {categoriesList.map((cat) => (
                         <li key={cat.name}>
                           <Link
                             to={`/products?category=${encodeURIComponent(cat.name)}`}
-                            className="text-xs uppercase font-semibold text-gray-500 hover:text-[#8CFF64] block py-1"
+                            className="text-xs uppercase font-semibold text-gray-500 hover:text-[#D4AF37] block py-1"
                             onClick={() => setIsMenuOpen(false)}
                           >
                             {cat.name}
@@ -345,17 +345,17 @@ export default function Header() {
 
                   <div className="py-2">
                     <span className="text-sm font-bold uppercase block mb-3 text-black">
-                      Shop by Goal
+                      Shop by Occasion
                     </span>
-                    <ul className="space-y-2 pl-3 border-l-2 border-[#8CFF64]">
-                      {goalsList.map((goal) => (
-                        <li key={goal.name}>
+                    <ul className="space-y-2 pl-3 border-l-2 border-[#D4AF37]">
+                      {occasionsList.map((occ) => (
+                        <li key={occ.name}>
                           <Link
-                            to={`/products?goal=${encodeURIComponent(goal.slug)}`}
-                            className="text-xs uppercase font-semibold text-gray-500 hover:text-[#8CFF64] block py-1"
+                            to={`/products?occasion=${encodeURIComponent(occ.slug)}`}
+                            className="text-xs uppercase font-semibold text-gray-500 hover:text-[#D4AF37] block py-1"
                             onClick={() => setIsMenuOpen(false)}
                           >
-                            {goal.name}
+                            {occ.name}
                           </Link>
                         </li>
                       ))}
@@ -364,10 +364,10 @@ export default function Header() {
 
                   <Link
                     to="/products"
-                    className="text-sm font-bold uppercase block py-2 text-black hover:text-[#8CFF64]"
+                    className="text-sm font-bold uppercase block py-2 text-black hover:text-[#D4AF37]"
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    Shop by Brand
+                    Shop by Collections
                   </Link>
                 </nav>
 
@@ -376,10 +376,10 @@ export default function Header() {
                   <form onSubmit={handleSearchSubmit} className="relative mt-2">
                     <input
                       type="text"
-                      placeholder="Search Supplements..."
+                      placeholder="Search Jewellery..."
                       value={searchVal}
                       onChange={(e) => setSearchVal(e.target.value)}
-                      className="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 pl-4 pr-10 text-xs font-semibold outline-none focus:border-[#8CFF64]"
+                      className="w-full bg-gray-50 border border-gray-200 rounded-full py-2.5 pl-4 pr-10 text-xs font-semibold outline-none focus:border-[#D4AF37]"
                     />
                     <button
                       type="submit"

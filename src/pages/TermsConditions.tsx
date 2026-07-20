@@ -38,7 +38,7 @@ export default function TermsConditions() {
             {/* Overview */}
             <section id="overview" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <BookOpen className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -47,7 +47,7 @@ export default function TermsConditions() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  Welcome to Protein and Nutrients. By accessing our website, placing an order, or using our services, you agree to comply with the following Terms & Conditions.
+                  Welcome to Aura Fine Jewellery. By accessing our website, placing an order, or using our services, you agree to comply with the following Terms & Conditions.
                 </p>
                 <p>
                   These terms are designed to ensure a secure, fair, and transparent experience for all customers using our platform.
@@ -61,7 +61,7 @@ export default function TermsConditions() {
             {/* Website Use */}
             <section id="website-use" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Globe className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -73,18 +73,18 @@ export default function TermsConditions() {
                 <ul className="space-y-2.5">
                   {[
                     "To use the website only for lawful purposes",
-                    "Not to misuse, disrupt, or attempt unauthorized access to the website",
-                    "Not to copy, reproduce, or exploit website content without permission",
-                    "To provide accurate and complete information when placing orders"
+                    "Not to misuse, disrupt, or attempt unauthorized access to the website or its vaults",
+                    "Not to copy, reproduce, or exploit website design blueprints and content without permission",
+                    "To provide accurate and complete identification when placing high-value orders"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
                 <p>
-                  Protein and Nutrients reserves the right to restrict or terminate access for users violating these terms.
+                  Aura Fine Jewellery reserves the right to restrict or terminate access for users violating these terms.
                 </p>
               </div>
             </section>
@@ -92,7 +92,7 @@ export default function TermsConditions() {
             {/* Products & Information */}
             <section id="products-info" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <ShoppingBag className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -101,23 +101,23 @@ export default function TermsConditions() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  We strive to ensure that all product descriptions, images, pricing, and information displayed on our website are accurate and up to date.
+                  We strive to ensure that all product descriptions, images, pricing, and precious metal weight details displayed on our website are accurate and up to date.
                 </p>
                 <p className="font-semibold text-black">However:</p>
                 <ul className="space-y-2.5">
                   {[
-                    "Product packaging may vary slightly from displayed images",
-                    "Prices and availability may change without notice",
-                    "Typographical or technical errors may occasionally occur"
+                    "Jewellery finishes, dimensions, and visual scales may vary slightly from displayed high-definition images",
+                    "Metal weights, diamond carats, and making charge calculations may occasionally reflect typographical or pricing errors",
+                    "Gold rate calculations are subject to market changes and may change without notice"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
                 <p>
-                  Protein and Nutrients reserves the right to correct errors or update information at any time without prior notice.
+                  Aura Fine Jewellery reserves the right to correct errors or update information at any time without prior notice.
                 </p>
               </div>
             </section>
@@ -125,7 +125,7 @@ export default function TermsConditions() {
             {/* Orders & Payments */}
             <section id="orders-payments" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <CreditCard className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -141,7 +141,7 @@ export default function TermsConditions() {
                     "Orders are subject to product availability and verification"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -154,7 +154,7 @@ export default function TermsConditions() {
                     "Limit purchase quantities if necessary"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -165,7 +165,7 @@ export default function TermsConditions() {
             {/* Shipping & Delivery */}
             <section id="shipping-delivery" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Truck className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -174,17 +174,17 @@ export default function TermsConditions() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  Delivery timelines are estimated and may vary depending on location, courier operations, and external factors.
+                  Delivery timelines are estimated and may vary depending on location, courier operations, and transit insurance approvals.
                 </p>
-                <p className="font-semibold text-black">Protein and Nutrients is not responsible for delays caused by:</p>
+                <p className="font-semibold text-black">Aura Fine Jewellery is not responsible for delays caused by:</p>
                 <ul className="space-y-2.5">
                   {[
-                    "Courier disruptions",
-                    "Incorrect customer information",
+                    "Secure courier disruptions",
+                    "Incorrect customer information or security check failures",
                     "Natural events or unforeseen circumstances"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
@@ -198,7 +198,7 @@ export default function TermsConditions() {
             {/* Returns & Refunds */}
             <section id="returns-refunds" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <RotateCcw className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -210,7 +210,7 @@ export default function TermsConditions() {
                   Returns, replacements, and refunds are subject to our Return & Refund Policy.
                 </p>
                 <p>
-                  Certain products, including opened supplement containers, may not qualify for returns due to hygiene and safety reasons.
+                  Certain products, including customized, engraved, or resized jewellery pieces, may not qualify for returns due to valuation, certification, and safety reasons.
                 </p>
               </div>
             </section>
@@ -218,7 +218,7 @@ export default function TermsConditions() {
             {/* Intellectual Property */}
             <section id="intellectual-property" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Shield className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -229,20 +229,20 @@ export default function TermsConditions() {
                 <p className="font-semibold text-black">All content on this website, including:</p>
                 <ul className="space-y-2.5">
                   {[
-                    "Logos",
-                    "Product images",
+                    "Logos and Brand Marks",
+                    "Product images and layouts",
                     "Graphics",
                     "Text",
-                    "Website design"
+                    "Website design blueprints"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
                 <p>
-                  is the property of Protein and Nutrients and protected under applicable intellectual property laws.
+                  is the property of Aura Fine Jewellery and protected under applicable intellectual property laws.
                 </p>
                 <p>
                   Unauthorized use or reproduction is prohibited.
@@ -253,7 +253,7 @@ export default function TermsConditions() {
             {/* Limitation of Liability */}
             <section id="liability" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Ban className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -261,7 +261,7 @@ export default function TermsConditions() {
                 </h2>
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p className="font-semibold text-black">Protein and Nutrients shall not be held liable for:</p>
+                <p className="font-semibold text-black">Aura Fine Jewellery shall not be held liable for:</p>
                 <ul className="space-y-2.5">
                   {[
                     "Indirect or incidental damages",
@@ -270,13 +270,13 @@ export default function TermsConditions() {
                     "Delays beyond our control"
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#5BBF3D] mt-2.5 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
                       <span>{item}</span>
                     </li>
                   ))}
                 </ul>
                 <p>
-                  Customers are advised to use supplements responsibly and follow product instructions carefully.
+                  Customers are advised to handle gold and diamond products with care, store them safely, and verify their certificates upon delivery.
                 </p>
               </div>
             </section>
@@ -284,7 +284,7 @@ export default function TermsConditions() {
             {/* Privacy */}
             <section id="privacy" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Lock className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -301,7 +301,7 @@ export default function TermsConditions() {
             {/* Modifications to Terms */}
             <section id="modifications" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <FileText className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -310,7 +310,7 @@ export default function TermsConditions() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  Protein and Nutrients reserves the right to update or modify these Terms & Conditions at any time without prior notice.
+                  Aura Fine Jewellery reserves the right to update or modify these Terms & Conditions at any time without prior notice.
                 </p>
                 <p>
                   Changes will become effective immediately upon publication on this page.
@@ -321,7 +321,7 @@ export default function TermsConditions() {
             {/* Governing Law */}
             <section id="governing-law" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Globe className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -341,7 +341,7 @@ export default function TermsConditions() {
             {/* Contact Us */}
             <section id="contact-us" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#5BBF3D]">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Mail className="h-6 w-6" />
                 </div>
                 <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
@@ -353,19 +353,19 @@ export default function TermsConditions() {
                   For questions regarding these Terms & Conditions, please contact:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a href="mailto:akkigupta2411@gmail.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
-                    <Mail className="h-5 w-5 text-[#5BBF3D]" />
+                  <a href="mailto:support@aurafinejewellery.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
+                    <Mail className="h-5 w-5 text-[#D4AF37]" />
                     <div>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Email Us</p>
-                      <p className="text-sm font-semibold text-black group-hover:text-[#5BBF3D] transition-colors">akkigupta2411@gmail.com</p>
+                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@aurafinejewellery.com</p>
                     </div>
                   </a>
                   
                   <a href="tel:+916200065378" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
-                    <Phone className="h-5 w-5 text-[#5BBF3D]" />
+                    <Phone className="h-5 w-5 text-[#D4AF37]" />
                     <div>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Call Us</p>
-                      <p className="text-sm font-semibold text-black group-hover:text-[#5BBF3D] transition-colors">+91 6200065378</p>
+                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">+91 6200065378</p>
                     </div>
                   </a>
                 </div>

@@ -58,18 +58,18 @@ const ReturnAndRefund = () => {
                             {[
                                 {
                                     icon: <Clock className="w-8 h-8 text-primary" />,
-                                    title: "30-Day Window",
-                                    desc: "You have 30 days from delivery to request a return."
+                                    title: "7-Day Window",
+                                    desc: "You have 7 days from delivery to request a return due to high-value goods."
                                 },
                                 {
                                     icon: <Truck className="w-8 h-8 text-primary" />,
-                                    title: "Free Return Shipping",
-                                    desc: "We provide a prepaid shipping label for all eligible returns."
+                                    title: "Fully-Insured Returns",
+                                    desc: "We arrange a secure, fully-insured reverse pick-up for eligible returns."
                                 },
                                 {
                                     icon: <ShieldCheck className="w-8 h-8 text-primary" />,
-                                    title: "Fast Refunds",
-                                    desc: "Refunds are processed within 5-7 business days of receipt."
+                                    title: "Purity & QC Checks",
+                                    desc: "Refunds are processed post security inspection in 5-7 business days."
                                 }
                             ].map((feature, idx) => (
                                 <motion.div
@@ -108,13 +108,13 @@ const ReturnAndRefund = () => {
                                         <h2 className="text-2xl font-display font-semibold">Eligibility for Returns</h2>
                                     </div>
                                     <div className="space-y-4 text-muted-foreground">
-                                        <p>To be eligible for a return, your item must meet the following criteria:</p>
+                                        <p>To be eligible for a return, your jewellery must meet the following criteria:</p>
                                         <ul className="space-y-3 list-none pl-1">
                                             {[
-                                                "Item must be unused and in the same condition that you received it.",
-                                                "It must be in the original packaging with all tags attached.",
-                                                "Receipt or proof of purchase is required.",
-                                                "Items purchased on final sale are not eligible for return."
+                                                "Item must be unworn, undamaged, and in the same pristine condition that you received it.",
+                                                "It must have all security tags and BIS hallmark certificates attached.",
+                                                "Original invoice and gemstone verification certificates (GIA/IGI) are required.",
+                                                "Items purchased on gold clearance sales are not eligible for return."
                                             ].map((item, i) => (
                                                 <li key={i} className="flex items-start gap-3">
                                                     <span className="w-1.5 h-1.5 rounded-full bg-primary mt-2.5 flex-shrink-0" />
@@ -137,10 +137,10 @@ const ReturnAndRefund = () => {
                                         <h2 className="text-2xl font-display font-semibold">Non-Returnable Items</h2>
                                     </div>
                                     <p className="text-muted-foreground mb-4">
-                                        Certain types of items cannot be returned for hygiene or safety reasons:
+                                        Certain items cannot be returned for security or customization reasons:
                                     </p>
                                     <div className="grid sm:grid-cols-2 gap-4">
-                                        {["Perishable goods (food, flowers)", "Intimate apparel & sanitary goods", "Gift cards", "Downloadable software products", "Personalized/Custom items"].map((item, i) => (
+                                        {["Customized/Engraved pieces", "Gold coins & gold bars", "Items returned without original tag/certificate", "Resized or damaged jewellery", "Digital E-gift cards"].map((item, i) => (
                                             <div key={i} className="flex items-center gap-2 text-sm text-muted-foreground bg-secondary/50 p-3 rounded-lg">
                                                 <XCircle className="w-4 h-4 text-muted-foreground/70" />
                                                 {item}
@@ -160,19 +160,19 @@ const ReturnAndRefund = () => {
                                         <AccordionItem value="item-1" className="bg-card border border-border/50 rounded-xl px-6">
                                             <AccordionTrigger className="text-lg font-medium hover:no-underline">How do I start a return?</AccordionTrigger>
                                             <AccordionContent className="text-muted-foreground pb-4">
-                                                Visit our Returns Center, enter your order number and email address to start. Follow the instructions and select the items you want to return. Once your request is approved, you will get a confirmation email with shipping guidelines.
+                                                Visit our Returns Center, enter your order number and email address to start. Follow the instructions and select the items you want to return. Please attach a parcel opening video for verification. Once approved, we will arrange a secure insured collection agent.
                                             </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-2" className="bg-card border border-border/50 rounded-xl px-6">
                                             <AccordionTrigger className="text-lg font-medium hover:no-underline">When will I get my refund?</AccordionTrigger>
                                             <AccordionContent className="text-muted-foreground pb-4">
-                                                Once your return is received and inspected, we will send you an email to notify you that we have received your returned item. We will also notify you of the approval or rejection of your refund. If approved, your refund will be processed, and a credit will automatically be applied to your credit card or original method of payment, within a certain amount of days.
+                                                Once your return is received, our quality control lab will inspect the precious metals and gemstones to verify weight and purity certificates. We will notify you of the approval or rejection of your refund. If approved, your refund will be processed to the original payment method within 5-7 business days.
                                             </AccordionContent>
                                         </AccordionItem>
                                         <AccordionItem value="item-3" className="bg-card border border-border/50 rounded-xl px-6">
                                             <AccordionTrigger className="text-lg font-medium hover:no-underline">Exchanges</AccordionTrigger>
                                             <AccordionContent className="text-muted-foreground pb-4">
-                                                We only replace items if they are defective or damaged. If you need to exchange it for the same item, send us an email at support@luxe.com.
+                                                We replace items if they are physically damaged in transit or have loose stones. If you need to exchange an item, please email us at support@aurafinejewellery.com.
                                             </AccordionContent>
                                         </AccordionItem>
                                     </Accordion>
@@ -207,7 +207,7 @@ const ReturnAndRefund = () => {
                                             <Mail className="w-5 h-5 text-primary mt-0.5" />
                                             <div>
                                                 <h4 className="font-medium text-sm">Email Us</h4>
-                                                <a href="mailto:support@luxe.com" className="text-xs text-muted-foreground mt-1 hover:text-primary transition-colors">support@luxe.com</a>
+                                                <a href="mailto:support@aurafinejewellery.com" className="text-xs text-muted-foreground mt-1 hover:text-primary transition-colors">support@aurafinejewellery.com</a>
                                             </div>
                                         </div>
                                     </div>
