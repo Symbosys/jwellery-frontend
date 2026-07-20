@@ -4,6 +4,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import slideImg1 from "../../assert/creative-Sat-Mar-14-2026-TE6n77KotmHx.webp";
+import slideImg2 from "../../assert/creative-Sat-Mar-14-2026-TE6n77KotmHx (1).webp";
+import slideImg3 from "../../assert/creative-Sat-Mar-14-2026-0ERc9tvzGXSA.webp";
 
 const slides = [
   {
@@ -11,8 +14,7 @@ const slides = [
     subtitle: "ELEGANT & TIMELESS",
     title: "THE ROYAL\nGOLD COLLECTION",
     price: "DESIGNS FROM ₹9,999",
-    image:
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=2070&auto=format&fit=crop",
+    image: slideImg1,
     cta: { text: "Shop Now", link: "/products" },
   },
   {
@@ -20,8 +22,7 @@ const slides = [
     subtitle: "SPARKLING ELEGANCE",
     title: "DIAMONDS THAT\nSPEAK FOR YOU",
     price: "UP TO 20% OFF ON MAKING CHARGES",
-    image:
-      "https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=2070&auto=format&fit=crop",
+    image: slideImg2,
     cta: { text: "Explore Collections", link: "/products" },
   },
   {
@@ -29,8 +30,7 @@ const slides = [
     subtitle: "NEW ARRIVALS",
     title: "MINIMALIST\nROSE GOLD",
     price: "LATEST EXCLUSIVE DESIGNS",
-    image:
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?q=80&w=2070&auto=format&fit=crop",
+    image: slideImg3,
     cta: { text: "Shop Now", link: "/products" },
   },
 ];
@@ -92,7 +92,7 @@ export default function HeroSlider() {
             {/* Background Image with Overlay */}
             <div className="absolute inset-0">
               <img
-                src={slides[current].image}
+                src={typeof slides[current].image === "string" ? slides[current].image : (slides[current].image as any).src}
                 alt={slides[current].title}
                 className="w-full h-full object-cover object-center opacity-80"
               />
