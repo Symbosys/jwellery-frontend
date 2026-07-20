@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import logo from "../../assert/logo.jpeg";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -106,7 +107,7 @@ export default function Header() {
               >
                 <div className="w-[50px] h-[50px] lg:w-[62px] lg:h-[62px] rounded-full overflow-hidden flex-shrink-0 relative border border-[#D4AF37]/20 shadow-sm bg-[#0C3225]">
                   <img
-                    src="/logo.jpeg"
+                    src={typeof logo === 'string' ? logo : logo.src}
                     alt="Aura Fine Jewellery Logo"
                     className="absolute w-full h-[150%] top-0 left-0 object-cover scale-[1.05]"
                     style={{ transform: "translateY(-16.67%)" }}
