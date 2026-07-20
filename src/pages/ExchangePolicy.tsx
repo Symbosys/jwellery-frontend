@@ -18,12 +18,12 @@ export default function ExchangePolicy() {
       <div className="bg-white min-h-screen pb-16">
         
         {/* Banner Section */}
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-24">
           <div className="relative w-full overflow-hidden rounded-2xl shadow-sm border border-gray-100">
             <img
-              src="/exchange-policy.png"
+              src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?q=80&w=1600&auto=format&fit=crop"
               alt="Exchange Policy"
-              className="w-full h-auto object-cover"
+              className="w-full h-[250px] sm:h-[320px] object-cover"
             />
           </div>
         </div>

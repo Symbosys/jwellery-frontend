@@ -2,10 +2,8 @@ import React from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import { 
   Users, 
-  UserCheck, 
   FileText, 
   Cookie, 
-  Lock, 
   Share2, 
   Scale, 
   Mail, 
@@ -18,12 +16,12 @@ export default function Privacy() {
       <div className="bg-white min-h-screen pb-16">
         
         {/* Banner Section */}
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-24">
           <div className="relative w-full overflow-hidden rounded-2xl shadow-sm border border-gray-100">
             <img
-              src="/privacy-policy.png"
+              src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=1600&auto=format&fit=crop"
               alt="Privacy Policy"
-              className="w-full h-auto object-cover"
+              className="w-full h-[250px] sm:h-[320px] object-cover"
             />
           </div>
         </div>
@@ -32,85 +30,84 @@ export default function Privacy() {
         <div className="max-w-7xl mx-auto px-4 lg:px-8 mt-12">
           <div className="max-w-4xl space-y-12 text-left">
             
-            {/* Who we are */}
-            <section id="who-we-are" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Users className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Who We Are
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>
-                  At Aura Fine Jewellery, we are passionate about crafting exquisite, certified gold, diamond, and solitaire jewellery that celebrate life's special moments. Our mission is to provide premium-quality ornaments that offer brilliance, purity, and timeless value.
-                </p>
-                <p>
-                  We believe that luxury lies in precision. That's why every piece of jewellery is meticulously designed, ethically sourced, and certified by leading standards to ensure absolute purity and craftsmanship.
-                </p>
-                <p>
-                  Whether you are looking for an engagement ring, festive bridal sets, or elegant daily wear, we are committed to providing premium service and designs you can cherish forever.
-                </p>
-              </div>
-            </section>
-
-            {/* Customer Information */}
-            <section id="customer-info" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <UserCheck className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Customer Information
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>
-                  When you place an order, create an account, subscribe to our newsletter, or contact us through our website, we may collect personal information such as your name, email address, phone number, billing address, and shipping details.
-                </p>
-                <div>
-                  <p className="font-semibold text-black mb-3">This information helps us:</p>
-                  <ul className="space-y-2.5">
-                    {[
-                      "Process and deliver orders securely",
-                      "Provide personalized customer support",
-                      "Improve your luxury shopping experience",
-                      "Send order updates and exclusive collection offers",
-                      "Maintain website security and fraud prevention"
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 pl-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <p className="font-medium text-black">
-                  We respect your privacy and never sell your personal information to third parties.
-                </p>
-              </div>
-            </section>
-
-            {/* Product & Media Content */}
-            <section id="media-content" className="scroll-mt-28 space-y-4">
+            {/* Overview */}
+            <section id="overview" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <FileText className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Product & Media Content
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Privacy Policy Overview
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  All images, product designs, logos, graphics, and content displayed on this website are the property of Aura Fine Jewellery and are used for informational and promotional purposes only.
+                  Your personal information is always kept confidential. The privacy policy is displayed on the website. The type of info collected from the customers and usage of this information is published here. We have a policy of not disclosing any information to third parties.
                 </p>
                 <p>
-                  We strive to provide accurate product images and descriptions, but actual precious metal finishes or stone appearances may vary slightly depending on manufacturing casting and screen color settings.
+                  Using our website means you have agreed to the terms and conditions of the website. It applies to the people who have not got any transactions or who have got registered to the site and had business.
                 </p>
                 <p className="font-medium text-black">
-                  Unauthorized reproduction, distribution, or misuse of website content is prohibited.
+                  Personal information is mainly used to locate or contact a person. Other information like name, address, phone number, fax, credit card information, financial profiles, identification number and e-mail address are also available with us and are always confidential.
+                </p>
+              </div>
+            </section>
+
+            {/* Information We Collect */}
+            <section id="info-collect" className="scroll-mt-28 space-y-4">
+              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
+                  <Users className="h-6 w-6" />
+                </div>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Personal Information That We Collect
+                </h2>
+              </div>
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
+                <p>
+                  Necessary information is collected for becoming a subscriber or member of our website. Our system collects the IP address of your computer automatically. But this detail does not give information about any particular person.
+                </p>
+                <p className="font-medium text-black">
+                  But Sakhio website doesn’t collect information about children.
+                </p>
+              </div>
+            </section>
+
+            {/* Uses of Information */}
+            <section id="uses-info" className="scroll-mt-28 space-y-4">
+              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
+                  <Scale className="h-6 w-6" />
+                </div>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Uses Of The Information Collected
+                </h2>
+              </div>
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
+                <p>
+                  All the personal information collected is kept confidential. The information may be used for:
+                </p>
+                <ul className="space-y-2.5">
+                  {[
+                    "Send news about the website.",
+                    "Calculate the number of visitors",
+                    "Monitor the website",
+                    "Know the geographical location of the users",
+                    "Contact to give information about the website.",
+                    "Give a better shopping experience online.",
+                    "Update about the recent offers on the website."
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 pl-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p>
+                  Some of the personal information is shared with the courier companies like addresses/contact details. We have to give some information to vendors. This personal information helps Sakhio to perform their duties and fulfil the order requirements. But private information cannot be accessed by unauthorised persons or organisations.
+                </p>
+                <p className="text-sm border-l-2 border-[#D4AF37]/30 pl-4 py-2 italic bg-[#D4AF37]/5 rounded-r-lg text-gray-500 font-light leading-relaxed">
+                  The Company will disclose your information, including, without limitation, your name, city, state, telephone number, email address, user ID history, quoting and listing history, and complaints, to law enforcement or other government officials if it is required to do so by law, regulation or other government authority or otherwise in cooperation with an investigation of governmental authority.
                 </p>
               </div>
             </section>
@@ -121,115 +118,36 @@ export default function Privacy() {
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Cookie className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
                   Cookies
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  Our website uses cookies and similar technologies to improve functionality, analyze website traffic, and personalize your browsing experience.
+                  Cookies are used to save your personal information on your computer. It helps to calculate the number of times you use our website. Cookies do not keep any personal data of the visitors.
                 </p>
-                <div>
-                  <p className="font-semibold text-black mb-3">Cookies help us:</p>
-                  <ul className="space-y-2.5">
-                    {[
-                      "Remember your design preferences",
-                      "Improve website performance",
-                      "Provide relevant product recommendations",
-                      "Enhance security and user experience"
-                    ].map((item, i) => (
-                      <li key={i} className="flex items-start gap-3 pl-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
                 <p>
-                  You can disable cookies through your browser settings at any time. However, some website features may not function properly if cookies are disabled.
+                  When the user browses <strong>sakhio.com</strong>, cookies are replaced according to the interests of the users. Here none of your particulars like e-mail address, telephone, name or postal address is collected. We give you a safe shopping experience.
                 </p>
               </div>
             </section>
 
-            {/* Payment Security */}
-            <section id="security" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Lock className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Payment Security
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>
-                  We use secure payment gateways and encrypted technologies to protect your payment and personal information during transactions. Your complete payment details are never stored directly on our servers.
-                </p>
-              </div>
-            </section>
-
-            {/* Third-Party Services */}
+            {/* Third-Party Disclosures & Links */}
             <section id="third-party" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Share2 className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Third-Party Services
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Third-Party Disclosures & Links
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  We may use trusted third-party services for:
+                  Sakhio gives some aggregate particulars like website statistics or demographics to sponsors, advertisers and other third parties. Third parties are not authorised to get any of your personal information.
                 </p>
-                <ul className="space-y-2.5">
-                  {[
-                    "Payment processing",
-                    "Fully-insured shipping and delivery",
-                    "Website analytics",
-                    "Marketing communication"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
                 <p>
-                  These service providers only access the information necessary to perform their services securely and responsibly.
-                </p>
-              </div>
-            </section>
-
-            {/* Your Rights */}
-            <section id="rights" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Scale className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Your Rights
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>
-                  You have the right to:
-                </p>
-                <ul className="space-y-2.5">
-                  {[
-                    "Access your personal information",
-                    "Request updates or corrections",
-                    "Request account or data deletion",
-                    "Unsubscribe from marketing emails at any time"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p>
-                  For privacy-related requests, please contact our support team.
+                  Sakhio has many links to other websites. But once you leave <strong>Sakhio</strong> website, our privacy policy ends.
                 </p>
               </div>
             </section>
@@ -240,20 +158,20 @@ export default function Privacy() {
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Mail className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
                   Contact Us
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-6 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-6 font-light text-left">
                 <p>
                   If you have any questions regarding this Privacy Policy or how your information is handled, please contact us:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a href="mailto:support@aurafinejewellery.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
+                  <a href="mailto:support@sakhio.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
                     <Mail className="h-5 w-5 text-[#D4AF37]" />
                     <div>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Email Us</p>
-                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@aurafinejewellery.com</p>
+                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@sakhio.com</p>
                     </div>
                   </a>
                   

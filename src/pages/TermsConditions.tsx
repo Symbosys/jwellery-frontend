@@ -2,15 +2,11 @@ import React from 'react';
 import MainLayout from '@/components/layout/MainLayout';
 import { 
   BookOpen, 
-  Globe, 
   ShoppingBag, 
-  CreditCard, 
-  Truck, 
-  RotateCcw, 
   Shield, 
-  Ban, 
-  Lock, 
   FileText, 
+  Tag, 
+  Sparkles, 
   Mail, 
   Phone
 } from 'lucide-react';
@@ -21,12 +17,12 @@ export default function TermsConditions() {
       <div className="bg-white min-h-screen pb-16">
         
         {/* Banner Section */}
-        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-6">
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pt-24">
           <div className="relative w-full overflow-hidden rounded-2xl shadow-sm border border-gray-100">
             <img
-              src="/terms-conditions.png"
+              src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?q=80&w=1600&auto=format&fit=crop"
               alt="Terms & Conditions"
-              className="w-full h-auto object-cover"
+              className="w-full h-[250px] sm:h-[320px] object-cover"
             />
           </div>
         </div>
@@ -41,323 +37,161 @@ export default function TermsConditions() {
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <BookOpen className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Overview
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Terms of Service Overview
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  Welcome to Aura Fine Jewellery. By accessing our website, placing an order, or using our services, you agree to comply with the following Terms & Conditions.
+                  Sakhio operates this website. Throughout the site, the terms <strong>"we"</strong>, <strong>"us"</strong> and <strong>"our"</strong> refer to Sakhio. Sakhio offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.
                 </p>
                 <p>
-                  These terms are designed to ensure a secure, fair, and transparent experience for all customers using our platform.
+                  By visiting our site and/ or purchasing something from us, you engage in our "Service" and agree to be bound by the following terms and conditions. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/ or contributors of content.
                 </p>
                 <p>
-                  If you do not agree with any part of these terms, please discontinue the use of our website and services.
+                  Please read these Terms of Service carefully before accessing or using our website. By accessing or using any part of the site, you agree to be bound by these Terms of Service. If you do not agree to all the terms and conditions of this agreement, then you may not access the website or use any services. If these Terms of Service are considered an offer, acceptance is expressly limited to these Terms of Service.
+                </p>
+                <p>
+                  Any new features or tools which are added to the current store shall also be subject to the Terms of Service. You can review the most current version of the Terms of Service at any time on this page. We reserve the right to update, change or replace any part of these Terms of Service by posting updates and/or changes to our website. It is your responsibility to check this page periodically for changes. Your continued use of or access to the website following the posting of any changes constitutes acceptance of those changes.
+                </p>
+                <p className="font-semibold text-black italic">
+                  We have hosted our store on Nushop.store.
+                </p>
+                <p className="p-4 bg-gray-50 rounded-xl border border-gray-100 text-[#D4AF37] italic font-medium">
+                  "Discover our exquisite collection of jewelry, crafted to add a touch of sophistication to your everyday look. From statement pieces to subtle accents, our jewelry is designed to make you shine."
                 </p>
               </div>
             </section>
 
-            {/* Website Use */}
-            <section id="website-use" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Globe className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Website Use
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>By using this website, you agree:</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "To use the website only for lawful purposes",
-                    "Not to misuse, disrupt, or attempt unauthorized access to the website or its vaults",
-                    "Not to copy, reproduce, or exploit website design blueprints and content without permission",
-                    "To provide accurate and complete identification when placing high-value orders"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p>
-                  Aura Fine Jewellery reserves the right to restrict or terminate access for users violating these terms.
-                </p>
-              </div>
-            </section>
-
-            {/* Products & Information */}
-            <section id="products-info" className="scroll-mt-28 space-y-4">
+            {/* Section 1: Online Store Terms */}
+            <section id="section-1" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <ShoppingBag className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Products & Information
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Section 1 – Online Store Terms
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  We strive to ensure that all product descriptions, images, pricing, and precious metal weight details displayed on our website are accurate and up to date.
+                  By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence and you have given us your consent to allow any of your minor dependents to use this site.
                 </p>
-                <p className="font-semibold text-black">However:</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "Jewellery finishes, dimensions, and visual scales may vary slightly from displayed high-definition images",
-                    "Metal weights, diamond carats, and making charge calculations may occasionally reflect typographical or pricing errors",
-                    "Gold rate calculations are subject to market changes and may change without notice"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
                 <p>
-                  Aura Fine Jewellery reserves the right to correct errors or update information at any time without prior notice.
+                  You may not use our products for any illegal or unauthorized purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws).
+                </p>
+                <p>
+                  You must not transmit any worms or viruses or any code of a destructive nature.
+                </p>
+                <p className="font-medium text-black">
+                  A breach or violation of any of the Terms will result in an immediate termination of your Services.
                 </p>
               </div>
             </section>
 
-            {/* Orders & Payments */}
-            <section id="orders-payments" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <CreditCard className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Orders & Payments
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p className="font-semibold text-black">By placing an order:</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "You confirm that all provided information is accurate",
-                    "You authorize payment through the selected payment method",
-                    "Orders are subject to product availability and verification"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="font-semibold text-black pt-2">We reserve the right to:</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "Cancel suspicious or fraudulent orders",
-                    "Refuse service in certain situations",
-                    "Limit purchase quantities if necessary"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
-
-            {/* Shipping & Delivery */}
-            <section id="shipping-delivery" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Truck className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Shipping & Delivery
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>
-                  Delivery timelines are estimated and may vary depending on location, courier operations, and transit insurance approvals.
-                </p>
-                <p className="font-semibold text-black">Aura Fine Jewellery is not responsible for delays caused by:</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "Secure courier disruptions",
-                    "Incorrect customer information or security check failures",
-                    "Natural events or unforeseen circumstances"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p>
-                  Customers are responsible for providing accurate shipping details.
-                </p>
-              </div>
-            </section>
-
-            {/* Returns & Refunds */}
-            <section id="returns-refunds" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <RotateCcw className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Returns & Refunds
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>
-                  Returns, replacements, and refunds are subject to our Return & Refund Policy.
-                </p>
-                <p>
-                  Certain products, including customized, engraved, or resized jewellery pieces, may not qualify for returns due to valuation, certification, and safety reasons.
-                </p>
-              </div>
-            </section>
-
-            {/* Intellectual Property */}
-            <section id="intellectual-property" className="scroll-mt-28 space-y-4">
+            {/* Section 2: General Conditions */}
+            <section id="section-2" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Shield className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Intellectual Property
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Section 2 – General Conditions
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p className="font-semibold text-black">All content on this website, including:</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "Logos and Brand Marks",
-                    "Product images and layouts",
-                    "Graphics",
-                    "Text",
-                    "Website design blueprints"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  is the property of Aura Fine Jewellery and protected under applicable intellectual property laws.
+                  We reserve the right to refuse service to anyone for any reason at any time.
                 </p>
                 <p>
-                  Unauthorized use or reproduction is prohibited.
+                  You agree not to duplicate, sell, copy, resell or exploit any portion of the Service, use of the Service, or access to the Service or any contact on the website through which the service is provided, without express written permission by us.
                 </p>
               </div>
             </section>
 
-            {/* Limitation of Liability */}
-            <section id="liability" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Ban className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Limitation of Liability
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p className="font-semibold text-black">Aura Fine Jewellery shall not be held liable for:</p>
-                <ul className="space-y-2.5">
-                  {[
-                    "Indirect or incidental damages",
-                    "Losses caused by misuse of products",
-                    "Website interruptions or technical issues",
-                    "Delays beyond our control"
-                  ].map((item, i) => (
-                    <li key={i} className="flex items-start gap-3 pl-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2.5 flex-shrink-0" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p>
-                  Customers are advised to handle gold and diamond products with care, store them safely, and verify their certificates upon delivery.
-                </p>
-              </div>
-            </section>
-
-            {/* Privacy */}
-            <section id="privacy" className="scroll-mt-28 space-y-4">
-              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Lock className="h-6 w-6" />
-                </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Privacy
-                </h2>
-              </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
-                <p>
-                  Your use of our website is also governed by our Privacy Policy, which explains how we collect, use, and protect customer information.
-                </p>
-              </div>
-            </section>
-
-            {/* Modifications to Terms */}
-            <section id="modifications" className="scroll-mt-28 space-y-4">
+            {/* Section 3: Accuracy, Completeness and Timeliness of Information */}
+            <section id="section-3" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <FileText className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Modifications to Terms
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Section 3 – Accuracy, Completeness and Timeliness of Information
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  Aura Fine Jewellery reserves the right to update or modify these Terms & Conditions at any time without prior notice.
-                </p>
-                <p>
-                  Changes will become effective immediately upon publication on this page.
+                  We are not responsible if information made available on this site is not accurate, complete or current. The material on this site is provided for general information only and should not be relied upon or used as the sole basis for making decisions without consulting primary, more accurate, more complete or more timely sources of information. Any reliance on the material on this site is at your own risk.
                 </p>
               </div>
             </section>
 
-            {/* Governing Law */}
-            <section id="governing-law" className="scroll-mt-28 space-y-4">
+            {/* Section 4: Modifications to the Service and Prices */}
+            <section id="section-4" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
-                  <Globe className="h-6 w-6" />
+                  <Tag className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
-                  Governing Law
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Section 4 – Modifications to the Service and Prices
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  These Terms & Conditions shall be governed and interpreted in accordance with the laws of India.
+                  Prices for our products are subject to change without notice.
                 </p>
                 <p>
-                  Any disputes arising from website use or purchases shall be subject to the jurisdiction of the appropriate courts.
+                  We reserve the right at any time to modify or discontinue the Service (or any part or content thereof) without notice at any time.
+                </p>
+                <p>
+                  We shall not be liable to you or to any third-party for any modification, price change, suspension or discontinuance of the Service.
+                </p>
+              </div>
+            </section>
+
+            {/* Section 5: Products or Services */}
+            <section id="section-5" className="scroll-mt-28 space-y-4">
+              <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
+                <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
+                  <Sparkles className="h-6 w-6" />
+                </div>
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
+                  Section 5 – Products or Services
+                </h2>
+              </div>
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-4 font-light text-left">
+                <p>
+                  Certain products or services may be available exclusively online through the website. These products or services may have limited quantities and are subject to return or exchange only according to our Return Policy.
+                </p>
+                <p>
+                  We have made every effort to display as accurately as possible the colors and images of our products that appear at the store. We cannot guarantee that your computer monitor's display of any color will be accurate.
+                </p>
+                <p>
+                  We do not warrant that the quality of any products, services, information, or other material purchased or obtained by you will meet your expectations, or that any errors in the Service will be corrected.
                 </p>
               </div>
             </section>
 
             {/* Contact Us */}
-            <section id="contact-us" className="scroll-mt-28 space-y-4">
+            <section id="contact" className="scroll-mt-28 space-y-4">
               <div className="flex items-center gap-3 border-b border-gray-100 pb-3">
                 <div className="p-2 bg-gray-50 rounded-lg text-[#D4AF37]">
                   <Mail className="h-6 w-6" />
                 </div>
-                <h2 className="font-display text-3xl font-bold text-black uppercase tracking-wide">
+                <h2 className="font-display text-2xl sm:text-3xl font-bold text-black uppercase tracking-wide">
                   Contact Us
                 </h2>
               </div>
-              <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-6 font-light text-left">
+              <div className="text-gray-600 text-base sm:text-lg leading-relaxed space-y-6 font-light text-left">
                 <p>
-                  For questions regarding these Terms & Conditions, please contact:
+                  If you have any questions regarding our Terms of Service or need further clarification, please contact our support team:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a href="mailto:support@aurafinejewellery.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
+                  <a href="mailto:support@sakhio.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
                     <Mail className="h-5 w-5 text-[#D4AF37]" />
                     <div>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Email Us</p>
-                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@aurafinejewellery.com</p>
+                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@sakhio.com</p>
                     </div>
                   </a>
                   
