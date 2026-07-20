@@ -79,7 +79,7 @@ const LoginSecurity = () => {
                                     <motion.form
                                         initial={{ opacity: 0, height: 0 }}
                                         animate={{ opacity: 1, height: 'auto' }}
-                                        className="space-y-4 max-w-md ml-14"
+                                        className="space-y-4 max-w-md ml-0 md:ml-14"
                                         onSubmit={handlePasswordUpdate}
                                     >
                                         <div className="space-y-2">
@@ -94,7 +94,7 @@ const LoginSecurity = () => {
                                             <Label htmlFor="confirm-password">Confirm New Password</Label>
                                             <Input id="confirm-password" type="password" />
                                         </div>
-                                        <div className="flex gap-3 pt-2">
+                                        <div className="flex flex-wrap gap-3 pt-2">
                                             <Button type="submit" className="btn-premium">Save Password</Button>
                                             <Button type="button" variant="ghost" onClick={() => setShowPasswordForm(false)}>Cancel</Button>
                                         </div>
@@ -110,7 +110,7 @@ const LoginSecurity = () => {
                             transition={{ delay: 0.2 }}
                             className="bg-card rounded-xl border border-border/50 shadow-sm p-6 md:p-8"
                         >
-                            <div className="flex items-start justify-between">
+                            <div className="flex flex-col sm:flex-row items-start justify-between gap-4 w-full">
                                 <div className="flex gap-4">
                                     <div className="p-3 bg-primary/10 rounded-lg h-fit">
                                         <Smartphone className="w-6 h-6 text-primary" />
@@ -128,7 +128,9 @@ const LoginSecurity = () => {
                                         )}
                                     </div>
                                 </div>
-                                <Switch checked={is2FAEnabled} onCheckedChange={toggle2FA} />
+                                <div className="flex-shrink-0 sm:pt-1">
+                                    <Switch checked={is2FAEnabled} onCheckedChange={toggle2FA} />
+                                </div>
                             </div>
                         </motion.div>
 
@@ -152,7 +154,7 @@ const LoginSecurity = () => {
                                     { device: 'iPhone 13', location: 'New York, USA', time: '2 hours ago', icon: '📱' },
                                     { device: 'Chrome on Windows', location: 'New Jersey, USA', time: 'Yesterday', icon: '🖥️' },
                                 ].map((login, i) => (
-                                    <div key={i} className="flex items-center justify-between py-3 border-b border-border/40 last:border-0">
+                                    <div key={i} className="flex flex-col sm:flex-row sm:items-center justify-between py-3 border-b border-border/40 last:border-0 gap-2 sm:gap-4">
                                         <div className="flex items-center gap-4">
                                             <span className="text-2xl">{login.icon}</span>
                                             <div>
@@ -160,11 +162,13 @@ const LoginSecurity = () => {
                                                 <p className="text-sm text-muted-foreground">{login.location} • {login.time}</p>
                                             </div>
                                         </div>
-                                        {i === 0 ? (
-                                            <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">Current</span>
-                                        ) : (
-                                            <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">Log out</Button>
-                                        )}
+                                        <div className="flex-shrink-0">
+                                            {i === 0 ? (
+                                                <span className="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">Current</span>
+                                            ) : (
+                                                <Button variant="ghost" size="sm" className="text-muted-foreground hover:text-destructive">Log out</Button>
+                                            )}
+                                        </div>
                                     </div>
                                 ))}
                             </div>

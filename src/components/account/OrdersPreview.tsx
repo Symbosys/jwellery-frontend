@@ -6,34 +6,34 @@ import { cn } from '@/lib/utils';
 
 const mockOrders = [
   {
-    id: 'ORD-2024-001',
-    date: 'Jan 28, 2024',
+    id: 'ORD-2026-001',
+    date: 'July 18, 2026',
     status: 'Delivered',
     statusColor: 'success',
-    total: 1245,
+    total: 124500,
     items: [
-      { name: 'Premium Leather Jacket', image: '/placeholder.svg', qty: 1 },
-      { name: 'Slim Fit Chinos', image: '/placeholder.svg', qty: 2 },
+      { name: 'Solitaire Diamond Engagement Ring (18K Gold)', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=150&auto=format&fit=crop&q=60', qty: 1 },
+      { name: 'Classic 22K Gold Chain Necklace', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=150&auto=format&fit=crop&q=60', qty: 1 },
     ],
   },
   {
-    id: 'ORD-2024-002',
-    date: 'Jan 25, 2024',
+    id: 'ORD-2026-002',
+    date: 'July 15, 2026',
     status: 'In Transit',
     statusColor: 'primary',
-    total: 895,
+    total: 89500,
     items: [
-      { name: 'Classic Oxford Shirt', image: '/placeholder.svg', qty: 1 },
+      { name: 'Royal Emerald Drop Earrings', image: 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?w=150&auto=format&fit=crop&q=60', qty: 1 },
     ],
   },
   {
-    id: 'ORD-2024-003',
-    date: 'Jan 20, 2024',
+    id: 'ORD-2026-003',
+    date: 'July 10, 2026',
     status: 'Processing',
     statusColor: 'muted',
-    total: 645,
+    total: 64500,
     items: [
-      { name: 'Canvas Sneakers', image: '/placeholder.svg', qty: 1 },
+      { name: 'Gold Kada Bracelet (22K Gold)', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=150&auto=format&fit=crop&q=60', qty: 1 },
     ],
   },
 ];
@@ -56,8 +56,8 @@ export default function OrdersPreview() {
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-            <Package className="h-5 w-5 text-primary" />
+          <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
+            <Package className="h-5 w-5 text-[#D4AF37]" />
           </div>
           <div>
             <h3 className="font-semibold text-foreground">Recent Orders</h3>
@@ -66,7 +66,7 @@ export default function OrdersPreview() {
         </div>
         <Link 
           to="/account/orders"
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+          className="inline-flex items-center gap-1 text-sm font-medium text-[#D4AF37] hover:text-[#B8933D] transition-colors"
         >
           View All
           <ChevronRight className="h-4 w-4" />
@@ -121,7 +121,7 @@ export default function OrdersPreview() {
                           </p>
                         )}
                       </div>
-                      <p className="font-semibold text-foreground">${order.total}</p>
+                      <p className="font-semibold text-foreground">₹{order.total.toLocaleString('en-IN')}</p>
                     </div>
                     
                     <div className="flex items-center justify-between mt-2">
@@ -129,7 +129,7 @@ export default function OrdersPreview() {
                         <span className={cn(
                           "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium",
                           order.statusColor === 'success' && "bg-success/10 text-success",
-                          order.statusColor === 'primary' && "bg-primary/10 text-primary",
+                          order.statusColor === 'primary' && "bg-[#D4AF37]/10 text-[#D4AF37]",
                           order.statusColor === 'muted' && "bg-muted text-muted-foreground"
                         )}>
                           <StatusIcon className="h-3 w-3" />
@@ -146,9 +146,8 @@ export default function OrdersPreview() {
         })}
       </div>
       
-      {/* Footer CTA */}
       <div className="p-4 bg-secondary/20 border-t border-border">
-        <Button variant="outline" className="w-full" asChild>
+        <Button variant="outline" className="w-full hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-200" asChild>
           <Link to="/account/orders">
             <Package className="h-4 w-4 mr-2" />
             View Order History

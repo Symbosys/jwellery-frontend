@@ -33,23 +33,23 @@ export default function AccountCard({
         to={href}
         className={cn(
           "group flex items-center gap-4 p-4 rounded-xl border transition-all duration-200",
-          "hover:shadow-md hover:border-primary/20",
+          "hover:shadow-md hover:border-[#D4AF37]/20",
           variant === 'default' && "bg-card border-border",
-          variant === 'highlight' && "bg-primary/5 border-primary/10",
+          variant === 'highlight' && "bg-[#D4AF37]/5 border-[#D4AF37]/10",
           className
         )}
       >
         <div
           className={cn(
             "flex-shrink-0 w-11 h-11 rounded-xl flex items-center justify-center transition-colors",
-            variant === 'default' && "bg-secondary group-hover:bg-primary/10",
-            variant === 'highlight' && "bg-primary/10 group-hover:bg-primary/20"
+            variant === 'default' && "bg-secondary group-hover:bg-[#D4AF37]/10",
+            variant === 'highlight' && "bg-[#D4AF37]/10 group-hover:bg-[#D4AF37]/20"
           )}
         >
           <Icon className={cn(
             "h-5 w-5",
-            variant === 'default' && "text-muted-foreground group-hover:text-primary",
-            variant === 'highlight' && "text-primary"
+            variant === 'default' && "text-muted-foreground group-hover:text-[#D4AF37]",
+            variant === 'highlight' && "text-[#D4AF37]"
           )} />
         </div>
         
@@ -67,7 +67,7 @@ export default function AccountCard({
           )}
         </div>
         
-        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+        <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-[#D4AF37] group-hover:translate-x-0.5 transition-all" />
       </Link>
     </motion.div>
   );

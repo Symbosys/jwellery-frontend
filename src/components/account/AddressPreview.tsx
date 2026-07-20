@@ -10,9 +10,9 @@ const mockAddresses = [
     type: 'home',
     label: 'Home',
     name: 'John Doe',
-    address: '123 Main Street, Apt 4B',
-    city: 'New York, NY 10001',
-    phone: '+1 (555) 123-4567',
+    address: 'Flat no - 105, Rash Bihari Apartment, Nibaranpur, Doranda',
+    city: 'Ranchi, Jharkhand - 834002',
+    phone: '+91 94311 04323',
     isDefault: true,
   },
   {
@@ -20,9 +20,9 @@ const mockAddresses = [
     type: 'work',
     label: 'Work',
     name: 'John Doe',
-    address: '456 Business Avenue, Floor 12',
-    city: 'New York, NY 10002',
-    phone: '+1 (555) 987-6543',
+    address: 'House no - 45, Circular Road, Lalpur',
+    city: 'Ranchi, Jharkhand - 834001',
+    phone: '+91 62000 65378',
     isDefault: false,
   },
 ];
@@ -43,8 +43,8 @@ export default function AddressPreview() {
       {/* Header */}
       <div className="flex items-center justify-between px-5 py-4 border-b border-border">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-            <MapPin className="h-5 w-5 text-accent" />
+          <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/10 flex items-center justify-center">
+            <MapPin className="h-5 w-5 text-[#D4AF37]" />
           </div>
           <div>
             <h3 className="font-semibold text-foreground">Saved Addresses</h3>
@@ -53,7 +53,7 @@ export default function AddressPreview() {
         </div>
         <Link 
           to="/account/addresses"
-          className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
+          className="inline-flex items-center gap-1 text-sm font-medium text-[#D4AF37] hover:text-[#B8933D] transition-colors"
         >
           Manage
           <ChevronRight className="h-4 w-4" />
@@ -74,13 +74,13 @@ export default function AddressPreview() {
               className={cn(
                 "relative p-4 rounded-xl border-2 transition-all cursor-pointer hover:shadow-sm",
                 address.isDefault 
-                  ? "border-primary/30 bg-primary/5" 
-                  : "border-border hover:border-primary/20"
+                  ? "border-[#D4AF37]/30 bg-[#D4AF37]/5" 
+                  : "border-border hover:border-[#D4AF37]/20"
               )}
             >
               {address.isDefault && (
                 <div className="absolute top-3 right-3">
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-primary text-primary-foreground">
+                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#D4AF37] text-white">
                     <CheckCircle2 className="h-3 w-3" />
                     Default
                   </span>
@@ -90,11 +90,11 @@ export default function AddressPreview() {
               <div className="flex gap-3">
                 <div className={cn(
                   "flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center",
-                  address.isDefault ? "bg-primary/10" : "bg-secondary"
+                  address.isDefault ? "bg-[#D4AF37]/10" : "bg-secondary"
                 )}>
                   <TypeIcon className={cn(
                     "h-5 w-5",
-                    address.isDefault ? "text-primary" : "text-muted-foreground"
+                    address.isDefault ? "text-[#D4AF37]" : "text-muted-foreground"
                   )} />
                 </div>
                 
@@ -115,7 +115,7 @@ export default function AddressPreview() {
         {/* Add New Address */}
         <Button 
           variant="outline" 
-          className="w-full border-dashed hover:border-primary hover:bg-primary/5"
+          className="w-full border-dashed hover:border-[#D4AF37] hover:bg-[#D4AF37]/5"
           asChild
         >
           <Link to="/account/addresses/new">

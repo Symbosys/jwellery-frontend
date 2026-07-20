@@ -32,7 +32,7 @@ export default function AccountHeader({ onLogout, onEditProfile, user }: Account
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/10 via-card to-accent/5 border border-border"
+      className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#D4AF37]/10 via-card to-[#C5A880]/5 border border-border"
     >
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
@@ -47,12 +47,12 @@ export default function AccountHeader({ onLogout, onEditProfile, user }: Account
           {/* Avatar Section */}
           <div className="flex items-center gap-4 sm:gap-6">
             <div className="relative">
-              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg">
-                <User className="h-10 w-10 sm:h-12 sm:w-12 text-primary-foreground" />
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#C5A880] flex items-center justify-center shadow-lg">
+                <User className="h-10 w-10 sm:h-12 sm:w-12 text-white" />
               </div>
               <button 
                 onClick={onEditProfile}
-                className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-card border-2 border-background flex items-center justify-center shadow-md hover:bg-secondary transition-colors"
+                className="absolute -bottom-1 -right-1 w-8 h-8 rounded-full bg-card border-2 border-background flex items-center justify-center shadow-md hover:bg-secondary hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-200"
               >
                 <Edit2 className="h-3.5 w-3.5 text-muted-foreground" />
               </button>
@@ -73,9 +73,9 @@ export default function AccountHeader({ onLogout, onEditProfile, user }: Account
             
             {/* Membership Badge */}
             <div className="flex items-center gap-3 flex-wrap">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-primary/20 to-accent/20 border border-primary/20">
-                <Crown className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium text-primary">Premium Member</span>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#D4AF37]/20 to-[#C5A880]/20 border border-[#D4AF37]/20">
+                <Crown className="h-4 w-4 text-[#D4AF37]" />
+                <span className="text-sm font-medium text-[#D4AF37]">Premium Member</span>
               </div>
               <span className="text-sm text-muted-foreground">{memberSince}</span>
             </div>
@@ -87,7 +87,7 @@ export default function AccountHeader({ onLogout, onEditProfile, user }: Account
               variant="outline" 
               size="sm" 
               onClick={onEditProfile}
-              className="flex-1 sm:flex-none"
+              className="flex-1 sm:flex-none hover:border-[#D4AF37] hover:text-[#D4AF37] transition-all duration-200"
             >
               <Settings className="h-4 w-4 mr-2" />
               Settings

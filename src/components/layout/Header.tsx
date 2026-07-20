@@ -104,11 +104,14 @@ export default function Header() {
                 to="/"
                 className="flex items-center gap-2 group flex-shrink-0"
               >
-                <img
-                  src="/logo.jpg"
-                  alt="Aura Fine Jewellery Logo"
-                  className="h-[50px] lg:h-[62px] w-auto object-contain"
-                />
+                <div className="w-[50px] h-[50px] lg:w-[62px] lg:h-[62px] rounded-full overflow-hidden flex-shrink-0 relative border border-[#D4AF37]/20 shadow-sm bg-[#0C3225]">
+                  <img
+                    src="/logo.jpeg"
+                    alt="Aura Fine Jewellery Logo"
+                    className="absolute w-full h-[150%] top-0 left-0 object-cover scale-[1.05]"
+                    style={{ transform: "translateY(-16.67%)" }}
+                  />
+                </div>
               </Link>
             </div>
 
@@ -223,7 +226,7 @@ export default function Header() {
               {/* Search Bar - Inline style exactly like image */}
               <form
                 onSubmit={handleSearchSubmit}
-                className="hidden md:flex items-center bg-transparent border-0 py-1 max-w-[180px] xl:max-w-[240px]"
+                className="hidden lg:flex items-center bg-transparent border-0 py-1 max-w-[180px] xl:max-w-[240px]"
               >
                 <input
                   type="text"
@@ -241,7 +244,7 @@ export default function Header() {
               </form>
 
               {/* Divider | */}
-              <div className="hidden md:block h-6 w-px bg-gray-200 mx-1.5" />
+              <div className="hidden lg:block h-6 w-px bg-gray-200 mx-1.5" />
 
               {/* Account profile */}
               <Link

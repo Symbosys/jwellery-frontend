@@ -10,7 +10,10 @@ import {
   ArrowLeft,
   Home,
 } from "lucide-react";
-import { useRequestOtpMutation, useVerifyOtpMutation } from "@/api/hooks/auth.hooks";
+import {
+  useRequestOtpMutation,
+  useVerifyOtpMutation,
+} from "@/api/hooks/auth.hooks";
 import { useNavigate, Link } from "react-router-dom";
 
 export default function Login() {
@@ -68,7 +71,9 @@ export default function Login() {
       setIsOtpOpen(true);
     } catch (err: any) {
       console.error("OTP send error:", err);
-      setError(err.response?.data?.message || err.message || "Failed to send OTP");
+      setError(
+        err.response?.data?.message || err.message || "Failed to send OTP",
+      );
     } finally {
       setLoading(false);
     }
@@ -89,7 +94,7 @@ export default function Login() {
       });
 
       console.log("Login success:", data);
-      
+
       if (data.token) {
         localStorage.setItem("user_token", data.token);
         localStorage.setItem("token", data.token);
@@ -109,7 +114,6 @@ export default function Login() {
 
   return (
     <div className="min-h-screen w-full flex bg-[#FAF9F6] text-black relative overflow-hidden font-sans">
-      
       {/* LEFT COLUMN: Premium Jewellery Editorial Imagery (Hidden on Mobile) */}
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden h-screen select-none">
         <img
@@ -118,19 +122,22 @@ export default function Login() {
           className="w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
-        
+
         {/* Editorial Text Overlay */}
         <div className="absolute bottom-16 left-16 right-16 text-white space-y-6">
           <div className="flex items-center gap-2 text-[#D4AF37]">
             <Sparkles className="h-5 w-5" />
-            <span className="text-xs uppercase font-extrabold tracking-[0.25em]">Handcrafted Brilliance</span>
+            <span className="text-xs uppercase font-extrabold tracking-[0.25em]">
+              Handcrafted Brilliance
+            </span>
           </div>
           <h2 className="text-4xl xl:text-5xl font-display font-light leading-tight tracking-wide uppercase">
             Aura Fine <br />
             <span className="font-semibold text-[#D4AF37]">Jewellery</span>
           </h2>
           <p className="text-gray-300 font-light text-base xl:text-lg max-w-md leading-relaxed">
-            Step into our digital vault to manage your orders, check your gold harvesting schemes, and explore curated, certified diamonds.
+            Step into our digital vault to manage your orders, check your gold
+            harvesting schemes, and explore curated, certified diamonds.
           </p>
           <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400 font-semibold tracking-wider uppercase">
             <span>© {new Date().getFullYear()} Aura Jewellery</span>
@@ -141,7 +148,6 @@ export default function Login() {
 
       {/* RIGHT COLUMN: Minimalist Premium Login Form */}
       <div className="w-full lg:w-1/2 flex flex-col justify-between px-6 sm:px-12 py-8 relative h-screen">
-        
         {/* Navigation Header */}
         <div className="flex items-center justify-between">
           <Link
@@ -161,17 +167,18 @@ export default function Login() {
 
         {/* Centered Login Card */}
         <div className="my-auto max-w-md w-full mx-auto space-y-8">
-          
           {/* Header Description */}
           <div className="text-left space-y-3">
             <span className="text-[10px] uppercase font-black tracking-widest text-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1.5 rounded-full inline-block">
               Secure Digital Portal
             </span>
             <h1 className="text-3xl sm:text-4xl font-display font-bold text-black uppercase tracking-wide leading-tight">
-              Welcome <span className="text-gray-400 italic font-bold">Back</span>
+              Welcome{" "}
+              <span className="text-gray-400 italic font-bold">Back</span>
             </h1>
             <p className="text-gray-500 text-sm sm:text-base font-light">
-              Enter your mobile number to securely sign in or register with OTP verification.
+              Enter your mobile number to securely sign in or register with OTP
+              verification.
             </p>
           </div>
 
@@ -183,15 +190,20 @@ export default function Login() {
                   Mobile Number
                 </label>
                 <div className="relative">
-                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
-                    <span className="text-sm font-extrabold text-[#D4AF37] tracking-wider">+91</span>
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 flex items-center gap-2 select-none pointer-events-none">
+                    <Phone className="h-4 w-4 text-[#D4AF37]" />
+                    <span className="text-sm font-extrabold text-[#D4AF37] tracking-wider">
+                      +91
+                    </span>
+                    <span className="h-4 w-px bg-gray-200" />
                   </div>
                   <input
                     type="text"
                     value={phoneNumber}
                     onChange={handlePhoneChange}
-                    placeholder="99999 99999"
-                    className="w-full bg-[#FAF9F6] border border-gray-100 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/10 rounded-xl py-4 pl-16 pr-4 outline-none transition-all placeholder:text-gray-300 font-bold text-lg text-black"
+                    placeholder=""
+                    style={{ paddingLeft: "96px" }}
+                    className="w-full bg-[#FAF9F6] border border-gray-100 focus:border-[#D4AF37] focus:ring-4 focus:ring-[#D4AF37]/10 rounded-xl py-4 pr-4 outline-none transition-all placeholder:text-gray-300 font-bold text-lg text-black"
                   />
                 </div>
               </div>
@@ -206,13 +218,11 @@ export default function Login() {
               <button
                 type="submit"
                 disabled={phoneNumber.length < 10 || loading}
-                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#C5A880] text-white py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-md shadow-[#D4AF37]/20 hover:shadow-lg hover:shadow-[#D4AF37]/30 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+                className="w-full bg-gradient-to-r from-[#D4AF37] to-[#C5A880] text-black py-4 rounded-xl font-bold uppercase tracking-widest text-xs shadow-md shadow-[#D4AF37]/20 hover:shadow-lg hover:shadow-[#D4AF37]/30 active:scale-[0.98] transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
               >
                 {loading ? (
                   <>
-                    <motion.div
-                      className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
-                    />
+                    <motion.div className="h-4 w-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
                     Sending Code...
                   </>
                 ) : (
@@ -230,13 +240,20 @@ export default function Login() {
         <div className="text-center space-y-4">
           <p className="text-xs text-gray-400 font-light max-w-sm mx-auto leading-relaxed">
             By proceeding, you agree to Aura Fine Jewellery's{" "}
-            <Link to="/terms-conditions" className="text-black font-semibold underline hover:text-[#B8933D] transition-colors">
+            <Link
+              to="/terms-conditions"
+              className="text-black font-semibold underline hover:text-[#B8933D] transition-colors"
+            >
               Terms & Conditions
             </Link>{" "}
             and{" "}
-            <Link to="/privacy" className="text-black font-semibold underline hover:text-[#B8933D] transition-colors">
+            <Link
+              to="/privacy"
+              className="text-black font-semibold underline hover:text-[#B8933D] transition-colors"
+            >
               Privacy Policy
-            </Link>.
+            </Link>
+            .
           </p>
         </div>
       </div>
@@ -279,9 +296,11 @@ export default function Login() {
                   </h2>
                   <p className="text-gray-500 mt-2 text-sm font-light leading-relaxed">
                     We've dispatched a secure 4-digit code to <br />
-                    <span className="font-extrabold text-black tracking-wider">+91 {phoneNumber}</span>
+                    <span className="font-extrabold text-black tracking-wider">
+                      +91 {phoneNumber}
+                    </span>
                   </p>
-                  
+
                   {successMessage && (
                     <div className="mt-4 text-xs font-semibold text-[#D4AF37] bg-[#D4AF37]/10 py-2 px-4.5 rounded-lg border border-[#D4AF37]/20 inline-block">
                       {successMessage}
@@ -321,9 +340,7 @@ export default function Login() {
                 >
                   {loading ? (
                     <>
-                      <motion.div
-                        className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin"
-                      />
+                      <motion.div className="h-4 w-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                       Verifying...
                     </>
                   ) : (
