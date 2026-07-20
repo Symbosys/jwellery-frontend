@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://vercel.com/anita12/jwellery-backend";
+const API_BASE_URL = "https://jwellery-backend.vercel.app/api";
+
 // const API_BASE_URL = "http://localhost:4000/api";
 
 export const apiClient = axios.create({
