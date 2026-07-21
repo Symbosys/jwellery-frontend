@@ -40,8 +40,9 @@ export interface DBOrder {
   note: string | null;
   placedAt: string;
   shippedAt: string | null;
-  cashfreeOrderId?: string | null;
-  cashfreePaymentId?: string | null;
+  razorpayOrderId?: string | null;
+  razorpayPaymentId?: string | null;
+  razorpaySignature?: string | null;
   deliveredAt: string | null;
   cancelledAt: string | null;
   createdAt: string;
@@ -100,14 +101,6 @@ export interface CreateOrderResponse {
     currency: string;
     key?: string;
   };
-  cashfreeOrder?: {
-    paymentSessionId: string;
-    cfOrderId: string;
-    orderId: string;
-    orderAmount: number;
-    orderCurrency: string;
-    sandbox: boolean;
-  };
 }
 
 export interface VerifyPaymentInput {
@@ -115,7 +108,6 @@ export interface VerifyPaymentInput {
   razorpayOrderId?: string;
   razorpayPaymentId?: string;
   razorpaySignature?: string;
-  cashfreeOrderId?: string;
 }
 
 export const useCreateOrderMutation = () => {

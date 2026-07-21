@@ -67,7 +67,7 @@ export default function OrderDetails(): JSX.Element {
       payment: {
         method: dbOrder.paymentMethod || "COD",
         status: dbOrder.paymentStatus,
-        transactionId: dbOrder.cashfreeOrderId || ("TXN_" + dbOrder.orderNumber),
+        transactionId: dbOrder.razorpayPaymentId || dbOrder.razorpayOrderId || ("TXN_" + dbOrder.orderNumber),
       },
       items: dbOrder.items.map((item: any) => ({
         id: item.productId,

@@ -10,14 +10,14 @@ import { useCreateOrderMutation, useVerifyPaymentMutation } from '@/api/hooks/or
 import { useAddressesQuery } from '@/api/hooks/address.hooks';
 import { toast } from 'sonner';
 
-const loadCashfreeScript = () => {
+const loadRazorpayScript = () => {
   return new Promise((resolve) => {
-    if ((window as any).Cashfree) {
+    if ((window as any).Razorpay) {
       resolve(true);
       return;
     }
     const script = document.createElement("script");
-    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
+    script.src = "https://checkout.razorpay.com/v1/checkout.js";
     script.onload = () => resolve(true);
     script.onerror = () => resolve(false);
     document.body.appendChild(script);
@@ -51,7 +51,7 @@ export default function CheckoutPage() {
   }, [addresses, selectedAddressId]);
 
   const [formData, setFormData] = useState({
-    paymentMethod: 'Cashfree',
+    paymentMethod: 'Razorpay',
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +63,7 @@ export default function CheckoutPage() {
   const total = subtotal + shipping + tax;
 
   const handleComplete = () => {
-    const isCashfree = formData.paymentMethod === 'Cashfree';
+    const isRazorpay = formData.paymentMethod === 'Razorpay';
     const selectedAddr = addresses?.find(a => a.id === selectedAddressId);
     
     if (!selectedAddr) {
@@ -79,30 +79,66 @@ export default function CheckoutPage() {
         shippingCity: selectedAddr.city,
         shippingState: selectedAddr.state,
         shippingPincode: selectedAddr.pincode,
-        paymentMethod: isCashfree ? 'CASHFREE' : 'COD',
+        paymentMethod: isRazorpay ? 'RAZORPAY' : 'COD',
         addressId: selectedAddr.id,
       },
       {
         onSuccess: async (data) => {
-          if (isCashfree && data.cashfreeOrder) {
-            const scriptLoaded = await loadCashfreeScript();
+          if (isRazorpay && data.razorpayOrder) {
+            const scriptLoaded = await loadRazorpayScript();
             if (!scriptLoaded) {
-              toast.error("Failed to load Cashfree payment gateway. Please try again.");
+              toast.error("Failed to load Razorpay payment gateway. Please try again.");
               return;
             }
 
             try {
-              const cashfree = (window as any).Cashfree({
-                mode: data.cashfreeOrder.sandbox ? "sandbox" : "production"
-              });
+              const options = {
+                key: data.razorpayOrder.key || "rzp_test_SslrfvBob24OgP",
+                amount: data.razorpayOrder.amount,
+                currency: data.razorpayOrder.currency,
+                name: "Sakhio Jewelry",
+                description: "Purchase transaction",
+                order_id: data.razorpayOrder.id,
+                prefill: {
+                  name: selectedAddr.name,
+                  contact: selectedAddr.mobile || ""
+                },
+                handler: async (response: any) => {
+                  verifyPaymentMutation.mutate(
+                    {
+                      orderId: data.order.id,
+                      razorpayOrderId: response.razorpay_order_id,
+                      razorpayPaymentId: response.razorpay_payment_id,
+                      razorpaySignature: response.razorpay_signature
+                    },
+                    {
+                      onSuccess: () => {
+                        setOrderNumber(data.order.orderNumber);
+                        setIsComplete(true);
+                        clearCart();
+                        toast.success("Payment verified and order placed successfully!");
+                      },
+                      onError: (err: any) => {
+                        toast.error(err.message || "Payment verification failed");
+                      }
+                    }
+                  );
+                },
+                modal: {
+                  ondismiss: () => {
+                    toast.warning("Payment cancelled by user.");
+                  }
+                },
+                theme: {
+                  color: "#8A1B28"
+                }
+              };
 
-              cashfree.checkout({
-                paymentSessionId: data.cashfreeOrder.paymentSessionId,
-                returnUrl: `${window.location.origin}/order/${data.order.id}`
-              });
+              const rzp = new (window as any).Razorpay(options);
+              rzp.open();
             } catch (err: any) {
-              console.error("Cashfree Checkout error:", err);
-              toast.error("Could not load Cashfree checkout page. Please try again.");
+              console.error("Razorpay Checkout error:", err);
+              toast.error("Could not load Razorpay checkout window.");
             }
           } else {
             setOrderNumber(data.order.orderNumber);
@@ -315,8 +351,8 @@ export default function CheckoutPage() {
                   <h2 className="font-display text-xl mb-6">Payment Method</h2>
 
                   <div className="space-y-4">
-                    <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'Cashfree' ? "border-foreground" : "border-border hover:border-foreground/50")}>
-                      <input type="radio" name="paymentMethod" value="Cashfree" checked={formData.paymentMethod === 'Cashfree'} onChange={handleInputChange} className="w-4 h-4" />
+                    <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'Razorpay' ? "border-foreground" : "border-border hover:border-foreground/50")}>
+                      <input type="radio" name="paymentMethod" value="Razorpay" checked={formData.paymentMethod === 'Razorpay'} onChange={handleInputChange} className="w-4 h-4" />
                       <CreditCard className="h-5 w-5" />
                       <span>Pay Online (UPI, Cards, Netbanking)</span>
                     </label>
