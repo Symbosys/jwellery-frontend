@@ -101,16 +101,31 @@ export default function ProductDetail() {
         ).map(processImageUrl),
         category: dbProduct.category?.name || "Uncategorized",
         subcategory: dbProduct.subCategory?.name || "",
-        brand: dbProduct.brand || "P&N",
+        brandName: dbProduct.brand?.name || "Sakhio",
         rating: dbProduct.rating || 5,
         reviews: dbProduct.numReviews || 0,
         sizes: Array.isArray(dbProduct.sizes) ? dbProduct.sizes : [],
         colors: Array.isArray(dbProduct.colors) ? dbProduct.colors : [],
         tags: [],
         inStock: dbProduct.quantity > 0,
-        netWeight: undefined,
+        netWeight: dbProduct.weight ? `${dbProduct.weight}${dbProduct.weightUnit ? " " + dbProduct.weightUnit : ""}` : undefined,
+        countryOfOrigin: dbProduct.countryOfOrigin || "India",
+        idealFor: dbProduct.idealFor || "",
+        material: dbProduct.material || "",
+        packOf: dbProduct.packOf ?? 1,
+        productType: dbProduct.productType || "",
       }
-    : mockProduct;
+    : mockProduct
+      ? {
+          ...mockProduct,
+          brandName: (mockProduct as any).brand || "Sakhio",
+          countryOfOrigin: (mockProduct as any).countryOfOrigin || "India",
+          idealFor: (mockProduct as any).idealFor || "Women",
+          material: (mockProduct as any).material || "Gold Tone Metal",
+          packOf: (mockProduct as any).packOf ?? 1,
+          productType: (mockProduct as any).productType || "Drop Earrings",
+        }
+      : undefined;
   const { addItem, openCart } = useCart();
   const { isInWishlist, toggleItem } = useWishlist();
 
@@ -118,6 +133,18 @@ export default function ProductDetail() {
   const [selectedImage, setSelectedImage] = useState(0);
   const [isMainDetailOpen, setIsMainDetailOpen] = useState(true);
   const [zoomScale, setZoomScale] = useState(false);
+
+  const [selectedSize, setSelectedSize] = useState<string>(() => 
+    product?.sizes && product.sizes.length > 0 ? product.sizes[0] : ""
+  );
+  const [selectedColor, setSelectedColor] = useState<string>(() => {
+    if (product?.colors && product.colors.length > 0) {
+      return typeof product.colors[0] === "string" 
+        ? product.colors[0] 
+        : (product.colors[0] as any).name;
+    }
+    return "";
+  });
 
   // Variant states
   const [selectedVariantIdState, setSelectedVariantIdState] = useState<string>("");
@@ -376,25 +403,56 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              {/* Specifications list */}
-              <div className="space-y-3.5 text-xs lg:text-sm text-black">
-                {product.netWeight && (
-                  <div className="flex justify-between border-b border-border pb-2">
-                    <span className="font-semibold text-black">
-                      Weight :
-                    </span>
-                    <span className="font-bold text-black">
-                      {product.netWeight}
-                    </span>
+              {/* Product Information */}
+              <div className="bg-white p-5 rounded-xl border border-[#E5D5B5]/60 shadow-sm space-y-4">
+                <span className="text-xs uppercase font-extrabold text-[#888] tracking-wider block border-b border-[#E5D5B5]/30 pb-2">
+                  Product Information
+                </span>
+                <div className="space-y-2.5 text-xs lg:text-sm text-black">
+                  <div className="flex justify-between border-b border-border pb-1.5">
+                    <span className="text-muted-foreground">Brand Name</span>
+                    <span className="font-bold text-black">{product.brandName}</span>
                   </div>
-                )}
-                <div className="flex justify-between border-b border-border pb-2">
-                  <span className="font-semibold text-black">
-                    Category :
-                  </span>
-                  <span className="font-bold text-black">
-                    {product.category}
-                  </span>
+                  {product.idealFor && (
+                    <div className="flex justify-between border-b border-border pb-1.5">
+                      <span className="text-muted-foreground">Ideal For</span>
+                      <span className="font-bold text-black">{product.idealFor}</span>
+                    </div>
+                  )}
+                  {product.material && (
+                    <div className="flex justify-between border-b border-border pb-1.5">
+                      <span className="text-muted-foreground">Material</span>
+                      <span className="font-bold text-black">{product.material}</span>
+                    </div>
+                  )}
+                  {product.packOf !== undefined && (
+                    <div className="flex justify-between border-b border-border pb-1.5">
+                      <span className="text-muted-foreground">Pack Of</span>
+                      <span className="font-bold text-black">{product.packOf}</span>
+                    </div>
+                  )}
+                  {product.countryOfOrigin && (
+                    <div className="flex justify-between border-b border-border pb-1.5">
+                      <span className="text-muted-foreground">Country Of Origin</span>
+                      <span className="font-bold text-black">{product.countryOfOrigin}</span>
+                    </div>
+                  )}
+                  {product.productType && (
+                    <div className="flex justify-between border-b border-border pb-1.5">
+                      <span className="text-muted-foreground">Product Type</span>
+                      <span className="font-bold text-black">{product.productType}</span>
+                    </div>
+                  )}
+                  {product.netWeight && (
+                    <div className="flex justify-between border-b border-border pb-1.5">
+                      <span className="text-muted-foreground">Weight</span>
+                      <span className="font-bold text-black">{product.netWeight}</span>
+                    </div>
+                  )}
+                  <div className="flex justify-between border-b border-border pb-1.5">
+                    <span className="text-muted-foreground">Category</span>
+                    <span className="font-bold text-black">{product.category}</span>
+                  </div>
                 </div>
               </div>
 
@@ -443,6 +501,72 @@ export default function ProductDetail() {
                           <span className="text-xs font-bold text-[#8A1B28] flex-shrink-0">
                             ₹{vPrice.toLocaleString("en-IN")}
                           </span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Size Selector */}
+              {product.sizes && product.sizes.length > 0 && !hasVariants && (
+                <div className="space-y-2.5 pt-4 border-t border-[#E5D5B5]/60">
+                  <span className="text-[10px] uppercase font-extrabold text-gray-500 tracking-wider block">
+                    Size
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {product.sizes.map((sz) => {
+                      const isSelected = selectedSize === sz;
+                      return (
+                        <button
+                          key={sz}
+                          type="button"
+                          onClick={() => setSelectedSize(sz)}
+                          className={cn(
+                            "px-4 py-2 text-xs font-bold border transition-all rounded",
+                            isSelected
+                              ? "border-black bg-black text-white shadow-sm"
+                              : "border-[#E5D5B5] hover:border-black text-black bg-white"
+                          )}
+                        >
+                          {sz}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Color Selector */}
+              {product.colors && product.colors.length > 0 && !hasVariants && (
+                <div className="space-y-2.5 pt-4 border-t border-[#E5D5B5]/60">
+                  <span className="text-[10px] uppercase font-extrabold text-gray-500 tracking-wider block">
+                    Color / Style
+                  </span>
+                  <div className="flex flex-wrap gap-3">
+                    {product.colors.map((col) => {
+                      const colName = typeof col === "string" ? col : col.name;
+                      const colHex = typeof col === "string" ? "" : col.hex;
+                      const isSelected = selectedColor === colName;
+                      return (
+                        <button
+                          key={colName}
+                          type="button"
+                          onClick={() => setSelectedColor(colName)}
+                          className={cn(
+                            "flex items-center gap-2 px-3 py-1.5 text-xs font-bold border transition-all rounded-full",
+                            isSelected
+                              ? "border-black bg-black text-white shadow-sm"
+                              : "border-[#E5D5B5] hover:border-black text-black bg-white"
+                          )}
+                        >
+                          {colHex && (
+                            <span
+                              className="w-3.5 h-3.5 rounded-full border border-black/10"
+                              style={{ backgroundColor: colHex }}
+                            />
+                          )}
+                          <span>{colName}</span>
                         </button>
                       );
                     })}
@@ -502,18 +626,13 @@ export default function ProductDetail() {
                           quantity: quantity,
                         });
                       } else {
-                        const firstSize = Array.isArray(product.sizes) && product.sizes.length > 0 ? product.sizes[0] : undefined;
-                        const firstColor = Array.isArray(product.colors) && product.colors.length > 0 
-                          ? (typeof product.colors[0] === "string" ? product.colors[0] : (product.colors[0] as any).name)
-                          : undefined;
-
                         await addItem({
                           id: product.id,
                           name: product.name,
                           price: product.price,
                           image: product.images[0] ?? "",
-                          size: firstSize,
-                          color: firstColor,
+                          size: selectedSize || undefined,
+                          color: selectedColor || undefined,
                           quantity: quantity,
                         });
                       }

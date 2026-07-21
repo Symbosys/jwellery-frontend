@@ -16,6 +16,7 @@ const slides = [
     price: "DESIGNS FROM ₹9,999",
     image: slideImg1,
     cta: { text: "Shop Now", link: "/products" },
+    hideTextOverlay: true,
   },
   {
     id: 2,
@@ -24,6 +25,7 @@ const slides = [
     price: "UP TO 20% OFF ON MAKING CHARGES",
     image: slideImg2,
     cta: { text: "Explore Collections", link: "/products" },
+    hideTextOverlay: true,
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ const slides = [
     price: "LATEST EXCLUSIVE DESIGNS",
     image: slideImg3,
     cta: { text: "Shop Now", link: "/products" },
+    hideTextOverlay: true,
   },
 ];
 
@@ -73,10 +76,10 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 lg:px-8 mt-9">
+    <section className="max-w-7xl mx-auto px-4 lg:px-8 pt-24 sm:pt-28 lg:pt-32">
       <div
         className="relative w-full overflow-hidden bg-black rounded-3xl"
-        style={{ height: "clamp(420px, 75vh, 700px)" }}
+        style={{ height: "clamp(260px, 45vw, 600px)" }}
       >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -90,45 +93,49 @@ export default function HeroSlider() {
             className="absolute inset-0 w-full h-full"
           >
             {/* Background Image with Overlay */}
-            <div className="absolute inset-0">
+            <Link to={slides[current].cta.link} className="absolute inset-0 block cursor-pointer">
               <img
                 src={typeof slides[current].image === "string" ? slides[current].image : (slides[current].image as any).src}
                 alt={slides[current].title}
-                className="w-full h-full object-cover object-center opacity-80"
+                className="w-full h-full object-cover object-center opacity-90 transition-transform duration-700 hover:scale-[1.02]"
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
-            </div>
+              {!slides[current].hideTextOverlay && (
+                <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
+              )}
+            </Link>
 
             {/* Content */}
-            <div className="relative z-10 h-full flex items-center pt-8 lg:pt-12">
-              <div className="w-full px-6 sm:px-12 lg:px-16">
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                  className="max-w-lg"
-                >
-                  <span className="text-white/70 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-2 block">
-                    {slides[current].subtitle}
-                  </span>
-
-                  <h1 className="heading-bold text-4xl sm:text-5xl lg:text-7xl text-white mb-4 whitespace-pre-line leading-[1.1]">
-                    {slides[current].title}
-                  </h1>
-
-                  <p className="text-[#D4AF37] font-bold text-lg sm:text-xl lg:text-2xl mb-6 tracking-wide">
-                    {slides[current].price}
-                  </p>
-
-                  <Link
-                    to={slides[current].cta.link}
-                    className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border-2 border-white/40 text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
+            {!slides[current].hideTextOverlay && (
+              <div className="relative z-10 h-full flex items-center pt-8 lg:pt-12">
+                <div className="w-full px-6 sm:px-12 lg:px-16">
+                  <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="max-w-lg"
                   >
-                    {slides[current].cta.text}
-                  </Link>
-                </motion.div>
+                    <span className="text-white/70 font-semibold text-xs sm:text-sm tracking-widest uppercase mb-2 block">
+                      {slides[current].subtitle}
+                    </span>
+
+                    <h1 className="heading-bold text-4xl sm:text-5xl lg:text-7xl text-white mb-4 whitespace-pre-line leading-[1.1]">
+                      {slides[current].title}
+                    </h1>
+
+                    <p className="text-[#D4AF37] font-bold text-lg sm:text-xl lg:text-2xl mb-6 tracking-wide">
+                      {slides[current].price}
+                    </p>
+
+                    <Link
+                      to={slides[current].cta.link}
+                      className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border-2 border-white/40 text-white px-8 py-3 rounded-full text-sm font-bold uppercase tracking-wider hover:bg-white hover:text-black transition-all duration-300"
+                    >
+                      {slides[current].cta.text}
+                    </Link>
+                  </motion.div>
+                </div>
               </div>
-            </div>
+            )}
           </motion.div>
         </AnimatePresence>
 

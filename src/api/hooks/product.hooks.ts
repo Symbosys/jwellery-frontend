@@ -51,6 +51,13 @@ export interface DBProduct {
     name: string;
   } | null;
   variants?: DBProductVariant[];
+  countryOfOrigin?: string | null;
+  idealFor?: string | null;
+  material?: string | null;
+  packOf?: number | null;
+  productType?: string | null;
+  weight?: string | number | null;
+  weightUnit?: string | null;
   reviews?: {
     id: string;
     rating: number;
