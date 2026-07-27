@@ -5,6 +5,7 @@ export interface DBAttributeValue {
   id: string;
   attributeId: string;
   value: string;
+  image: string | null;
   attribute: {
     id: string;
     name: string;
@@ -19,6 +20,7 @@ export interface DBProductVariant {
   discountPrice: string | number | null;
   quantity: number;
   image: string | null;
+  resolvedImage?: string | null;
   attributeValues: DBAttributeValue[];
 }
 
@@ -92,7 +94,13 @@ export interface GetProductsParams {
   brandId?: string;
   page?: number;
   limit?: number;
-  sort?: "newest" | "price-asc" | "price-desc" | "rating" | "name-asc" | "name-desc";
+  sort?:
+    | "newest"
+    | "price-asc"
+    | "price-desc"
+    | "rating"
+    | "name-asc"
+    | "name-desc";
   // Dynamic attribute filters (e.g. { color: "Red,Blue", size: "M" })
   [key: string]: string | number | undefined;
 }
@@ -170,7 +178,8 @@ export interface AddToBagResponse {
 
 export const productKeys = {
   all: ["products"] as const,
-  list: (params?: GetProductsParams) => [...productKeys.all, "list", params] as const,
+  list: (params?: GetProductsParams) =>
+    [...productKeys.all, "list", params] as const,
   detail: (id: string) => [...productKeys.all, "detail", id] as const,
 };
 
@@ -184,14 +193,17 @@ export const productKeys = {
  * Supports category, subcategory, brand, search, price range, sort, and
  * dynamic attribute/variant filters (e.g. { color: "Red", size: "M" }).
  */
-export const useProductsQuery = (params?: GetProductsParams, enabled = true) => {
+export const useProductsQuery = (
+  params?: GetProductsParams,
+  enabled = true,
+) => {
   return useQuery<ProductsResponse>({
     queryKey: productKeys.list(params),
     queryFn: async () => {
-      const response = await apiClient.get<{ success: boolean; data: ProductsResponse }>(
-        "/product",
-        { params }
-      );
+      const response = await apiClient.get<{
+        success: boolean;
+        data: ProductsResponse;
+      }>("/product", { params });
       return response.data.data;
     },
     enabled,
@@ -208,9 +220,10 @@ export const useProductDetailQuery = (id: string, enabled = true) => {
   return useQuery<DBProduct>({
     queryKey: productKeys.detail(id),
     queryFn: async () => {
-      const response = await apiClient.get<{ success: boolean; data: DBProduct }>(
-        `/product/${id}`
-      );
+      const response = await apiClient.get<{
+        success: boolean;
+        data: DBProduct;
+      }>(`/product/${id}`);
       return response.data.data;
     },
     enabled: enabled && !!id,
@@ -233,10 +246,10 @@ export const useCreateProductMutation = () => {
 
   return useMutation<DBProduct, Error, CreateProductInput>({
     mutationFn: async (data) => {
-      const response = await apiClient.post<{ success: boolean; data: DBProduct }>(
-        "/product",
-        data
-      );
+      const response = await apiClient.post<{
+        success: boolean;
+        data: DBProduct;
+      }>("/product", data);
       return response.data.data;
     },
     onSuccess: () => {
@@ -254,12 +267,16 @@ export const useCreateProductMutation = () => {
 export const useUpdateProductMutation = () => {
   const queryClient = useQueryClient();
 
-  return useMutation<DBProduct, Error, { id: string; data: UpdateProductInput }>({
+  return useMutation<
+    DBProduct,
+    Error,
+    { id: string; data: UpdateProductInput }
+  >({
     mutationFn: async ({ id, data }) => {
-      const response = await apiClient.put<{ success: boolean; data: DBProduct }>(
-        `/product/${id}`,
-        data
-      );
+      const response = await apiClient.put<{
+        success: boolean;
+        data: DBProduct;
+      }>(`/product/${id}`, data);
       return response.data.data;
     },
     onSuccess: (_result, { id }) => {
@@ -300,10 +317,10 @@ export const useAddToBagMutation = () => {
 
   return useMutation<AddToBagResponse, Error, AddToBagInput>({
     mutationFn: async (data) => {
-      const response = await apiClient.post<{ success: boolean; data: AddToBagResponse }>(
-        "/product/add-to-bag",
-        data
-      );
+      const response = await apiClient.post<{
+        success: boolean;
+        data: AddToBagResponse;
+      }>("/product/add-to-bag", data);
       return response.data.data;
     },
     onSuccess: () => {

@@ -59,8 +59,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       productId: item.productId, // Original Product ID
       name: item.product?.name || "Unknown Product",
       price: item.variant 
-        ? Number(item.variant.price) 
-        : Number(item.product?.price || 0),
+        ? (item.variant.discountPrice ? Number(item.variant.discountPrice) : Number(item.variant.price)) 
+        : (item.product?.discountPrice ? Number(item.product.discountPrice) : Number(item.product?.price || 0)),
       image: item.variant?.image || item.product?.image || "",
       quantity: item.quantity,
       size: item.size || undefined,

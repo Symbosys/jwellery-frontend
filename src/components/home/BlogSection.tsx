@@ -28,18 +28,18 @@ const fallbackBlogs: BlogItem[] = [
   {
     id: "blog-2",
     category: "Care",
-    title: "CARING FOR YOUR GOLD & DIAMOND JEWELLERY",
-    excerpt: "Keep your precious pieces sparkling for generations. Discover the best practices for cleaning, storing, and maintaining your gold and diamonds safely.",
+    title: "CARING FOR YOUR CITY GOLD & ARTIFICIAL JEWELLERY",
+    excerpt: "Keep your artificial & City Gold pieces shining like new. Discover best practices for cleaning, avoiding moisture, and storing your fashion jewellery safely.",
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",
-    slug: "caring-for-your-gold-and-diamond-jewellery"
+    slug: "caring-for-your-city-gold-and-artificial-jewellery"
   },
   {
     id: "blog-3",
     category: "Trends",
-    title: "TOP 5 JEWELLERY TRENDS FOR THIS WEDDING SEASON",
-    excerpt: "From statement choker necklaces to elegant layered bangles, explore the hottest trends dominating wedding fashion this season and how to style them.",
+    title: "TOP 5 CITY GOLD TRENDS FOR THIS WEDDING SEASON",
+    excerpt: "From statement City Gold choker necklaces to elegant temple-design bangles, explore the hottest artificial jewellery trends dominating festive fashion this season.",
     image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",
-    slug: "top-5-jewellery-trends-for-this-wedding-season"
+    slug: "top-5-city-gold-trends-for-this-wedding-season"
   }
 ];
 

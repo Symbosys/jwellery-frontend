@@ -59,8 +59,8 @@ export default function CheckoutPage() {
   };
 
   const shipping = subtotal >= 500 ? 0 : 25;
-  const tax = Math.round(subtotal * 0.08);
-  const total = subtotal + shipping + tax;
+  const tax = Number((subtotal * 0.05).toFixed(2));
+  const total = Number((subtotal + shipping + tax).toFixed(2));
 
   const handleComplete = () => {
     const isRazorpay = formData.paymentMethod === 'Razorpay';
@@ -451,14 +451,14 @@ export default function CheckoutPage() {
                     <span>{shipping === 0 ? 'Free' : `₹${shipping}`}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">Tax</span>
-                    <span>₹{tax}</span>
+                    <span className="text-muted-foreground">Tax (5% GST)</span>
+                    <span>₹{tax.toLocaleString("en-IN")}</span>
                   </div>
                 </div>
 
                 <div className="flex justify-between font-medium text-lg py-4 border-t border-border">
                   <span>Total</span>
-                  <span>₹{total.toLocaleString()}</span>
+                  <span>₹{total.toLocaleString("en-IN")}</span>
                 </div>
               </div>
             </div>

@@ -7,34 +7,34 @@ import { useBrandsQuery } from '@/api/hooks/brand.hooks';
 
 const fallbackBrands = [
   {
-    id: 'aura-gold',
-    name: 'Aura Gold',
-    shortName: 'AG',
-    tagline: '22K Royal Indian Gold',
+    id: 'city-gold-luxe',
+    name: 'City Gold Royal',
+    shortName: 'CG',
+    tagline: '1 Gram Gold Polish Sets',
     color: '#D4AF37',
     logo: null
   },
   {
-    id: 'solitaire-luxe',
-    name: 'Solitaire Luxe',
-    shortName: 'SL',
-    tagline: 'Exquisite Certified Diamonds',
+    id: 'cz-sparkle',
+    name: 'CZ Sparkle',
+    shortName: 'CZ',
+    tagline: 'American Diamond & CZ Sets',
     color: '#B5A075',
     logo: null
   },
   {
-    id: 'velasca-rose',
-    name: 'Velasca Rose',
-    shortName: 'VR',
-    tagline: 'Minimalist Italian Rose Gold',
+    id: 'velasca-fashion',
+    name: 'Velasca Fashion',
+    shortName: 'VF',
+    tagline: 'Rose Gold Finish Jewellery',
     color: '#E0A899',
     logo: null
   },
   {
-    id: 'glow-silver',
-    name: 'Glow Silver',
-    shortName: 'GS',
-    tagline: '925 Sterling Silver Jewellery',
+    id: 'glow-city-gold',
+    name: 'Glow City Gold',
+    shortName: 'GG',
+    tagline: 'City Gold Bangles & Necklaces',
     color: '#9CA3AF',
     logo: null
   }
@@ -87,7 +87,7 @@ export default function BrandPartners() {
               SHOP BY <span className="text-[#D4AF37]">COLLECTIONS</span>
             </h2>
             <p className="text-sm text-gray-500 mt-2 font-medium">
-              Exquisite collections crafted with precision
+              Exquisite artificial & City Gold collections crafted with precision
             </p>
           </div>
           <Link

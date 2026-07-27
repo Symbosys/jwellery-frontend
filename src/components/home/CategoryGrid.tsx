@@ -15,7 +15,7 @@ const mockCategories = [
   { name: 'Necklaces', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600' },
   { name: 'Bracelets', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600' },
   { name: 'Earrings', image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600' },
-  { name: 'Solitaires', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600' },
+  { name: 'City Gold Sets', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600' },
 ];
 
 export default function CategoryGrid() {
@@ -61,10 +61,11 @@ export default function CategoryGrid() {
     ...categoriesList,
     ...categoriesList,
     ...categoriesList,
+    ...categoriesList,
   ];
 
   return (
-    <section className="py-10 bg-white">
+    <section className="py-10 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Section Header */}
         <div className="flex items-center justify-between mb-8">
@@ -84,10 +85,10 @@ export default function CategoryGrid() {
         <div className="w-full overflow-hidden relative py-2">
           <div
             className="animate-scroll-ltr flex hover:[animation-play-state:paused] cursor-pointer"
-            style={{ animationDuration: "70s" }}
+            style={{ animationDuration: "60s" }}
           >
             {/* First track */}
-            <div className="flex shrink-0 items-center justify-start gap-4 md:gap-6 px-2 min-w-full">
+            <div className="flex shrink-0 items-center gap-5 md:gap-8 pr-5 md:pr-8">
               {repeatedCategories.map((category: CategoryItem, idx: number) => {
                 const imageUrl = processImageUrl(category.image);
                 return (
@@ -113,7 +114,7 @@ export default function CategoryGrid() {
               })}
             </div>
             {/* Second track (identical for seamless loop) */}
-            <div className="flex shrink-0 items-center justify-start gap-4 md:gap-6 px-2 min-w-full">
+            <div className="flex shrink-0 items-center gap-5 md:gap-8 pr-5 md:pr-8">
               {repeatedCategories.map((category: CategoryItem, idx: number) => {
                 const imageUrl = processImageUrl(category.image);
                 return (

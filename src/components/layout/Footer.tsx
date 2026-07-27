@@ -41,10 +41,10 @@ export default function Footer() {
               </svg>
             </div>
             <a
-              href="mailto:sakio.business@gmail.com.com"
+              href="mailto:sakhio.business@gmail.com"
               className="text-white hover:text-[#D4AF37] transition-colors text-sm lg:text-base font-semibold"
             >
-              support@aurafinejewellery.com
+              sakhio.business@gmail.com
             </a>
           </div>
 

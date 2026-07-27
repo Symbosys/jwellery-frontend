@@ -19,29 +19,29 @@ const fallbackReviews: TestimonialItem[] = [
   {
     id: "rev-1",
     name: "Rhea Sharma",
-    title: "Absolutely Stunning!",
-    text: "Bought a gold necklace for my anniversary. The polish and design are exceptionally premium, and it came with the hallmark certificate. Perfect experience!",
+    title: "Stunning City Gold!",
+    text: "Bought a City Gold necklace set for a family function. The polish, design and shine are exceptionally premium, and nobody could tell it was artificial! Perfect experience.",
     rating: 5,
     date: "12 May 2026",
-    product: "Royal Gold Choker"
+    product: "City Gold Choker Set"
   },
   {
     id: "rev-2",
     name: "Amit Patel",
     title: "Excellent Craftsmanship",
-    text: "The details on the diamond ring are unbelievable. GIA certified solitaire, very clear, and looks extremely elegant. Highly recommend Aura Jewellery.",
+    text: "The details on the American Diamond set are unbelievable. High quality CZ stones, light on weight, and looks extremely elegant. Highly recommend.",
     rating: 5,
     date: "04 Jun 2026",
-    product: "Eternal Solitaire Ring"
+    product: "American Diamond Set"
   },
   {
     id: "rev-3",
     name: "Sneha Nair",
-    title: "Perfect Rose Gold Finish",
-    text: "The minimalist rose gold bracelet is exactly what I wanted for daily wear. Lightweight, sturdy, and shines beautifully. Prompt delivery as well.",
+    title: "Perfect 1 Gram Gold Polish",
+    text: "The 1 gram gold plated bangles are exactly what I wanted for daily & festive wear. Durable polish, smooth finish, and prompt delivery.",
     rating: 5,
     date: "28 Jun 2026",
-    product: "Classic Rose Gold Band"
+    product: "1 Gram Gold Bangles"
   }
 ];
 

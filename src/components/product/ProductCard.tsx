@@ -32,10 +32,12 @@ export interface ProductCardItem {
     discountPrice: string | number | null;
     quantity: number;
     image: string | null;
+    resolvedImage?: string | null;
     attributeValues: {
       id: string;
       attributeId: string;
       value: string;
+      image?: string | null;
       attribute: {
         id: string;
         name: string;
@@ -48,6 +50,13 @@ interface ProductCardProps {
   product: ProductCardItem;
   index?: number;
 }
+
+const processImageUrl = (url: string) => {
+  if (!url) return "";
+  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) return url;
+  const baseUrl = (process.env.NEXT_PUBLIC_API_URL ?? "http://192.168.1.2:4000").replace("/api", "");
+  return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
+};
 
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -75,14 +84,18 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     }
 
     // Resolve first size/color safely for both string[] and object[] shapes
-    const firstSize = Array.isArray(product.sizes) && product.sizes.length > 0
-      ? (typeof product.sizes[0] === "string" ? product.sizes[0] : undefined)
-      : undefined;
-    const firstColor = Array.isArray(product.colors) && product.colors.length > 0
-      ? (typeof product.colors[0] === "string"
+    const firstSize =
+      Array.isArray(product.sizes) && product.sizes.length > 0
+        ? typeof product.sizes[0] === "string"
+          ? product.sizes[0]
+          : undefined
+        : undefined;
+    const firstColor =
+      Array.isArray(product.colors) && product.colors.length > 0
+        ? typeof product.colors[0] === "string"
           ? product.colors[0]
-          : (product.colors[0] as { name: string }).name)
-      : undefined;
+          : (product.colors[0] as { name: string }).name
+        : undefined;
 
     setIsAddingLocal(true);
     try {
@@ -103,17 +116,23 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   };
 
   const handleConfirmAdd = async () => {
-    const selectedVariant = product.variants?.find(v => v.id === selectedVariantId);
+    const selectedVariant = product.variants?.find(
+      (v) => v.id === selectedVariantId,
+    );
     if (!selectedVariant) return;
 
     let resolvedSize: string | undefined = undefined;
     let resolvedColor: string | undefined = undefined;
 
-    selectedVariant.attributeValues.forEach(av => {
+    selectedVariant.attributeValues.forEach((av) => {
       const nameLower = av.attribute.name.toLowerCase();
       if (nameLower === "size") {
         resolvedSize = av.value;
-      } else if (nameLower === "color" || nameLower === "flavour" || nameLower === "flavor") {
+      } else if (
+        nameLower === "color" ||
+        nameLower === "flavour" ||
+        nameLower === "flavor"
+      ) {
         resolvedColor = av.value;
       }
     });
@@ -123,8 +142,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       await addItem({
         id: product.id,
         name: product.name,
-        price: Number(selectedVariant.price),
-        image: selectedVariant.image || product.images[0] || "",
+        price: selectedVariant.discountPrice ? Number(selectedVariant.discountPrice) : Number(selectedVariant.price),
+        image: (selectedVariant.image || (selectedVariant as any).resolvedImage)
+          ? processImageUrl(selectedVariant.image || (selectedVariant as any).resolvedImage)
+          : (product.images[0] || ""),
         size: resolvedSize,
         color: resolvedColor,
         variantId: selectedVariant.id,
@@ -148,10 +169,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
     });
   };
 
-  const discount =
-    product.originalPrice
-      ? Math.round((1 - product.price / product.originalPrice) * 100)
-      : 0;
+  const discount = product.originalPrice
+    ? Math.round((1 - product.price / product.originalPrice) * 100)
+    : 0;
 
   const isFavorited = isInWishlist(product.id);
 
@@ -228,7 +248,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           {/* Net Weight */}
           {product.netWeight && (
             <p className="text-[11px] text-[#555] font-medium">
-              Net Wt. : <span className="text-[#2C2C2C] font-semibold">{product.netWeight}</span>
+              Net Wt. :{" "}
+              <span className="text-[#2C2C2C] font-semibold">
+                {product.netWeight}
+              </span>
             </p>
           )}
 
@@ -303,7 +326,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
               onClick={() => setIsModalOpen(false)}
             />
-            
+
             {/* Modal Content */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
@@ -340,8 +363,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                       .map((av) => `${av.attribute.name}: ${av.value}`)
                       .join(" | ");
                     const isSelected = selectedVariantId === v.id;
-                    const vPrice = Number(v.price);
-                    
+                    const vPrice = v.discountPrice ? Number(v.discountPrice) : Number(v.price);
+                    const vOrigPrice = v.discountPrice ? Number(v.price) : null;
+
                     return (
                       <button
                         key={v.id}
@@ -350,13 +374,13 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                           "w-full text-left p-3 rounded-lg border transition-all flex items-center justify-between gap-4",
                           isSelected
                             ? "border-black bg-black/[0.02] ring-1 ring-black"
-                            : "border-gray-200 hover:border-gray-300"
+                            : "border-gray-200 hover:border-gray-300",
                         )}
                       >
                         <div className="flex items-center gap-3">
                           <div className="h-10 w-10 rounded bg-gray-50 border overflow-hidden flex-shrink-0">
                             <img
-                              src={v.image || product.images[0] || ""}
+                              src={processImageUrl(v.image || (v as any).resolvedImage) || product.images[0] || ""}
                               alt={displayName}
                               className="h-full w-full object-cover"
                             />
@@ -374,6 +398,11 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                           <p className="text-xs font-bold text-[#8A1B28]">
                             ₹{vPrice.toLocaleString("en-IN")}
                           </p>
+                          {vOrigPrice && (
+                            <p className="text-[10px] text-gray-400 line-through">
+                              ₹{vOrigPrice.toLocaleString("en-IN")}
+                            </p>
+                          )}
                         </div>
                       </button>
                     );
@@ -386,7 +415,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 <div className="flex items-center border border-gray-200 rounded h-10 px-3 bg-gray-50">
                   <button
                     type="button"
-                    onClick={() => setModalQuantity(Math.max(1, modalQuantity - 1))}
+                    onClick={() =>
+                      setModalQuantity(Math.max(1, modalQuantity - 1))
+                    }
                     className="p-1 text-gray-500 hover:text-black transition-colors"
                   >
                     <Minus className="h-3.5 w-3.5" />

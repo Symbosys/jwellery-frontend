@@ -20,7 +20,7 @@ import {
   Star,
   Loader2,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCreateReviewMutation } from "@/api/hooks/review.hooks";
 
@@ -147,13 +147,170 @@ export default function ProductDetail() {
   });
 
   // Variant states
-  const [selectedVariantIdState, setSelectedVariantIdState] = useState<string>("");
+  // Variant states
   const [isAdding, setIsAdding] = useState(false);
+  const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({});
 
   const variants = dbProduct?.variants || [];
   const hasVariants = variants.length > 0;
-  const activeVariantId = selectedVariantIdState || (hasVariants ? variants[0].id : "");
-  const activeVariant = variants.find(v => v.id === activeVariantId);
+
+  // Group all attribute values by attribute name across all variants & product attributes
+  const attributesMap = useMemo(() => {
+    const map: Record<string, { id: string; name: string; values: { id: string; value: string; image: string | null }[] }> = {};
+    if (Array.isArray(variants) && variants.length > 0) {
+      variants.forEach(v => {
+        if (Array.isArray(v.attributeValues)) {
+          v.attributeValues.forEach(av => {
+            const attrName = av.attribute?.name;
+            if (!attrName) return;
+            if (!map[attrName]) {
+              map[attrName] = {
+                id: av.attribute?.id || attrName,
+                name: attrName,
+                values: []
+              };
+            }
+            if (!map[attrName].values.some(val => val.value === av.value)) {
+              map[attrName].values.push({
+                id: av.id,
+                value: av.value,
+                image: av.image || null
+              });
+            }
+          });
+        }
+      });
+    }
+
+    if (!map["Size"] && product?.sizes && Array.isArray(product.sizes) && product.sizes.length > 0) {
+      map["Size"] = {
+        id: "size-attr",
+        name: "Size",
+        values: product.sizes.map((sz, idx) => ({
+          id: `sz-${idx}`,
+          value: typeof sz === "string" ? sz : (sz as any).name || String(sz),
+          image: null
+        }))
+      };
+    }
+
+    if (!map["Color"] && product?.colors && Array.isArray(product.colors) && product.colors.length > 0) {
+      map["Color"] = {
+        id: "color-attr",
+        name: "Color",
+        values: product.colors.map((col, idx) => {
+          const valStr = typeof col === "string" ? col : (col as any).name || String(col);
+          return {
+            id: `col-${idx}`,
+            value: valStr,
+            image: null
+          };
+        })
+      };
+    }
+
+    return map;
+  }, [variants, product?.sizes, product?.colors]);
+
+  // Initialize selectedAttributes when attributesMap loads
+  useEffect(() => {
+    if (Object.keys(attributesMap).length > 0) {
+      setSelectedAttributes(prev => {
+        const next = { ...prev };
+        let updated = false;
+        Object.entries(attributesMap).forEach(([attrName, attrData]) => {
+          if (!next[attrName] && attrData.values.length > 0) {
+            next[attrName] = attrData.values[0].value;
+            updated = true;
+          }
+        });
+        return updated ? next : prev;
+      });
+    }
+  }, [dbProduct?.id, attributesMap]);
+
+  // Dynamically compute active variant matching selectedAttributes
+  const activeVariant = useMemo(() => {
+    if (!hasVariants) return undefined;
+
+    // 1. Try exact match for all selected attributes
+    const exactMatch = variants.find(v => {
+      if (!Array.isArray(v.attributeValues) || v.attributeValues.length === 0) return false;
+      return Object.entries(selectedAttributes).every(([attrKey, attrVal]) => {
+        return v.attributeValues.some(av => av.attribute?.name === attrKey && av.value === attrVal);
+      });
+    });
+    if (exactMatch) return exactMatch;
+
+    // 2. Best partial match fallback
+    let bestMatch: typeof variants[0] | undefined = undefined;
+    let maxCount = 0;
+    for (const v of variants) {
+      if (Array.isArray(v.attributeValues)) {
+        let count = 0;
+        for (const av of v.attributeValues) {
+          if (av.attribute?.name && selectedAttributes[av.attribute.name] === av.value) {
+            count++;
+          }
+        }
+        if (count > maxCount) {
+          maxCount = count;
+          bestMatch = v;
+        }
+      }
+    }
+    return bestMatch || variants[0];
+  }, [variants, hasVariants, selectedAttributes]);
+
+  const handleAttributeSelect = (attrName: string, valValue: string) => {
+    setSelectedAttributes(prev => ({
+      ...prev,
+      [attrName]: valValue
+    }));
+  };
+
+  // Pre-select size and color for standard (non-variant) products
+  useEffect(() => {
+    if (product) {
+      if (!selectedSize && product.sizes && product.sizes.length > 0) {
+        setSelectedSize(product.sizes[0]);
+      }
+      if (!selectedColor && product.colors && product.colors.length > 0) {
+        const firstCol = product.colors[0];
+        setSelectedColor(typeof firstCol === "string" ? firstCol : (firstCol as any).name);
+      }
+    }
+  }, [product, selectedSize, selectedColor]);
+
+  const [currentMainImage, setCurrentMainImage] = useState<string>("");
+  const [lastVariantId, setLastVariantId] = useState<string>("");
+
+  useEffect(() => {
+    if (product) {
+      const currentVarId = activeVariant?.id || "";
+      if (currentVarId !== lastVariantId) {
+        setLastVariantId(currentVarId);
+        if (activeVariant) {
+          const variantImg = activeVariant.image || (activeVariant as any).resolvedImage;
+          if (variantImg) {
+            const formattedImg = processImageUrl(variantImg);
+            setCurrentMainImage(formattedImg);
+            // Highlight the matching thumbnail if it exists in the product images
+            const thumbIdx = product.images.findIndex(img => img === formattedImg);
+            if (thumbIdx !== -1) {
+              setSelectedImage(thumbIdx);
+            }
+            return;
+          }
+        }
+      }
+      
+      // Fallback if main image is not set yet or when switching products
+      if (!currentMainImage && product.images && product.images.length > 0) {
+        setCurrentMainImage(product.images[0]);
+      }
+    }
+  }, [dbProduct?.id, activeVariant?.id, lastVariantId, currentMainImage, product?.images?.join(",")]);
 
   if (isLoading) {
     return (
@@ -270,7 +427,10 @@ export default function ProductDetail() {
                 {product.images.map((img, idx) => (
                   <button
                     key={idx}
-                    onClick={() => setSelectedImage(idx)}
+                    onClick={() => {
+                      setSelectedImage(idx);
+                      setCurrentMainImage(img);
+                    }}
                     className={cn(
                       "w-16 h-16 md:w-20 md:h-20 rounded border-2 overflow-hidden transition-all bg-white shadow-sm flex-shrink-0",
                       selectedImage === idx
@@ -290,7 +450,7 @@ export default function ProductDetail() {
               {/* Main Image Frame */}
               <div className="flex-1 order-1 md:order-2 bg-card border border-border rounded-xl overflow-hidden relative aspect-square shadow-sm flex items-center justify-center p-3">
                 <img
-                  src={(activeVariant && activeVariant.image) ? processImageUrl(activeVariant.image) : product.images[selectedImage]}
+                  src={currentMainImage || product.images[selectedImage]}
                   alt={product.name}
                   className={cn(
                     "w-full h-full object-cover rounded-lg",
@@ -390,7 +550,7 @@ export default function ProductDetail() {
                     Standard rate
                   </span>
                   <span className="text-xl lg:text-2xl font-extrabold text-[#8A1B28]">
-                    ₹{(activeVariant ? Number(activeVariant.price) : product.price).toLocaleString("en-IN")}
+                    ₹{(activeVariant ? (activeVariant.discountPrice ? Number(activeVariant.discountPrice) : Number(activeVariant.price)) : product.price).toLocaleString("en-IN")}
                   </span>
                 </div>
                 <div className="text-right">
@@ -413,6 +573,12 @@ export default function ProductDetail() {
                     <span className="text-muted-foreground">Brand Name</span>
                     <span className="font-bold text-black">{product.brandName}</span>
                   </div>
+                  {hasVariants && Object.entries(selectedAttributes).map(([attrKey, attrVal]) => (
+                    <div key={attrKey} className="flex justify-between border-b border-border pb-1.5">
+                      <span className="text-muted-foreground">{attrKey}</span>
+                      <span className="font-bold text-black">{attrVal}</span>
+                    </div>
+                  ))}
                   {product.idealFor && (
                     <div className="flex justify-between border-b border-border pb-1.5">
                       <span className="text-muted-foreground">Ideal For</span>
@@ -456,57 +622,57 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              {/* Variant Selector */}
-              {hasVariants && (
-                <div className="space-y-3 pt-4 border-t border-[#E5D5B5]/60">
-                  <span className="text-[10px] uppercase font-extrabold text-gray-500 tracking-wider">
-                    Select Option
-                  </span>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {variants.map((v) => {
-                      const label = v.attributeValues
-                        .map((av) => `${av.attribute?.name || 'Option'}: ${av.value}`)
-                        .join(" | ");
-                      const isSelected = activeVariantId === v.id;
-                      const vPrice = Number(v.price);
-                      
-                      return (
-                        <button
-                          key={v.id}
-                          type="button"
-                          onClick={() => setSelectedVariantIdState(v.id)}
-                          className={cn(
-                            "text-left p-3 rounded-lg border transition-all flex items-center justify-between gap-3 bg-white",
-                            isSelected
-                              ? "border-black ring-1 ring-black bg-black/[0.01]"
-                              : "border-gray-200 hover:border-gray-300"
-                          )}
-                        >
-                          <div className="flex items-center gap-2.5 min-w-0">
-                            {v.image && (
-                              <div className="h-8 w-8 rounded overflow-hidden border bg-gray-50 flex-shrink-0">
-                                <img
-                                  src={processImageUrl(v.image)}
-                                  alt={label}
-                                  className="h-full w-full object-cover"
-                                />
-                              </div>
+              {/* Dynamic Multi-attribute Selector */}
+              {Object.keys(attributesMap).length > 0 && Object.values(attributesMap).map((attr) => {
+                const currentSelectedValue = selectedAttributes[attr.name];
+                
+                return (
+                  <div key={attr.id} className="space-y-3 pt-4 border-t border-[#E5D5B5]/60">
+                    <div className="flex justify-between items-center">
+                      <span className="text-[10px] uppercase font-extrabold text-gray-500 tracking-wider">
+                        Select {attr.name}
+                      </span>
+                      {currentSelectedValue && (
+                        <span className="text-xs font-bold text-black bg-[#E5D5B5]/30 px-2 py-0.5 rounded uppercase tracking-wider">
+                          {currentSelectedValue}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2.5">
+                      {attr.values.map((val) => {
+                        const isSelected = currentSelectedValue === val.value;
+                        const hasImg = !!val.image;
+                        
+                        return (
+                          <button
+                            key={val.id}
+                            type="button"
+                            onClick={() => handleAttributeSelect(attr.name, val.value)}
+                            className={cn(
+                              "flex items-center gap-2 px-4 py-2 text-xs font-bold border transition-all rounded-md bg-white min-h-[38px] hover:shadow-sm",
+                              isSelected
+                                ? "border-black bg-black text-white shadow-sm"
+                                : "border-[#E5D5B5] hover:border-black text-black"
                             )}
-                            <div className="min-w-0">
-                              <p className="text-xs font-bold text-black uppercase tracking-wider">
-                                {label || "Default"}
-                              </p>
-                            </div>
-                          </div>
-                          <span className="text-xs font-bold text-[#8A1B28] flex-shrink-0">
-                            ₹{vPrice.toLocaleString("en-IN")}
-                          </span>
-                        </button>
-                      );
-                    })}
+                          >
+                            {hasImg && (
+                              <span className="w-5 h-5 rounded overflow-hidden border border-black/10 flex-shrink-0">
+                                <img
+                                  src={processImageUrl(val.image!)}
+                                  alt={val.value}
+                                  className="w-full h-full object-cover"
+                                />
+                              </span>
+                            )}
+                            <span>{val.value}</span>
+                          </button>
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
+                );
+              })}
 
               {/* Size Selector */}
               {product.sizes && product.sizes.length > 0 && !hasVariants && (
@@ -618,8 +784,10 @@ export default function ProductDetail() {
                         await addItem({
                           id: product.id,
                           name: product.name,
-                          price: Number(activeVariant.price),
-                          image: activeVariant.image ? processImageUrl(activeVariant.image) : (product.images[0] || ""),
+                          price: activeVariant.discountPrice ? Number(activeVariant.discountPrice) : Number(activeVariant.price),
+                          image: (activeVariant.image || (activeVariant as any).resolvedImage)
+                            ? processImageUrl(activeVariant.image || (activeVariant as any).resolvedImage)
+                            : (product.images[0] || ""),
                           size: resolvedSize,
                           color: resolvedColor,
                           variantId: activeVariant.id,
