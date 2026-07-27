@@ -21,31 +21,34 @@ const fallbackBlogs: BlogItem[] = [
     id: "blog-1",
     category: "Guides",
     title: "HOW TO MEASURE YOUR RING SIZE AT HOME",
-    excerpt: "Finding the perfect fit doesn't have to be a guessing game. Use our simple step-by-step guide to measure your ring size accurately at home using paper or string.",
+    excerpt:
+      "Finding the perfect fit doesn't have to be a guessing game. Use our simple step-by-step guide to measure your ring size accurately at home using paper or string.",
     image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",
-    slug: "how-to-measure-your-ring-size-at-home"
+    slug: "how-to-measure-your-ring-size-at-home",
   },
   {
     id: "blog-2",
     category: "Care",
     title: "CARING FOR YOUR CITY GOLD & ARTIFICIAL JEWELLERY",
-    excerpt: "Keep your artificial & City Gold pieces shining like new. Discover best practices for cleaning, avoiding moisture, and storing your fashion jewellery safely.",
+    excerpt:
+      "Keep your artificial & City Gold pieces shining like new. Discover best practices for cleaning, avoiding moisture, and storing your fashion jewellery safely.",
     image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",
-    slug: "caring-for-your-city-gold-and-artificial-jewellery"
+    slug: "caring-for-your-city-gold-and-artificial-jewellery",
   },
   {
     id: "blog-3",
     category: "Trends",
     title: "TOP 5 CITY GOLD TRENDS FOR THIS WEDDING SEASON",
-    excerpt: "From statement City Gold choker necklaces to elegant temple-design bangles, explore the hottest artificial jewellery trends dominating festive fashion this season.",
+    excerpt:
+      "From statement City Gold choker necklaces to elegant temple-design bangles, explore the hottest artificial jewellery trends dominating festive fashion this season.",
     image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",
-    slug: "top-5-city-gold-trends-for-this-wedding-season"
-  }
+    slug: "top-5-city-gold-trends-for-this-wedding-season",
+  },
 ];
 
 export default function BlogSection() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  
+
   const { data, isLoading } = useBlogsQuery({ limit: 6, isActive: true });
 
   if (isLoading) return null;
@@ -53,42 +56,49 @@ export default function BlogSection() {
   const rawBlogs = data?.blogs || [];
 
   const processImageUrl = (url: string | null) => {
-    if (!url) return "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600";
+    if (!url)
+      return "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600";
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
-    
+
     // Extract base URL from apiClient configuration
     const clientBaseUrl = apiClient.defaults.baseURL || "";
-    const baseUrl = clientBaseUrl.replace("/api", "") || "http://192.168.1.2:4000";
-    
+    const baseUrl =
+      clientBaseUrl.replace("/api", "") || "http://192.168.1.2:4000";
+
     return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
-  const activeBlogPosts: BlogItem[] = rawBlogs.length > 0
-    ? rawBlogs.map((b: DBBlog) => {
-        const category = Array.isArray(b.tags) && b.tags.length > 0 && typeof b.tags[0] === "string"
-          ? b.tags[0]
-          : "General";
+  const activeBlogPosts: BlogItem[] =
+    rawBlogs.length > 0
+      ? rawBlogs.map((b: DBBlog) => {
+          const category =
+            Array.isArray(b.tags) &&
+            b.tags.length > 0 &&
+            typeof b.tags[0] === "string"
+              ? b.tags[0]
+              : "General";
 
-        return {
-          id: b.id,
-          category,
-          title: b.title,
-          excerpt: b.excerpt || "",
-          image: processImageUrl(b.image),
-          slug: b.slug,
-        };
-      })
-    : fallbackBlogs;
-
+          return {
+            id: b.id,
+            category,
+            title: b.title,
+            excerpt: b.excerpt || "",
+            image: processImageUrl(b.image),
+            slug: b.slug,
+          };
+        })
+      : fallbackBlogs;
 
   return (
     <section className="py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
-        
         {/* Header */}
         <div className="flex items-end justify-between mb-10">
           <div>
-            <h2 className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-gray-300 italic" style={{ fontStyle: 'italic' }}>
+            <h2
+              className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-gray-300 italic"
+              style={{ fontStyle: "italic" }}
+            >
               OUR
             </h2>
             <h2 className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-black">

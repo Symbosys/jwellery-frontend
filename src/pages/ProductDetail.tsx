@@ -45,10 +45,13 @@ export default function ProductDetail() {
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
 
-  const isLoggedIn = typeof window !== "undefined" && (!!localStorage.getItem("user_token") || !!localStorage.getItem("token"));
-  
+  const isLoggedIn =
+    typeof window !== "undefined" &&
+    (!!localStorage.getItem("user_token") || !!localStorage.getItem("token"));
+
   // Extract logged-in user's full name
-  const userStr = typeof window !== "undefined" ? localStorage.getItem("user") : null;
+  const userStr =
+    typeof window !== "undefined" ? localStorage.getItem("user") : null;
   const currentUser = userStr ? JSON.parse(userStr) : null;
   const userFullName = currentUser
     ? `${currentUser.firstName || ""} ${currentUser.lastName || ""}`.trim()
@@ -60,26 +63,33 @@ export default function ProductDetail() {
     e.preventDefault();
     if (!reviewComment.trim()) return;
 
-    postReviewMutation.mutate({
-      productId,
-      rating: reviewRating,
-      comment: reviewComment.trim()
-    }, {
-      onSuccess: () => {
-        setReviewComment("");
-        setReviewRating(5);
-        alert("Thank you for your feedback! Review submitted successfully.");
+    postReviewMutation.mutate(
+      {
+        productId,
+        rating: reviewRating,
+        comment: reviewComment.trim(),
       },
-      onError: (err: any) => {
-        alert(err.response?.data?.message || err.message || "Failed to submit review. You might have already reviewed this product.");
-      }
-    });
+      {
+        onSuccess: () => {
+          setReviewComment("");
+          setReviewRating(5);
+          alert("Thank you for your feedback! Review submitted successfully.");
+        },
+        onError: (err: any) => {
+          alert(
+            err.response?.data?.message ||
+              err.message ||
+              "Failed to submit review. You might have already reviewed this product.",
+          );
+        },
+      },
+    );
   };
 
   const processImageUrl = (url: string) => {
     if (!url) return "";
     if (url.startsWith("http://") || url.startsWith("https://")) return url;
-        const baseUrl = process.env.NEXT_PUBLIC_API_URL
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL
       ? process.env.NEXT_PUBLIC_API_URL.replace("/api", "")
       : "http://192.168.1.2:4000";
     return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
@@ -108,7 +118,9 @@ export default function ProductDetail() {
         colors: Array.isArray(dbProduct.colors) ? dbProduct.colors : [],
         tags: [],
         inStock: dbProduct.quantity > 0,
-        netWeight: dbProduct.weight ? `${dbProduct.weight}${dbProduct.weightUnit ? " " + dbProduct.weightUnit : ""}` : undefined,
+        netWeight: dbProduct.weight
+          ? `${dbProduct.weight}${dbProduct.weightUnit ? " " + dbProduct.weightUnit : ""}`
+          : undefined,
         countryOfOrigin: dbProduct.countryOfOrigin || "India",
         idealFor: dbProduct.idealFor || "",
         material: dbProduct.material || "",
@@ -134,13 +146,13 @@ export default function ProductDetail() {
   const [isMainDetailOpen, setIsMainDetailOpen] = useState(true);
   const [zoomScale, setZoomScale] = useState(false);
 
-  const [selectedSize, setSelectedSize] = useState<string>(() => 
-    product?.sizes && product.sizes.length > 0 ? product.sizes[0] : ""
+  const [selectedSize, setSelectedSize] = useState<string>(() =>
+    product?.sizes && product.sizes.length > 0 ? product.sizes[0] : "",
   );
   const [selectedColor, setSelectedColor] = useState<string>(() => {
     if (product?.colors && product.colors.length > 0) {
-      return typeof product.colors[0] === "string" 
-        ? product.colors[0] 
+      return typeof product.colors[0] === "string"
+        ? product.colors[0]
         : (product.colors[0] as any).name;
     }
     return "";
@@ -149,32 +161,41 @@ export default function ProductDetail() {
   // Variant states
   // Variant states
   const [isAdding, setIsAdding] = useState(false);
-  const [selectedAttributes, setSelectedAttributes] = useState<Record<string, string>>({});
+  const [selectedAttributes, setSelectedAttributes] = useState<
+    Record<string, string>
+  >({});
 
   const variants = dbProduct?.variants || [];
   const hasVariants = variants.length > 0;
 
   // Group all attribute values by attribute name across all variants & product attributes
   const attributesMap = useMemo(() => {
-    const map: Record<string, { id: string; name: string; values: { id: string; value: string; image: string | null }[] }> = {};
+    const map: Record<
+      string,
+      {
+        id: string;
+        name: string;
+        values: { id: string; value: string; image: string | null }[];
+      }
+    > = {};
     if (Array.isArray(variants) && variants.length > 0) {
-      variants.forEach(v => {
+      variants.forEach((v) => {
         if (Array.isArray(v.attributeValues)) {
-          v.attributeValues.forEach(av => {
+          v.attributeValues.forEach((av) => {
             const attrName = av.attribute?.name;
             if (!attrName) return;
             if (!map[attrName]) {
               map[attrName] = {
                 id: av.attribute?.id || attrName,
                 name: attrName,
-                values: []
+                values: [],
               };
             }
-            if (!map[attrName].values.some(val => val.value === av.value)) {
+            if (!map[attrName].values.some((val) => val.value === av.value)) {
               map[attrName].values.push({
                 id: av.id,
                 value: av.value,
-                image: av.image || null
+                image: av.image || null,
               });
             }
           });
@@ -182,30 +203,41 @@ export default function ProductDetail() {
       });
     }
 
-    if (!map["Size"] && product?.sizes && Array.isArray(product.sizes) && product.sizes.length > 0) {
+    if (
+      !map["Size"] &&
+      product?.sizes &&
+      Array.isArray(product.sizes) &&
+      product.sizes.length > 0
+    ) {
       map["Size"] = {
         id: "size-attr",
         name: "Size",
         values: product.sizes.map((sz, idx) => ({
           id: `sz-${idx}`,
           value: typeof sz === "string" ? sz : (sz as any).name || String(sz),
-          image: null
-        }))
+          image: null,
+        })),
       };
     }
 
-    if (!map["Color"] && product?.colors && Array.isArray(product.colors) && product.colors.length > 0) {
+    if (
+      !map["Color"] &&
+      product?.colors &&
+      Array.isArray(product.colors) &&
+      product.colors.length > 0
+    ) {
       map["Color"] = {
         id: "color-attr",
         name: "Color",
         values: product.colors.map((col, idx) => {
-          const valStr = typeof col === "string" ? col : (col as any).name || String(col);
+          const valStr =
+            typeof col === "string" ? col : (col as any).name || String(col);
           return {
             id: `col-${idx}`,
             value: valStr,
-            image: null
+            image: null,
           };
-        })
+        }),
       };
     }
 
@@ -215,7 +247,7 @@ export default function ProductDetail() {
   // Initialize selectedAttributes when attributesMap loads
   useEffect(() => {
     if (Object.keys(attributesMap).length > 0) {
-      setSelectedAttributes(prev => {
+      setSelectedAttributes((prev) => {
         const next = { ...prev };
         let updated = false;
         Object.entries(attributesMap).forEach(([attrName, attrData]) => {
@@ -234,22 +266,28 @@ export default function ProductDetail() {
     if (!hasVariants) return undefined;
 
     // 1. Try exact match for all selected attributes
-    const exactMatch = variants.find(v => {
-      if (!Array.isArray(v.attributeValues) || v.attributeValues.length === 0) return false;
+    const exactMatch = variants.find((v) => {
+      if (!Array.isArray(v.attributeValues) || v.attributeValues.length === 0)
+        return false;
       return Object.entries(selectedAttributes).every(([attrKey, attrVal]) => {
-        return v.attributeValues.some(av => av.attribute?.name === attrKey && av.value === attrVal);
+        return v.attributeValues.some(
+          (av) => av.attribute?.name === attrKey && av.value === attrVal,
+        );
       });
     });
     if (exactMatch) return exactMatch;
 
     // 2. Best partial match fallback
-    let bestMatch: typeof variants[0] | undefined = undefined;
+    let bestMatch: (typeof variants)[0] | undefined = undefined;
     let maxCount = 0;
     for (const v of variants) {
       if (Array.isArray(v.attributeValues)) {
         let count = 0;
         for (const av of v.attributeValues) {
-          if (av.attribute?.name && selectedAttributes[av.attribute.name] === av.value) {
+          if (
+            av.attribute?.name &&
+            selectedAttributes[av.attribute.name] === av.value
+          ) {
             count++;
           }
         }
@@ -263,9 +301,9 @@ export default function ProductDetail() {
   }, [variants, hasVariants, selectedAttributes]);
 
   const handleAttributeSelect = (attrName: string, valValue: string) => {
-    setSelectedAttributes(prev => ({
+    setSelectedAttributes((prev) => ({
       ...prev,
-      [attrName]: valValue
+      [attrName]: valValue,
     }));
   };
 
@@ -277,7 +315,9 @@ export default function ProductDetail() {
       }
       if (!selectedColor && product.colors && product.colors.length > 0) {
         const firstCol = product.colors[0];
-        setSelectedColor(typeof firstCol === "string" ? firstCol : (firstCol as any).name);
+        setSelectedColor(
+          typeof firstCol === "string" ? firstCol : (firstCol as any).name,
+        );
       }
     }
   }, [product, selectedSize, selectedColor]);
@@ -291,12 +331,15 @@ export default function ProductDetail() {
       if (currentVarId !== lastVariantId) {
         setLastVariantId(currentVarId);
         if (activeVariant) {
-          const variantImg = activeVariant.image || (activeVariant as any).resolvedImage;
+          const variantImg =
+            activeVariant.image || (activeVariant as any).resolvedImage;
           if (variantImg) {
             const formattedImg = processImageUrl(variantImg);
             setCurrentMainImage(formattedImg);
             // Highlight the matching thumbnail if it exists in the product images
-            const thumbIdx = product.images.findIndex(img => img === formattedImg);
+            const thumbIdx = product.images.findIndex(
+              (img) => img === formattedImg,
+            );
             if (thumbIdx !== -1) {
               setSelectedImage(thumbIdx);
             }
@@ -304,13 +347,19 @@ export default function ProductDetail() {
           }
         }
       }
-      
+
       // Fallback if main image is not set yet or when switching products
       if (!currentMainImage && product.images && product.images.length > 0) {
         setCurrentMainImage(product.images[0]);
       }
     }
-  }, [dbProduct?.id, activeVariant?.id, lastVariantId, currentMainImage, product?.images?.join(",")]);
+  }, [
+    dbProduct?.id,
+    activeVariant?.id,
+    lastVariantId,
+    currentMainImage,
+    product?.images?.join(","),
+  ]);
 
   if (isLoading) {
     return (
@@ -367,7 +416,7 @@ export default function ProductDetail() {
     if (!s) return FALLBACK;
     if (s.startsWith("http") || s.startsWith("data:") || s.startsWith("blob:"))
       return s;
-        const base = (
+    const base = (
       process.env.NEXT_PUBLIC_API_URL ?? "http://192.168.1.2:4000"
     ).replace("/api", "");
     return `${base}${s.startsWith("/") ? "" : "/"}${s}`;
@@ -422,53 +471,53 @@ export default function ProductDetail() {
             <div className="lg:col-span-7 space-y-6">
               {/* Gallery: Thumbnail Bar + Main Zoom Frame */}
               <div className="flex flex-col md:flex-row gap-4">
-              {/* Thumbnails list */}
-              <div className="flex md:flex-col gap-3 order-2 md:order-1 flex-shrink-0">
-                {product.images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      setSelectedImage(idx);
-                      setCurrentMainImage(img);
-                    }}
+                {/* Thumbnails list */}
+                <div className="flex md:flex-col gap-3 order-2 md:order-1 flex-shrink-0">
+                  {product.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setSelectedImage(idx);
+                        setCurrentMainImage(img);
+                      }}
+                      className={cn(
+                        "w-16 h-16 md:w-20 md:h-20 rounded border-2 overflow-hidden transition-all bg-white shadow-sm flex-shrink-0",
+                        selectedImage === idx
+                          ? "border-[#8A1B28] ring-2 ring-[#8A1B28]/10"
+                          : "border-[#E5D5B5]/60 hover:border-[#8A1B28]",
+                      )}
+                    >
+                      <img
+                        src={img}
+                        alt=""
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+
+                {/* Main Image Frame */}
+                <div className="flex-1 order-1 md:order-2 bg-card border border-border rounded-xl overflow-hidden relative aspect-square shadow-sm flex items-center justify-center p-3">
+                  <img
+                    src={currentMainImage || product.images[selectedImage]}
+                    alt={product.name}
                     className={cn(
-                      "w-16 h-16 md:w-20 md:h-20 rounded border-2 overflow-hidden transition-all bg-white shadow-sm flex-shrink-0",
-                      selectedImage === idx
-                        ? "border-[#8A1B28] ring-2 ring-[#8A1B28]/10"
-                        : "border-[#E5D5B5]/60 hover:border-[#8A1B28]",
+                      "w-full h-full object-cover rounded-lg",
+                      zoomScale ? "scale-150 cursor-zoom-out" : "scale-100",
                     )}
+                    onClick={() => setZoomScale(!zoomScale)}
+                  />
+
+                  {/* Main Zoom Frame Button overlay */}
+                  <button
+                    onClick={() => setZoomScale(!zoomScale)}
+                    className="absolute bottom-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-black/75 hover:bg-primary text-white text-[10px] uppercase font-bold tracking-wider rounded-full shadow z-10"
                   >
-                    <img
-                      src={img}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
+                    <Maximize className="h-3 w-3 stroke-[2]" />
+                    Zoom
                   </button>
-                ))}
+                </div>
               </div>
-
-              {/* Main Image Frame */}
-              <div className="flex-1 order-1 md:order-2 bg-card border border-border rounded-xl overflow-hidden relative aspect-square shadow-sm flex items-center justify-center p-3">
-                <img
-                  src={currentMainImage || product.images[selectedImage]}
-                  alt={product.name}
-                  className={cn(
-                    "w-full h-full object-cover rounded-lg",
-                    zoomScale ? "scale-150 cursor-zoom-out" : "scale-100",
-                  )}
-                  onClick={() => setZoomScale(!zoomScale)}
-                />
-
-                {/* Main Zoom Frame Button overlay */}
-                <button
-                  onClick={() => setZoomScale(!zoomScale)}
-                  className="absolute bottom-4 right-4 flex items-center gap-1 px-3 py-1.5 bg-black/75 hover:bg-primary text-white text-[10px] uppercase font-bold tracking-wider rounded-full shadow z-10"
-                >
-                  <Maximize className="h-3 w-3 stroke-[2]" />
-                  Zoom
-                </button>
-              </div>
-            </div>
 
               {/* Product Description */}
               {product.description && (
@@ -492,7 +541,13 @@ export default function ProductDetail() {
                     {product.name}
                   </h1>
                   <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider block mt-1">
-                    {(activeVariant ? activeVariant.quantity > 0 : product.inStock) ? "● In-Stock" : "● Out of Stock"}
+                    {(
+                      activeVariant
+                        ? activeVariant.quantity > 0
+                        : product.inStock
+                    )
+                      ? "● In-Stock"
+                      : "● Out of Stock"}
                   </span>
                 </div>
 
@@ -550,7 +605,13 @@ export default function ProductDetail() {
                     Standard rate
                   </span>
                   <span className="text-xl lg:text-2xl font-extrabold text-[#8A1B28]">
-                    ₹{(activeVariant ? (activeVariant.discountPrice ? Number(activeVariant.discountPrice) : Number(activeVariant.price)) : product.price).toLocaleString("en-IN")}
+                    ₹
+                    {(activeVariant
+                      ? activeVariant.discountPrice
+                        ? Number(activeVariant.discountPrice)
+                        : Number(activeVariant.price)
+                      : product.price
+                    ).toLocaleString("en-IN")}
                   </span>
                 </div>
                 <div className="text-right">
@@ -571,108 +632,144 @@ export default function ProductDetail() {
                 <div className="space-y-2.5 text-xs lg:text-sm text-black">
                   <div className="flex justify-between border-b border-border pb-1.5">
                     <span className="text-muted-foreground">Brand Name</span>
-                    <span className="font-bold text-black">{product.brandName}</span>
+                    <span className="font-bold text-black">
+                      {product.brandName}
+                    </span>
                   </div>
-                  {hasVariants && Object.entries(selectedAttributes).map(([attrKey, attrVal]) => (
-                    <div key={attrKey} className="flex justify-between border-b border-border pb-1.5">
-                      <span className="text-muted-foreground">{attrKey}</span>
-                      <span className="font-bold text-black">{attrVal}</span>
-                    </div>
-                  ))}
+                  {hasVariants &&
+                    Object.entries(selectedAttributes).map(
+                      ([attrKey, attrVal]) => (
+                        <div
+                          key={attrKey}
+                          className="flex justify-between border-b border-border pb-1.5"
+                        >
+                          <span className="text-muted-foreground">
+                            {attrKey}
+                          </span>
+                          <span className="font-bold text-black">
+                            {attrVal}
+                          </span>
+                        </div>
+                      ),
+                    )}
                   {product.idealFor && (
                     <div className="flex justify-between border-b border-border pb-1.5">
                       <span className="text-muted-foreground">Ideal For</span>
-                      <span className="font-bold text-black">{product.idealFor}</span>
+                      <span className="font-bold text-black">
+                        {product.idealFor}
+                      </span>
                     </div>
                   )}
                   {product.material && (
                     <div className="flex justify-between border-b border-border pb-1.5">
                       <span className="text-muted-foreground">Material</span>
-                      <span className="font-bold text-black">{product.material}</span>
+                      <span className="font-bold text-black">
+                        {product.material}
+                      </span>
                     </div>
                   )}
                   {product.packOf !== undefined && (
                     <div className="flex justify-between border-b border-border pb-1.5">
                       <span className="text-muted-foreground">Pack Of</span>
-                      <span className="font-bold text-black">{product.packOf}</span>
+                      <span className="font-bold text-black">
+                        {product.packOf}
+                      </span>
                     </div>
                   )}
                   {product.countryOfOrigin && (
                     <div className="flex justify-between border-b border-border pb-1.5">
-                      <span className="text-muted-foreground">Country Of Origin</span>
-                      <span className="font-bold text-black">{product.countryOfOrigin}</span>
+                      <span className="text-muted-foreground">
+                        Country Of Origin
+                      </span>
+                      <span className="font-bold text-black">
+                        {product.countryOfOrigin}
+                      </span>
                     </div>
                   )}
                   {product.productType && (
                     <div className="flex justify-between border-b border-border pb-1.5">
-                      <span className="text-muted-foreground">Product Type</span>
-                      <span className="font-bold text-black">{product.productType}</span>
+                      <span className="text-muted-foreground">
+                        Product Type
+                      </span>
+                      <span className="font-bold text-black">
+                        {product.productType}
+                      </span>
                     </div>
                   )}
                   {product.netWeight && (
                     <div className="flex justify-between border-b border-border pb-1.5">
                       <span className="text-muted-foreground">Weight</span>
-                      <span className="font-bold text-black">{product.netWeight}</span>
+                      <span className="font-bold text-black">
+                        {product.netWeight}
+                      </span>
                     </div>
                   )}
                   <div className="flex justify-between border-b border-border pb-1.5">
                     <span className="text-muted-foreground">Category</span>
-                    <span className="font-bold text-black">{product.category}</span>
+                    <span className="font-bold text-black">
+                      {product.category}
+                    </span>
                   </div>
                 </div>
               </div>
 
               {/* Dynamic Multi-attribute Selector */}
-              {Object.keys(attributesMap).length > 0 && Object.values(attributesMap).map((attr) => {
-                const currentSelectedValue = selectedAttributes[attr.name];
-                
-                return (
-                  <div key={attr.id} className="space-y-3 pt-4 border-t border-[#E5D5B5]/60">
-                    <div className="flex justify-between items-center">
-                      <span className="text-[10px] uppercase font-extrabold text-gray-500 tracking-wider">
-                        Select {attr.name}
-                      </span>
-                      {currentSelectedValue && (
-                        <span className="text-xs font-bold text-black bg-[#E5D5B5]/30 px-2 py-0.5 rounded uppercase tracking-wider">
-                          {currentSelectedValue}
+              {Object.keys(attributesMap).length > 0 &&
+                Object.values(attributesMap).map((attr) => {
+                  const currentSelectedValue = selectedAttributes[attr.name];
+
+                  return (
+                    <div
+                      key={attr.id}
+                      className="space-y-3 pt-4 border-t border-[#E5D5B5]/60"
+                    >
+                      <div className="flex justify-between items-center">
+                        <span className="text-[10px] uppercase font-extrabold text-gray-500 tracking-wider">
+                          Select {attr.name}
                         </span>
-                      )}
+                        {currentSelectedValue && (
+                          <span className="text-xs font-bold text-black bg-[#E5D5B5]/30 px-2 py-0.5 rounded uppercase tracking-wider">
+                            {currentSelectedValue}
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex flex-wrap gap-2.5">
+                        {attr.values.map((val) => {
+                          const isSelected = currentSelectedValue === val.value;
+                          const hasImg = !!val.image;
+
+                          return (
+                            <button
+                              key={val.id}
+                              type="button"
+                              onClick={() =>
+                                handleAttributeSelect(attr.name, val.value)
+                              }
+                              className={cn(
+                                "flex items-center gap-2 px-4 py-2 text-xs font-bold border transition-all rounded-md bg-white min-h-[38px] hover:shadow-sm",
+                                isSelected
+                                  ? "border-black bg-black text-white shadow-sm"
+                                  : "border-[#E5D5B5] hover:border-black text-black",
+                              )}
+                            >
+                              {hasImg && (
+                                <span className="w-5 h-5 rounded overflow-hidden border border-black/10 flex-shrink-0">
+                                  <img
+                                    src={processImageUrl(val.image!)}
+                                    alt={val.value}
+                                    className="w-full h-full object-cover"
+                                  />
+                                </span>
+                              )}
+                              <span>{val.value}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                    
-                    <div className="flex flex-wrap gap-2.5">
-                      {attr.values.map((val) => {
-                        const isSelected = currentSelectedValue === val.value;
-                        const hasImg = !!val.image;
-                        
-                        return (
-                          <button
-                            key={val.id}
-                            type="button"
-                            onClick={() => handleAttributeSelect(attr.name, val.value)}
-                            className={cn(
-                              "flex items-center gap-2 px-4 py-2 text-xs font-bold border transition-all rounded-md bg-white min-h-[38px] hover:shadow-sm",
-                              isSelected
-                                ? "border-black bg-black text-white shadow-sm"
-                                : "border-[#E5D5B5] hover:border-black text-black"
-                            )}
-                          >
-                            {hasImg && (
-                              <span className="w-5 h-5 rounded overflow-hidden border border-black/10 flex-shrink-0">
-                                <img
-                                  src={processImageUrl(val.image!)}
-                                  alt={val.value}
-                                  className="w-full h-full object-cover"
-                                />
-                              </span>
-                            )}
-                            <span>{val.value}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
 
               {/* Size Selector */}
               {product.sizes && product.sizes.length > 0 && !hasVariants && (
@@ -692,7 +789,7 @@ export default function ProductDetail() {
                             "px-4 py-2 text-xs font-bold border transition-all rounded",
                             isSelected
                               ? "border-black bg-black text-white shadow-sm"
-                              : "border-[#E5D5B5] hover:border-black text-black bg-white"
+                              : "border-[#E5D5B5] hover:border-black text-black bg-white",
                           )}
                         >
                           {sz}
@@ -723,7 +820,7 @@ export default function ProductDetail() {
                             "flex items-center gap-2 px-3 py-1.5 text-xs font-bold border transition-all rounded-full",
                             isSelected
                               ? "border-black bg-black text-white shadow-sm"
-                              : "border-[#E5D5B5] hover:border-black text-black bg-white"
+                              : "border-[#E5D5B5] hover:border-black text-black bg-white",
                           )}
                         >
                           {colHex && (
@@ -772,11 +869,16 @@ export default function ProductDetail() {
                         let resolvedSize: string | undefined = undefined;
                         let resolvedColor: string | undefined = undefined;
 
-                        activeVariant.attributeValues.forEach(av => {
-                          const nameLower = av.attribute?.name?.toLowerCase() || "";
+                        activeVariant.attributeValues.forEach((av) => {
+                          const nameLower =
+                            av.attribute?.name?.toLowerCase() || "";
                           if (nameLower === "size" || nameLower === "weight") {
                             resolvedSize = av.value;
-                          } else if (nameLower === "color" || nameLower === "flavour" || nameLower === "flavor") {
+                          } else if (
+                            nameLower === "color" ||
+                            nameLower === "flavour" ||
+                            nameLower === "flavor"
+                          ) {
                             resolvedColor = av.value;
                           }
                         });
@@ -784,10 +886,17 @@ export default function ProductDetail() {
                         await addItem({
                           id: product.id,
                           name: product.name,
-                          price: activeVariant.discountPrice ? Number(activeVariant.discountPrice) : Number(activeVariant.price),
-                          image: (activeVariant.image || (activeVariant as any).resolvedImage)
-                            ? processImageUrl(activeVariant.image || (activeVariant as any).resolvedImage)
-                            : (product.images[0] || ""),
+                          price: activeVariant.discountPrice
+                            ? Number(activeVariant.discountPrice)
+                            : Number(activeVariant.price),
+                          image:
+                            activeVariant.image ||
+                            (activeVariant as any).resolvedImage
+                              ? processImageUrl(
+                                  activeVariant.image ||
+                                    (activeVariant as any).resolvedImage,
+                                )
+                              : product.images[0] || "",
                           size: resolvedSize,
                           color: resolvedColor,
                           variantId: activeVariant.id,
@@ -810,7 +919,12 @@ export default function ProductDetail() {
                       setIsAdding(false);
                     }
                   }}
-                  disabled={isAdding || !(activeVariant ? activeVariant.quantity > 0 : product.inStock)}
+                  disabled={
+                    isAdding ||
+                    !(activeVariant
+                      ? activeVariant.quantity > 0
+                      : product.inStock)
+                  }
                   className="flex-1 h-12 bg-black hover:bg-black/90 disabled:bg-black/60 text-white text-xs lg:text-sm font-bold uppercase tracking-widest rounded shadow-sm flex items-center justify-center gap-2"
                 >
                   {isAdding ? (
@@ -846,7 +960,6 @@ export default function ProductDetail() {
                   />
                 </button>
               </div>
-
 
               {/* WhatsApp To Buy CTA Button */}
               <div className="pt-2">
@@ -894,9 +1007,7 @@ export default function ProductDetail() {
               </button>
 
               {isMainDetailOpen && (
-                <div
-                  className="overflow-hidden bg-[#FAF9F6]/60"
-                >
+                <div className="overflow-hidden bg-[#FAF9F6]/60">
                   <div className="p-5 border-t border-border grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 text-xs lg:text-sm text-black">
                     <div className="flex justify-between border-b border-border pb-2">
                       <span className="font-semibold text-black">
@@ -940,7 +1051,10 @@ export default function ProductDetail() {
               </h2>
               <div className="flex items-center gap-1.5 bg-[#8A1B28]/5 text-[#8A1B28] px-3 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
                 <Star className="h-4 w-4 fill-[#8A1B28] text-[#8A1B28]" />
-                <span>{dbProduct?.rating || 0} ({dbProduct?.numReviews || 0} reviews)</span>
+                <span>
+                  {dbProduct?.rating || 0} ({dbProduct?.numReviews || 0}{" "}
+                  reviews)
+                </span>
               </div>
             </div>
 
@@ -948,16 +1062,28 @@ export default function ProductDetail() {
               {/* Reviews List */}
               <div className="md:col-span-2 space-y-6">
                 {!dbProduct?.reviews || dbProduct.reviews.length === 0 ? (
-                  <p className="text-black text-sm py-4">No reviews yet. Be the first to review this product!</p>
+                  <p className="text-black text-sm py-4">
+                    No reviews yet. Be the first to review this product!
+                  </p>
                 ) : (
                   dbProduct.reviews.map((rev) => (
-                    <div key={rev.id} className="border-b border-border pb-6 last:border-b-0 space-y-2">
+                    <div
+                      key={rev.id}
+                      className="border-b border-border pb-6 last:border-b-0 space-y-2"
+                    >
                       <div className="flex items-center justify-between">
                         <span className="font-bold text-sm text-black">
-                          {rev.user ? (`${rev.user.firstName || ""} ${rev.user.lastName || ""}`.trim() || "Anonymous User") : "Anonymous User"}
+                          {rev.user
+                            ? `${rev.user.firstName || ""} ${rev.user.lastName || ""}`.trim() ||
+                              "Anonymous User"
+                            : "Anonymous User"}
                         </span>
                         <span className="text-[10px] text-black">
-                          {new Date(rev.createdAt).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" })}
+                          {new Date(rev.createdAt).toLocaleDateString("en-IN", {
+                            day: "numeric",
+                            month: "short",
+                            year: "numeric",
+                          })}
                         </span>
                       </div>
                       <div className="flex gap-0.5">
@@ -966,7 +1092,9 @@ export default function ProductDetail() {
                             key={s}
                             className={cn(
                               "h-3.5 w-3.5",
-                              s <= rev.rating ? "fill-[#8A1B28] text-[#8A1B28]" : "text-gray-300"
+                              s <= rev.rating
+                                ? "fill-[#8A1B28] text-[#8A1B28]"
+                                : "text-gray-300",
                             )}
                           />
                         ))}
@@ -997,7 +1125,10 @@ export default function ProductDetail() {
                 {isLoggedIn ? (
                   <form onSubmit={handlePostReview} className="space-y-4">
                     <p className="text-[10px] text-gray-500 italic">
-                      Posting as: <span className="font-bold text-[#8A1B28]">{userFullName || currentUser?.email || "Anonymous"}</span>
+                      Posting as:{" "}
+                      <span className="font-bold text-[#8A1B28]">
+                        {userFullName || currentUser?.email || "Anonymous"}
+                      </span>
                     </p>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-black uppercase tracking-wide block">
@@ -1014,7 +1145,9 @@ export default function ProductDetail() {
                             <Star
                               className={cn(
                                 "h-6 w-6",
-                                s <= reviewRating ? "fill-[#8A1B28] text-[#8A1B28]" : "text-gray-300 hover:text-[#8A1B28]/50"
+                                s <= reviewRating
+                                  ? "fill-[#8A1B28] text-[#8A1B28]"
+                                  : "text-gray-300 hover:text-[#8A1B28]/50",
                               )}
                             />
                           </button>
@@ -1023,7 +1156,10 @@ export default function ProductDetail() {
                     </div>
 
                     <div className="space-y-1.5">
-                      <label htmlFor="rev-comment" className="text-xs font-bold text-black uppercase tracking-wide block">
+                      <label
+                        htmlFor="rev-comment"
+                        className="text-xs font-bold text-black uppercase tracking-wide block"
+                      >
                         Comment
                       </label>
                       <textarea
@@ -1042,7 +1178,9 @@ export default function ProductDetail() {
                       disabled={postReviewMutation.isPending}
                       className="w-full py-2.5 bg-[#8A1B28] hover:bg-[#721620] text-white text-xs font-bold uppercase tracking-wider rounded-lg shadow-sm disabled:opacity-50"
                     >
-                      {postReviewMutation.isPending ? "Submitting..." : "Submit Review"}
+                      {postReviewMutation.isPending
+                        ? "Submitting..."
+                        : "Submit Review"}
                     </button>
                   </form>
                 ) : (

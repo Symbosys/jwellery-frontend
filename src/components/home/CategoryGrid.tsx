@@ -11,11 +11,26 @@ interface CategoryItem {
 }
 
 const mockCategories = [
-  { name: 'Rings', image: 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600' },
-  { name: 'Necklaces', image: 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600' },
-  { name: 'Bracelets', image: 'https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600' },
-  { name: 'Earrings', image: 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600' },
-  { name: 'City Gold Sets', image: 'https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600' },
+  {
+    name: "Rings",
+    image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=600",
+  },
+  {
+    name: "Necklaces",
+    image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600",
+  },
+  {
+    name: "Bracelets",
+    image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=600",
+  },
+  {
+    name: "Earrings",
+    image: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=600",
+  },
+  {
+    name: "City Gold Sets",
+    image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=600",
+  },
 ];
 
 export default function CategoryGrid() {

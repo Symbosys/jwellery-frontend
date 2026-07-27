@@ -8,7 +8,6 @@ export default function FlashSale() {
   return (
     <section className="py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
-        
         {/* Best Sellers Banner */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -51,7 +50,6 @@ export default function FlashSale() {
 
         {/* Promo Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 mt-8">
-          
           {/* Card 1: Quality Promise */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -68,7 +66,9 @@ export default function FlashSale() {
                 PREMIUM CITY GOLD FINISH
               </h3>
               <p className="text-sm text-white/70 leading-relaxed">
-                Every piece of our artificial and City Gold jewellery is crafted with superior micro-gold plating, long-lasting shine, and skin-friendly polish.
+                Every piece of our artificial and City Gold jewellery is crafted
+                with superior micro-gold plating, long-lasting shine, and
+                skin-friendly polish.
               </p>
             </div>
             <div className="pt-4">
@@ -88,25 +88,33 @@ export default function FlashSale() {
           >
             {/* Background Image */}
             <div className="absolute inset-0">
-              <img 
-                src="/images/gold-bangle-banner.jpg" 
-                alt="Bridal & Combos" 
+              <img
+                src="/images/gold-bangle-banner.jpg"
+                alt="Bridal & Combos"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/30" />
             </div>
 
             <div className="relative z-10">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-[#D4AF37] mb-2 block">Bridal & Combos</span>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-[#D4AF37] mb-2 block">
+                Bridal & Combos
+              </span>
               <h3 className="heading-bold text-2xl lg:text-3xl text-white mb-3 leading-tight">
-                EXCLUSIVE BRIDAL<br />OFFERS
+                EXCLUSIVE BRIDAL
+                <br />
+                OFFERS
               </h3>
               <p className="text-xs text-white/80 leading-relaxed font-medium">
-                Get exclusive combo discounts on complete City Gold & Artificial jewellery bridal sets for weddings and celebrations.
+                Get exclusive combo discounts on complete City Gold & Artificial
+                jewellery bridal sets for weddings and celebrations.
               </p>
             </div>
             <div className="relative z-10 pt-4">
-              <Link to="/products?category=Necklaces" className="inline-flex items-center gap-2 bg-[#D4AF37] text-black px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white transition-all shadow-md">
+              <Link
+                to="/products?category=Necklaces"
+                className="inline-flex items-center gap-2 bg-[#D4AF37] text-black px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-white transition-all shadow-md"
+              >
                 Explore Bridal Sets
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -122,20 +130,29 @@ export default function FlashSale() {
             className="bg-[#111] text-white p-7 rounded-2xl flex flex-col justify-between min-h-[300px] relative overflow-hidden"
           >
             <div>
-              <span className="text-[10px] uppercase tracking-widest font-bold text-[#D4AF37] mb-2 block">Gifting</span>
+              <span className="text-[10px] uppercase tracking-widest font-bold text-[#D4AF37] mb-2 block">
+                Gifting
+              </span>
               <h3 className="heading-bold text-xl lg:text-2xl text-white mb-3">
-                GIVE THE GIFT<br/>OF ELEGANCE
+                GIVE THE GIFT
+                <br />
+                OF ELEGANCE
               </h3>
               <p className="text-xs text-white/60 leading-relaxed">
-                Perfect for weddings, anniversaries, or birthdays. Gift stunning City Gold & artificial jewellery sets to your loved ones.
+                Perfect for weddings, anniversaries, or birthdays. Gift stunning
+                City Gold & artificial jewellery sets to your loved ones.
               </p>
             </div>
 
             {/* Gift Card Visual */}
             <div className="w-full h-28 border border-[#D4AF37]/30 bg-[#1A1A1A] rounded-xl p-4 flex items-center justify-between mt-4">
               <div>
-                <span className="font-bold text-sm text-[#D4AF37] block">CITY GOLD JEWELLERY</span>
-                <span className="text-[8px] uppercase tracking-widest text-white/40">E-GIFT CARD</span>
+                <span className="font-bold text-sm text-[#D4AF37] block">
+                  CITY GOLD JEWELLERY
+                </span>
+                <span className="text-[8px] uppercase tracking-widest text-white/40">
+                  E-GIFT CARD
+                </span>
               </div>
               <div className="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center">
                 <span className="text-2xl">🎁</span>
@@ -153,7 +170,6 @@ export default function FlashSale() {
             </div>
           </motion.div>
         </div>
-
       </div>
     </section>
   );

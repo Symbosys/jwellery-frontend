@@ -18,30 +18,32 @@ import MainLayout from "@/components/layout/MainLayout";
 import { cn } from "@/lib/utils";
 
 const processImageUrl = (url: string | null | undefined) => {
-  if (!url) return '';
-  if (url.startsWith('http')) return url;
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
   return `http://localhost:4000${url}`;
 };
 
 export default function OrderDetails(): JSX.Element {
   const { id } = useParams();
-  const { data: dbOrder, isLoading } = useOrderDetailQuery((id as string) || "");
+  const { data: dbOrder, isLoading } = useOrderDetailQuery(
+    (id as string) || "",
+  );
 
   const getStatusLabel = (status: string) => {
     switch (status) {
-      case 'PENDING':
-      case 'CONFIRMED':
-        return 'Processing';
-      case 'SHIPPED':
-        return 'Shipped';
-      case 'DELIVERED':
-        return 'Delivered';
-      case 'CANCELLED':
-        return 'Cancelled';
-      case 'RETURN_REQUESTED':
-        return 'Return Requested';
-      case 'RETURNED':
-        return 'Returned';
+      case "PENDING":
+      case "CONFIRMED":
+        return "Processing";
+      case "SHIPPED":
+        return "Shipped";
+      case "DELIVERED":
+        return "Delivered";
+      case "CANCELLED":
+        return "Cancelled";
+      case "RETURN_REQUESTED":
+        return "Return Requested";
+      case "RETURNED":
+        return "Returned";
       default:
         return status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
     }
@@ -67,13 +69,17 @@ export default function OrderDetails(): JSX.Element {
       payment: {
         method: dbOrder.paymentMethod || "COD",
         status: dbOrder.paymentStatus,
-        transactionId: dbOrder.razorpayPaymentId || dbOrder.razorpayOrderId || ("TXN_" + dbOrder.orderNumber),
+        transactionId:
+          dbOrder.razorpayPaymentId ||
+          dbOrder.razorpayOrderId ||
+          "TXN_" + dbOrder.orderNumber,
       },
       items: dbOrder.items.map((item: any) => ({
         id: item.productId,
         name: item.productName,
         image: item.productImage,
-        variant: [item.color, item.size].filter(Boolean).join(", ") || "Standard",
+        variant:
+          [item.color, item.size].filter(Boolean).join(", ") || "Standard",
         qty: item.quantity,
         price: Number(item.unitPrice),
       })),
@@ -119,7 +125,9 @@ export default function OrderDetails(): JSX.Element {
         <div className="min-h-screen bg-[#FAF9F6] font-sans text-black pb-20 mt-24 flex items-center justify-center">
           <div className="flex flex-col items-center gap-2">
             <Loader2Icon className="h-8 w-8 text-black animate-spin" />
-            <span className="text-sm text-gray-500">Loading order details...</span>
+            <span className="text-sm text-gray-500">
+              Loading order details...
+            </span>
           </div>
         </div>
       </MainLayout>
@@ -176,7 +184,7 @@ export default function OrderDetails(): JSX.Element {
                 <span
                   className={cn(
                     "px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider border",
-                    getStatusColor(order.status)
+                    getStatusColor(order.status),
                   )}
                 >
                   {order.status}
@@ -234,7 +242,7 @@ export default function OrderDetails(): JSX.Element {
                               "w-10 h-10 rounded-full border-4 flex items-center justify-center flex-shrink-0 transition-colors bg-white",
                               isCompleted
                                 ? "bg-emerald-500 border-emerald-100 text-white"
-                                : "border-gray-200 text-gray-400"
+                                : "border-gray-200 text-gray-400",
                             )}
                           >
                             {isCompleted ? (
@@ -248,17 +256,20 @@ export default function OrderDetails(): JSX.Element {
                             <p
                               className={cn(
                                 "text-xs font-semibold",
-                                isCompleted ? "text-black" : "text-gray-400"
+                                isCompleted ? "text-black" : "text-gray-400",
                               )}
                             >
                               {step.status}
                             </p>
                             {isCompleted && step.date && (
                               <p className="text-[10px] text-gray-500 mt-0.5">
-                                {new Date(step.date).toLocaleDateString("en-IN", {
-                                  day: "numeric",
-                                  month: "short",
-                                })}
+                                {new Date(step.date).toLocaleDateString(
+                                  "en-IN",
+                                  {
+                                    day: "numeric",
+                                    month: "short",
+                                  },
+                                )}
                               </p>
                             )}
                           </div>
@@ -335,12 +346,21 @@ export default function OrderDetails(): JSX.Element {
                   <p className="font-semibold text-black text-sm">
                     {order.shippingAddress.name}
                   </p>
-                  <p className="leading-relaxed">{order.shippingAddress.address}</p>
+                  <p className="leading-relaxed">
+                    {order.shippingAddress.address}
+                  </p>
                   <p>
-                    {order.shippingAddress.city}, {order.shippingAddress.state} - <span className="font-bold">{order.shippingAddress.pincode}</span>
+                    {order.shippingAddress.city}, {order.shippingAddress.state}{" "}
+                    -{" "}
+                    <span className="font-bold">
+                      {order.shippingAddress.pincode}
+                    </span>
                   </p>
                   <p className="font-medium text-black">
-                    Phone: <span className="font-normal text-gray-500">{order.shippingAddress.phone}</span>
+                    Phone:{" "}
+                    <span className="font-normal text-gray-500">
+                      {order.shippingAddress.phone}
+                    </span>
                   </p>
                 </div>
               </section>
@@ -355,7 +375,9 @@ export default function OrderDetails(): JSX.Element {
                 <div className="space-y-3 text-xs text-gray-700">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500 font-medium">Method</span>
-                    <span className="font-semibold text-black">{order.payment.method}</span>
+                    <span className="font-semibold text-black">
+                      {order.payment.method}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-500 font-medium">Status</span>
@@ -365,8 +387,13 @@ export default function OrderDetails(): JSX.Element {
                   </div>
                   {order.payment.transactionId && (
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-500 font-medium">Transaction ID</span>
-                      <span className="font-mono text-black font-semibold truncate max-w-[120px]" title={order.payment.transactionId}>
+                      <span className="text-gray-500 font-medium">
+                        Transaction ID
+                      </span>
+                      <span
+                        className="font-mono text-black font-semibold truncate max-w-[120px]"
+                        title={order.payment.transactionId}
+                      >
                         {order.payment.transactionId}
                       </span>
                     </div>
@@ -389,7 +416,9 @@ export default function OrderDetails(): JSX.Element {
                   </div>
                   {order.pricing.discount > 0 && (
                     <div className="flex justify-between">
-                      <span className="text-gray-500 font-medium">Discount</span>
+                      <span className="text-gray-500 font-medium">
+                        Discount
+                      </span>
                       <span className="font-semibold text-emerald-600">
                         - ₹{order.pricing.discount.toLocaleString("en-IN")}
                       </span>
@@ -413,9 +442,7 @@ export default function OrderDetails(): JSX.Element {
                   )}
 
                   <div className="pt-3 mt-3 border-t border-gray-100 flex justify-between items-center">
-                    <span className="font-bold text-sm text-black">
-                      Total
-                    </span>
+                    <span className="font-bold text-sm text-black">Total</span>
                     <span className="font-bold text-base text-black">
                       ₹{order.pricing.total.toLocaleString("en-IN")}
                     </span>

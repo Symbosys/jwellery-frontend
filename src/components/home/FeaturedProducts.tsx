@@ -59,7 +59,6 @@ export default function FeaturedProducts() {
         }))
       : mockProducts.slice(0, 8);
 
-
   return (
     <section className="py-14 bg-white">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">

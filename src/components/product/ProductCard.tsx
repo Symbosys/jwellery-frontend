@@ -53,8 +53,16 @@ interface ProductCardProps {
 
 const processImageUrl = (url: string) => {
   if (!url) return "";
-  if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:") || url.startsWith("blob:")) return url;
-  const baseUrl = (process.env.NEXT_PUBLIC_API_URL ?? "http://192.168.1.2:4000").replace("/api", "");
+  if (
+    url.startsWith("http://") ||
+    url.startsWith("https://") ||
+    url.startsWith("data:") ||
+    url.startsWith("blob:")
+  )
+    return url;
+  const baseUrl = (
+    process.env.NEXT_PUBLIC_API_URL ?? "http://192.168.1.2:4000"
+  ).replace("/api", "");
   return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
 };
 
@@ -142,10 +150,15 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       await addItem({
         id: product.id,
         name: product.name,
-        price: selectedVariant.discountPrice ? Number(selectedVariant.discountPrice) : Number(selectedVariant.price),
-        image: (selectedVariant.image || (selectedVariant as any).resolvedImage)
-          ? processImageUrl(selectedVariant.image || (selectedVariant as any).resolvedImage)
-          : (product.images[0] || ""),
+        price: selectedVariant.discountPrice
+          ? Number(selectedVariant.discountPrice)
+          : Number(selectedVariant.price),
+        image:
+          selectedVariant.image || (selectedVariant as any).resolvedImage
+            ? processImageUrl(
+                selectedVariant.image || (selectedVariant as any).resolvedImage,
+              )
+            : product.images[0] || "",
         size: resolvedSize,
         color: resolvedColor,
         variantId: selectedVariant.id,
@@ -363,7 +376,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                       .map((av) => `${av.attribute.name}: ${av.value}`)
                       .join(" | ");
                     const isSelected = selectedVariantId === v.id;
-                    const vPrice = v.discountPrice ? Number(v.discountPrice) : Number(v.price);
+                    const vPrice = v.discountPrice
+                      ? Number(v.discountPrice)
+                      : Number(v.price);
                     const vOrigPrice = v.discountPrice ? Number(v.price) : null;
 
                     return (
@@ -380,7 +395,13 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                         <div className="flex items-center gap-3">
                           <div className="h-10 w-10 rounded bg-gray-50 border overflow-hidden flex-shrink-0">
                             <img
-                              src={processImageUrl(v.image || (v as any).resolvedImage) || product.images[0] || ""}
+                              src={
+                                processImageUrl(
+                                  v.image || (v as any).resolvedImage,
+                                ) ||
+                                product.images[0] ||
+                                ""
+                              }
                               alt={displayName}
                               className="h-full w-full object-cover"
                             />

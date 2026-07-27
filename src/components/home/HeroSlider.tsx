@@ -93,9 +93,16 @@ export default function HeroSlider() {
             className="absolute inset-0 w-full h-full"
           >
             {/* Background Image with Overlay */}
-            <Link to={slides[current].cta.link} className="absolute inset-0 block cursor-pointer">
+            <Link
+              to={slides[current].cta.link}
+              className="absolute inset-0 block cursor-pointer"
+            >
               <img
-                src={typeof slides[current].image === "string" ? slides[current].image : (slides[current].image as any).src}
+                src={
+                  typeof slides[current].image === "string"
+                    ? slides[current].image
+                    : (slides[current].image as any).src
+                }
                 alt={slides[current].title}
                 className="w-full h-full object-cover object-center opacity-90 transition-transform duration-700 hover:scale-[1.02]"
               />
