@@ -41,7 +41,7 @@ export default function PromoBanners() {
             >
               <Link
                 to={banner.link}
-                className="group block relative overflow-hidden rounded-2xl min-h-[320px] lg:min-h-[380px]"
+                className="group block relative overflow-hidden rounded-2xl min-h-[380px] lg:min-h-[460px]"
               >
                 {/* Background */}
                 <div className="absolute inset-0">
@@ -54,7 +54,7 @@ export default function PromoBanners() {
                 </div>
 
                 {/* Content */}
-                <div className="relative z-10 p-8 lg:p-10 h-full flex flex-col justify-between min-h-[320px] lg:min-h-[380px]">
+                <div className="relative z-10 p-8 lg:p-10 h-full flex flex-col justify-between min-h-[380px] lg:min-h-[460px]">
                   <div>
                     <h3 className="heading-bold text-3xl sm:text-4xl lg:text-5xl text-white whitespace-pre-line leading-none mb-4">
                       {banner.title}

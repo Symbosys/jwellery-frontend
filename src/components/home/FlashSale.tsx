@@ -14,7 +14,7 @@ export default function FlashSale() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-2xl min-h-[400px] lg:min-h-[450px] flex flex-col justify-between"
+          className="relative overflow-hidden rounded-2xl min-h-[480px] lg:min-h-[550px] flex flex-col justify-between"
         >
           {/* Background Image */}
           <div className="absolute inset-0">

@@ -14,7 +14,7 @@ const slides = [
     subtitle: "PREMIUM CITY GOLD",
     title: "THE ROYAL CITY GOLD\nCOLLECTION",
     price: "DESIGNS STARTING FROM ₹499",
-    image: "/images/hero/temple-necklace.jpg",
+    image: slideImg1,
     cta: { text: "Shop Now", link: "/products" },
     hideTextOverlay: true,
   },
@@ -23,7 +23,7 @@ const slides = [
     subtitle: "SPARKLING ELEGANCE",
     title: "AMERICAN DIAMOND &\nCITY GOLD SETS",
     price: "UP TO 40% OFF ON BRIDAL SETS",
-    image: "/images/hero/ruby-pendant.jpg",
+    image: slideImg2,
     cta: { text: "Explore Collections", link: "/products" },
     hideTextOverlay: true,
   },
@@ -32,7 +32,7 @@ const slides = [
     subtitle: "NEW ARRIVALS",
     title: "EXQUISITE 1 GRAM\nGOLD FINISH",
     price: "FESTIVE ARTIFICIAL JEWELLERY",
-    image: "/images/hero/gemstone-bangles.jpg",
+    image: slideImg3,
     cta: { text: "Shop Now", link: "/products" },
     hideTextOverlay: true,
   },
@@ -79,7 +79,7 @@ export default function HeroSlider() {
     <section className="max-w-7xl mx-auto px-4 lg:px-8 pt-24 sm:pt-28 lg:pt-32">
       <div
         className="relative w-full overflow-hidden bg-black rounded-3xl"
-        style={{ height: "clamp(260px, 45vw, 600px)" }}
+        style={{ height: "clamp(360px, 55vw, 750px)" }}
       >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -101,7 +101,7 @@ export default function HeroSlider() {
                 src={
                   typeof slides[current].image === "string"
                     ? slides[current].image
-                    : (slides[current].image as any).src
+                    : (slides[current].image as any)?.src || (slides[current].image as any)
                 }
                 alt={slides[current].title}
                 className="w-full h-full object-cover object-center opacity-90 transition-transform duration-700 hover:scale-[1.02]"
