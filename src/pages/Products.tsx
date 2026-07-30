@@ -6,10 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { SlidersHorizontal, ChevronDown, Plus, Minus, X } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 import ProductCard from "@/components/product/ProductCard";
-import {
-  products as mockProducts,
-  categories as mockCategories,
-} from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useCategoriesQuery } from "@/api/hooks/category.hooks";
@@ -53,7 +49,7 @@ export default function ProductsPage() {
   // Fetch from backend
   const { data: categoriesData } = useCategoriesQuery({ limit: 100 });
   const { data: brandsData } = useBrandsQuery({ limit: 100 });
-  const { data: productsData, isLoading } = useProductsQuery({
+  const { data: productsData, isLoading, isFetching } = useProductsQuery({
     limit: 100,
     brandId: selectedBrandId || undefined,
   });
@@ -77,7 +73,7 @@ export default function ProductsPage() {
     return `${baseUrl}${finalUrl.startsWith("/") ? "" : "/"}${finalUrl}`;
   };
 
-  // Map database categories, fallback to mock categories
+  // Map database categories
   const categories = useMemo(() => {
     if (categoriesData?.categories && categoriesData.categories.length > 0) {
       return categoriesData.categories.map((cat) => ({
@@ -86,13 +82,13 @@ export default function ProductsPage() {
         image: processImageUrl(cat.image),
       }));
     }
-    return mockCategories;
+    return [];
   }, [categoriesData]);
 
   // Resolve active products list
   const displayProducts = useMemo(() => {
-    let list: any[] = mockProducts;
-    if (productsData?.products && productsData.products.length > 0) {
+    let list: any[] = [];
+    if (productsData?.products) {
       list = productsData.products.map((dbP: any) => ({
         id: dbP.id,
         name: dbP.name,
@@ -268,13 +264,28 @@ export default function ProductsPage() {
           </div>
 
           {/* Products Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
-            {displayProducts.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
-            ))}
-          </div>
+          {isLoading || (!productsData && isFetching) ? (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
+              {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+                <div
+                  key={n}
+                  className="bg-white rounded-xl p-4 border border-[#E5D5B5]/60 animate-pulse space-y-3 shadow-sm"
+                >
+                  <div className="bg-gray-200 aspect-square rounded-lg w-full" />
+                  <div className="h-4 bg-gray-200 rounded w-3/4" />
+                  <div className="h-4 bg-gray-200 rounded w-1/2" />
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-8">
+              {displayProducts.map((product, index) => (
+                <ProductCard key={product.id} product={product} index={index} />
+              ))}
+            </div>
+          )}
 
-          {displayProducts.length === 0 && (
+          {!isLoading && !isFetching && displayProducts.length === 0 && (
             <div className="text-center py-20 bg-background border border-border rounded p-6">
               <h3 className="font-display text-lg font-bold text-primary mb-2 uppercase">
                 No Products Found
