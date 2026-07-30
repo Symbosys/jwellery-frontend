@@ -7,7 +7,6 @@ import MainLayout from "@/components/layout/MainLayout";
 import ProductCard from "@/components/product/ProductCard";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
-import { products } from "@/data/products";
 import { cn } from "@/lib/utils";
 import {
   AlertCircle,
@@ -27,20 +26,18 @@ import { useCreateReviewMutation } from "@/api/hooks/review.hooks";
 export default function ProductDetail() {
   const { id } = useParams();
   const productId = typeof id === "string" ? id : "";
-  const { data: dbProduct, isLoading } = useProductDetailQuery(
+  const { data: dbProduct, isLoading, isFetching } = useProductDetailQuery(
     productId,
     !!productId,
   );
 
   // Fetch related products from the same category (live)
-  const { data: relatedData } = useProductsQuery(
+  const { data: relatedData, isLoading: isRelatedLoading } = useProductsQuery(
     dbProduct?.categoryId
       ? { categoryId: dbProduct.categoryId, limit: 8 }
       : undefined,
     !!dbProduct?.categoryId,
   );
-
-  const mockProduct = products.find((p) => p.id === id);
 
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
@@ -88,10 +85,10 @@ export default function ProductDetail() {
 
   const processImageUrl = (url: string) => {
     if (!url) return "";
-    if (url.startsWith("http://") || url.startsWith("https://")) return url;
+    if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
     const baseUrl = process.env.NEXT_PUBLIC_API_URL
       ? process.env.NEXT_PUBLIC_API_URL.replace("/api", "")
-      : "http://192.168.1.2:4000";
+      : "http://localhost:4000";
     return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
   };
 
@@ -105,9 +102,7 @@ export default function ProductDetail() {
           ? dbProduct.images
           : dbProduct.image
             ? [dbProduct.image]
-            : [
-                "https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=800",
-              ]
+            : []
         ).map(processImageUrl),
         category: dbProduct.category?.name || "Uncategorized",
         subcategory: dbProduct.subCategory?.name || "",
@@ -127,17 +122,7 @@ export default function ProductDetail() {
         packOf: dbProduct.packOf ?? 1,
         productType: dbProduct.productType || "",
       }
-    : mockProduct
-      ? {
-          ...mockProduct,
-          brandName: (mockProduct as any).brand || "Sakhio",
-          countryOfOrigin: (mockProduct as any).countryOfOrigin || "India",
-          idealFor: (mockProduct as any).idealFor || "Women",
-          material: (mockProduct as any).material || "Gold Tone Metal",
-          packOf: (mockProduct as any).packOf ?? 1,
-          productType: (mockProduct as any).productType || "Drop Earrings",
-        }
-      : undefined;
+    : undefined;
   const { addItem, openCart } = useCart();
   const { isInWishlist, toggleItem } = useWishlist();
 
@@ -361,11 +346,12 @@ export default function ProductDetail() {
     product?.images?.join(","),
   ]);
 
-  if (isLoading) {
+  if (isLoading || (!dbProduct && isFetching)) {
     return (
       <MainLayout>
-        <div className="pt-32 pb-16 max-w-7xl mx-auto px-4 text-center">
-          <h1 className="font-display text-2xl font-bold mb-4 text-primary">
+        <div className="pt-32 pb-16 max-w-7xl mx-auto px-4 flex flex-col items-center justify-center min-h-[50vh]">
+          <Loader2 className="h-10 w-10 animate-spin text-[#8A1B28] mb-4" />
+          <h1 className="font-display text-xl font-bold text-gray-700">
             Loading Product...
           </h1>
         </div>
@@ -409,15 +395,13 @@ export default function ProductDetail() {
   const whatsappMessage = `Hi P&N, I'm interested in purchasing ${product.name} (Net Wt. ${product.netWeight || ""}). Can you please share the details?`;
   const whatsappUrl = `https://wa.me/916200065378?text=${encodeURIComponent(whatsappMessage)}`;
 
-  const FALLBACK =
-    "https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=800";
   function resolveImg(url: any) {
     const s = typeof url === "string" ? url : "";
-    if (!s) return FALLBACK;
+    if (!s) return "";
     if (s.startsWith("http") || s.startsWith("data:") || s.startsWith("blob:"))
       return s;
     const base = (
-      process.env.NEXT_PUBLIC_API_URL ?? "http://192.168.1.2:4000"
+      process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000"
     ).replace("/api", "");
     return `${base}${s.startsWith("/") ? "" : "/"}${s}`;
   }
@@ -443,7 +427,7 @@ export default function ProductDetail() {
             inStock: p.quantity > 0,
             variants: p.variants,
           }))
-      : products.filter((p) => p.id !== id).slice(0, 4);
+      : [];
 
   return (
     <MainLayout>
@@ -1201,7 +1185,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Related Products list */}
-          {similarProducts.length > 0 && (
+          {(isRelatedLoading || similarProducts.length > 0) && (
             <section className="mt-20">
               <div className="flex items-center justify-center gap-4 mb-10">
                 <div className="h-px bg-[#E5D5B5] w-12 lg:w-28 relative flex items-center justify-end">
@@ -1215,11 +1199,26 @@ export default function ProductDetail() {
                 </div>
               </div>
 
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-                {similarProducts.map((p, idx) => (
-                  <ProductCard key={p.id} product={p} index={idx} />
-                ))}
-              </div>
+              {isRelatedLoading ? (
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+                  {[1, 2, 3, 4].map((n) => (
+                    <div
+                      key={n}
+                      className="bg-white rounded-xl p-4 border border-[#E5D5B5]/60 animate-pulse space-y-3"
+                    >
+                      <div className="bg-gray-200 aspect-square rounded-lg w-full" />
+                      <div className="h-4 bg-gray-200 rounded w-3/4" />
+                      <div className="h-4 bg-gray-200 rounded w-1/2" />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
+                  {similarProducts.map((p, idx) => (
+                    <ProductCard key={p.id} product={p} index={idx} />
+                  ))}
+                </div>
+              )}
             </section>
           )}
         </div>
