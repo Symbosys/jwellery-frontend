@@ -1,6 +1,6 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useOrderDetailQuery } from "@/api/hooks/order.hooks";
+import { useOrderDetailQuery, useUpdateOrderAddressMutation, useCancelOrderMutation, useReturnOrderMutation } from "@/api/hooks/order.hooks";
 import {
   ChevronLeft,
   Package,
@@ -13,9 +13,16 @@ import {
   ShoppingBag,
   Loader2,
   Loader2Icon,
+  Edit,
+  X,
+  XCircle,
+  RotateCcw,
 } from "lucide-react";
+
+
 import MainLayout from "@/components/layout/MainLayout";
 import { cn } from "@/lib/utils";
+
 
 const processImageUrl = (url: string | null | undefined) => {
   if (!url) return "";
@@ -28,6 +35,95 @@ export default function OrderDetails(): JSX.Element {
   const { data: dbOrder, isLoading } = useOrderDetailQuery(
     (id as string) || "",
   );
+
+  const updateAddressMutation = useUpdateOrderAddressMutation();
+  const cancelOrderMutation = useCancelOrderMutation();
+  const returnOrderMutation = useReturnOrderMutation();
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+  const [cancelError, setCancelError] = useState("");
+  const [isReturnModalOpen, setIsReturnModalOpen] = useState(false);
+  const [returnReason, setReturnReason] = useState("");
+  const [returnError, setReturnError] = useState("");
+  const [isEditAddressOpen, setIsEditAddressOpen] = useState(false);
+  const [editName, setEditName] = useState("");
+  const [editPhone, setEditPhone] = useState("");
+  const [editAddress, setEditAddress] = useState("");
+  const [editCity, setEditCity] = useState("");
+  const [editState, setEditState] = useState("");
+  const [editPincode, setEditPincode] = useState("");
+  const [updateError, setUpdateError] = useState("");
+
+  const handleConfirmReturnOrder = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!dbOrder) return;
+    setReturnError("");
+    returnOrderMutation.mutate(
+      { orderId: dbOrder.id, reason: returnReason },
+      {
+        onSuccess: () => {
+          setIsReturnModalOpen(false);
+        },
+        onError: (err: any) => {
+          setReturnError(err.message || "Failed to initiate return");
+        },
+      }
+    );
+  };
+
+
+  const handleConfirmCancelOrder = () => {
+    if (!dbOrder) return;
+    setCancelError("");
+    cancelOrderMutation.mutate(dbOrder.id, {
+      onSuccess: () => {
+        setIsCancelModalOpen(false);
+      },
+      onError: (err: any) => {
+        setCancelError(err.message || "Failed to cancel order");
+      },
+    });
+  };
+
+
+  const handleOpenEditAddress = () => {
+    if (dbOrder) {
+      setEditName(dbOrder.shippingName || "");
+      setEditPhone(dbOrder.shippingPhone || "");
+      setEditAddress(dbOrder.shippingAddress || "");
+      setEditCity(dbOrder.shippingCity || "");
+      setEditState(dbOrder.shippingState || "");
+      setEditPincode(dbOrder.shippingPincode || "");
+      setUpdateError("");
+      setIsEditAddressOpen(true);
+    }
+  };
+
+  const handleSaveAddress = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!dbOrder) return;
+    setUpdateError("");
+
+    updateAddressMutation.mutate(
+      {
+        orderId: dbOrder.id,
+        shippingName: editName,
+        shippingPhone: editPhone,
+        shippingAddress: editAddress,
+        shippingCity: editCity,
+        shippingState: editState,
+        shippingPincode: editPincode,
+      },
+      {
+        onSuccess: () => {
+          setIsEditAddressOpen(false);
+        },
+        onError: (err: any) => {
+          setUpdateError(err.message || "Failed to update shipping address");
+        },
+      }
+    );
+  };
+
 
   const getStatusLabel = (status: string) => {
     switch (status) {
@@ -206,14 +302,162 @@ export default function OrderDetails(): JSX.Element {
               </div>
             </div>
 
-            <button
-              onClick={() => window.print()}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-black hover:border-black transition-colors shadow-sm self-start sm:self-center"
-            >
-              <Printer className="w-4 h-4" />
-              Print Invoice
-            </button>
+            <div className="flex flex-wrap items-center gap-3 self-start sm:self-center">
+              {["Processing", "Pending", "Confirmed"].includes(order.status) && (
+                <button
+                  onClick={() => {
+                    setCancelError("");
+                    setIsCancelModalOpen(true);
+                  }}
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-red-50 border border-red-200 text-red-700 hover:bg-red-100 rounded-lg text-xs font-bold transition-colors shadow-sm"
+                >
+                  <XCircle className="w-4 h-4" />
+                  Cancel Order
+                </button>
+              )}
+
+              {order.status === "Delivered" && (
+                <button
+                  onClick={() => {
+                    setReturnReason("");
+                    setReturnError("");
+                    setIsReturnModalOpen(true);
+                  }}
+                  className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-amber-50 border border-amber-200 text-amber-800 hover:bg-amber-100 rounded-lg text-xs font-bold transition-colors shadow-sm"
+                >
+                  <RotateCcw className="w-4 h-4" />
+                  Return Product
+                </button>
+              )}
+
+              <button
+                onClick={() => window.print()}
+                className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-xs font-bold text-black hover:border-black transition-colors shadow-sm"
+              >
+                <Printer className="w-4 h-4" />
+                Print Invoice
+              </button>
+            </div>
           </div>
+
+          {/* Return Order Confirmation Modal */}
+          {isReturnModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+              <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-xl relative animate-in fade-in zoom-in-95 duration-200">
+                <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-4">
+                  <h3 className="text-lg font-bold text-black flex items-center gap-2">
+                    <RotateCcw className="w-5 h-5 text-amber-600" />
+                    Request Product Return
+                  </h3>
+                  <button
+                    onClick={() => setIsReturnModalOpen(false)}
+                    className="text-gray-400 hover:text-black p-1 rounded-md"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                {returnError && (
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg font-medium">
+                    {returnError}
+                  </div>
+                )}
+
+                <form onSubmit={handleConfirmReturnOrder} className="space-y-4 text-xs">
+                  <div>
+                    <label className="block text-gray-700 font-semibold mb-1">
+                      Reason for Return *
+                    </label>
+                    <textarea
+                      required
+                      rows={3}
+                      value={returnReason}
+                      onChange={(e) => setReturnReason(e.target.value)}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-xs"
+                      placeholder="e.g. Size issue, defective product, unexpected quality..."
+                    />
+                  </div>
+
+                  <p className="text-[11px] text-gray-500 leading-relaxed">
+                    Submitting this form will register a return pickup request in Shiprocket. Our courier partner will pick up the package from your delivery address.
+                  </p>
+
+                  <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                    <button
+                      type="button"
+                      onClick={() => setIsReturnModalOpen(false)}
+                      className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-bold hover:bg-gray-50 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      disabled={returnOrderMutation.isPending}
+                      className="px-4 py-2 bg-amber-600 text-white rounded-lg font-bold hover:bg-amber-700 transition-colors flex items-center gap-2 disabled:opacity-50"
+                    >
+                      {returnOrderMutation.isPending && (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      )}
+                      Request Return & Pickup
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          )}
+
+          {/* Cancel Order Confirmation Modal */}
+
+          {isCancelModalOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+              <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-xl relative animate-in fade-in zoom-in-95 duration-200">
+                <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-4">
+                  <h3 className="text-lg font-bold text-black flex items-center gap-2">
+                    <XCircle className="w-5 h-5 text-red-600" />
+                    Cancel Order
+                  </h3>
+                  <button
+                    onClick={() => setIsCancelModalOpen(false)}
+                    className="text-gray-400 hover:text-black p-1 rounded-md"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+
+                <p className="text-xs text-gray-600 mb-4 leading-relaxed">
+                  Are you sure you want to cancel Order <strong>#{order.id}</strong>? This action will cancel the order, release reserved inventory, and notify Shiprocket.
+                </p>
+
+                {cancelError && (
+                  <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg font-medium">
+                    {cancelError}
+                  </div>
+                )}
+
+                <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 text-xs">
+                  <button
+                    type="button"
+                    onClick={() => setIsCancelModalOpen(false)}
+                    className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-bold hover:bg-gray-50 transition-colors"
+                  >
+                    Keep Order
+                  </button>
+                  <button
+                    type="button"
+                    disabled={cancelOrderMutation.isPending}
+                    onClick={handleConfirmCancelOrder}
+                    className="px-4 py-2 bg-red-600 text-white rounded-lg font-bold hover:bg-red-700 transition-colors flex items-center gap-2 disabled:opacity-50"
+                  >
+                    {cancelOrderMutation.isPending && (
+                      <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    )}
+                    Confirm Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left Column: Timeline & Items */}
@@ -337,10 +581,21 @@ export default function OrderDetails(): JSX.Element {
             <div className="space-y-6">
               {/* Shipping details */}
               <section className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-                <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-4 flex items-center gap-2 border-b border-gray-100 pb-3">
-                  <MapPin className="w-4 h-4 text-black" />
-                  Shipping Details
-                </h2>
+                <div className="flex items-center justify-between border-b border-gray-100 pb-3 mb-4">
+                  <h2 className="text-sm font-bold uppercase tracking-wider text-gray-400 flex items-center gap-2">
+                    <MapPin className="w-4 h-4 text-black" />
+                    Shipping Details
+                  </h2>
+                  {["Processing", "Pending", "Confirmed"].includes(order.status) && (
+                    <button
+                      onClick={handleOpenEditAddress}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-black hover:text-gray-600 transition-colors bg-gray-100 hover:bg-gray-200 px-2.5 py-1 rounded-md"
+                    >
+                      <Edit className="w-3.5 h-3.5" />
+                      Edit
+                    </button>
+                  )}
+                </div>
 
                 <div className="text-xs text-gray-700 space-y-2">
                   <p className="font-semibold text-black text-sm">
@@ -364,6 +619,140 @@ export default function OrderDetails(): JSX.Element {
                   </p>
                 </div>
               </section>
+
+              {/* Edit Address Modal */}
+              {isEditAddressOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+                  <div className="bg-white rounded-xl max-w-lg w-full p-6 shadow-xl relative animate-in fade-in zoom-in-95 duration-200">
+                    <div className="flex justify-between items-center pb-4 border-b border-gray-200 mb-4">
+                      <h3 className="text-lg font-bold text-black flex items-center gap-2">
+                        <MapPin className="w-5 h-5 text-black" />
+                        Update Delivery Address
+                      </h3>
+                      <button
+                        onClick={() => setIsEditAddressOpen(false)}
+                        className="text-gray-400 hover:text-black p-1 rounded-md"
+                      >
+                        <X className="w-5 h-5" />
+                      </button>
+                    </div>
+
+                    {updateError && (
+                      <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg font-medium">
+                        {updateError}
+                      </div>
+                    )}
+
+                    <form onSubmit={handleSaveAddress} className="space-y-4 text-xs">
+                      <div>
+                        <label className="block text-gray-700 font-semibold mb-1">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={editName}
+                          onChange={(e) => setEditName(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-xs"
+                          placeholder="Receiver Name"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-gray-700 font-semibold mb-1">
+                          Phone Number *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={editPhone}
+                          onChange={(e) => setEditPhone(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-xs"
+                          placeholder="10-digit Phone Number"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="block text-gray-700 font-semibold mb-1">
+                          Street Address *
+                        </label>
+                        <textarea
+                          required
+                          rows={2}
+                          value={editAddress}
+                          onChange={(e) => setEditAddress(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-xs"
+                          placeholder="House No, Building, Road, Area"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div>
+                          <label className="block text-gray-700 font-semibold mb-1">
+                            City *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={editCity}
+                            onChange={(e) => setEditCity(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-xs"
+                            placeholder="City"
+                          />
+                        </div>
+                        <div>
+                          <label className="block text-gray-700 font-semibold mb-1">
+                            State *
+                          </label>
+                          <input
+                            type="text"
+                            required
+                            value={editState}
+                            onChange={(e) => setEditState(e.target.value)}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-xs"
+                            placeholder="State"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <label className="block text-gray-700 font-semibold mb-1">
+                          Pincode *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={editPincode}
+                          onChange={(e) => setEditPincode(e.target.value)}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-black text-xs"
+                          placeholder="Pincode"
+                        />
+                      </div>
+
+                      <div className="flex justify-end gap-3 pt-4 border-t border-gray-200">
+                        <button
+                          type="button"
+                          onClick={() => setIsEditAddressOpen(false)}
+                          className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-bold hover:bg-gray-50 transition-colors"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="submit"
+                          disabled={updateAddressMutation.isPending}
+                          className="px-4 py-2 bg-black text-white rounded-lg font-bold hover:bg-gray-800 transition-colors flex items-center gap-2 disabled:opacity-50"
+                        >
+                          {updateAddressMutation.isPending && (
+                            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                          )}
+                          Save & Sync Address
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              )}
+
 
               {/* Payment Details */}
               <section className="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
