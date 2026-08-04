@@ -17,10 +17,11 @@ import {
   Gift,
 } from "lucide-react";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assert/logo.jpeg";
 
 export default function Header() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [searchVal, setSearchVal] = useState("");
@@ -28,15 +29,21 @@ export default function Header() {
   const { items } = useWishlist();
   const location = useLocation();
 
-  const { data: categoriesData } = useCategoriesQuery({ limit: 100 });
+  const isHomePage = location.pathname === "/";
+
+  const { data: categoriesData } = useCategoriesQuery({ limit: 20 });
+
   const categoriesList =
     categoriesData?.categories && categoriesData.categories.length > 0
       ? categoriesData.categories.map((cat) => ({
           name: cat.name,
+          slug: cat.name.toLowerCase().replace(/\s+/g, "-"),
         }))
-      : mockCategories;
+      : mockCategories.map((cat: any) => {
+          const nameStr = typeof cat === "string" ? cat : cat.name;
+          return { name: nameStr, slug: nameStr };
+        });
 
-  const isHomePage = location.pathname === "/";
 
   const occasionsList = [
     { name: "Wedding & Bridal", slug: "Wedding" },
@@ -48,7 +55,8 @@ export default function Header() {
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchVal.trim()) {
-      window.location.href = `/products?search=${encodeURIComponent(searchVal.trim())}`;
+      navigate(`/products?search=${encodeURIComponent(searchVal.trim())}`);
+      setSearchVal("");
     }
   };
 

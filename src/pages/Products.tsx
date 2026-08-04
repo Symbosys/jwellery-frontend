@@ -45,6 +45,8 @@ export default function ProductsPage() {
   const selectedPriceRange = searchParams.get("priceRange");
   const selectedStock = searchParams.get("stock");
   const selectedBrandId = searchParams.get("brandId");
+  const searchQuery = searchParams.get("search") || searchParams.get("q");
+
 
   // Fetch from backend
   const { data: categoriesData } = useCategoriesQuery({ limit: 100 });
@@ -115,6 +117,17 @@ export default function ProductsPage() {
       }));
     }
 
+    // Apply search query filter
+    if (searchQuery && searchQuery.trim()) {
+      const qLower = searchQuery.trim().toLowerCase();
+      list = list.filter((p) => {
+        const nameMatch = p.name?.toLowerCase().includes(qLower);
+        const catMatch = p.category?.toLowerCase().includes(qLower);
+        const brandMatch = p.brandId?.toLowerCase().includes(qLower);
+        return nameMatch || catMatch || brandMatch;
+      });
+    }
+
     // Apply front-end filters to display exactly what the user clicks
     if (selectedCategory) {
       list = list.filter(
@@ -170,6 +183,7 @@ export default function ProductsPage() {
     return list;
   }, [
     productsData,
+    searchQuery,
     selectedCategory,
     selectedBrandId,
     selectedKarat,
@@ -178,6 +192,7 @@ export default function ProductsPage() {
     selectedStock,
     sort,
   ]);
+
 
   const updateFilter = (key: string, value: string | null) => {
     const newParams = new URLSearchParams(searchParams);
@@ -242,16 +257,36 @@ export default function ProductsPage() {
             </div>
           </div>
 
+          {/* Search Query Active Notification Banner */}
+          {searchQuery && (
+            <div className="mb-6 flex items-center justify-between bg-[#8A1B28]/10 border border-[#8A1B28]/30 rounded-xl p-4 text-xs text-[#8A1B28] font-semibold shadow-xs">
+              <div className="flex items-center gap-2">
+                <span>Search results for: <strong>"{searchQuery}"</strong></span>
+                <span className="text-[10px] bg-[#8A1B28] text-white px-2 py-0.5 rounded-full font-bold">
+                  {displayProducts.length} items
+                </span>
+              </div>
+              <button
+                onClick={() => updateFilter("search", null)}
+                className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider bg-[#8A1B28] text-white px-3 py-1.5 rounded-lg hover:bg-[#721620] transition-colors shadow-xs"
+              >
+                <X className="h-3.5 w-3.5" />
+                Clear Search
+              </button>
+            </div>
+          )}
+
           {/* Title & Toolbar */}
           <div className="flex items-center justify-between border-b border-border pb-5 mb-8">
             <div>
               <h1 className="font-display text-2xl lg:text-3xl font-bold text-foreground uppercase">
-                {selectedCategory || "All Supplements"}
+                {searchQuery ? `Search: "${searchQuery}"` : selectedCategory || "All Products"}
               </h1>
               <p className="text-xs text-muted-foreground tracking-wide mt-1">
                 Showing {displayProducts.length} unique products
               </p>
             </div>
+
 
             {/* Filter Toggle Button */}
             <button
