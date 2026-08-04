@@ -237,7 +237,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         </div>
 
         {/* Product Info Block */}
-        <div className="p-4 pb-2 space-y-1">
+        <div className="p-3 sm:p-4 pb-2 space-y-1">
           {/* Row: Title & Wishlist Heart */}
           <div className="flex justify-between items-center gap-2">
             <h3 className="font-display text-sm lg:text-base text-[#2C2C2C] font-semibold tracking-wide group-hover:text-[#8A1B28] transition-colors truncate">
@@ -283,9 +283,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       </Link>
 
       {/* Action Block outside Link */}
-      <div className="p-4 pt-0">
-        <div className="flex gap-2 items-center pt-2 border-t border-gray-100">
-          <div className="flex items-center border border-[#E5D5B5]/60 rounded bg-[#FAF9F6] h-8 px-2">
+      <div className="p-3 sm:p-4 pt-0">
+        <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center pt-2.5 border-t border-gray-100">
+          {/* Quantity Stepper */}
+          <div className="flex items-center justify-between sm:justify-center border border-[#E5D5B5] rounded-xl bg-[#FAF9F6] h-11 sm:h-12 px-2.5 flex-shrink-0 shadow-xs">
             <button
               type="button"
               onClick={(e) => {
@@ -293,11 +294,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.stopPropagation();
                 setQuantity(Math.max(1, quantity - 1));
               }}
-              className="p-0.5 text-[#555] hover:text-[#8A1B28] transition-colors"
+              className="h-8 w-8 flex items-center justify-center rounded-lg text-[#555] hover:text-[#8A1B28] hover:bg-[#8A1B28]/10 transition-colors"
+              aria-label="Decrease quantity"
             >
-              <Minus className="h-3 w-3" />
+              <Minus className="h-4 w-4 stroke-[2.5]" />
             </button>
-            <span className="w-8 text-center text-xs font-bold text-[#2C2C2C]">
+            <span className="w-8 text-center text-xs sm:text-sm font-bold text-[#2C2C2C]">
               {quantity}
             </span>
             <button
@@ -307,28 +309,38 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.stopPropagation();
                 setQuantity(quantity + 1);
               }}
-              className="p-0.5 text-[#555] hover:text-[#8A1B28] transition-colors"
+              className="h-8 w-8 flex items-center justify-center rounded-lg text-[#555] hover:text-[#8A1B28] hover:bg-[#8A1B28]/10 transition-colors"
+              aria-label="Increase quantity"
             >
-              <Plus className="h-3 w-3" />
+              <Plus className="h-4 w-4 stroke-[2.5]" />
             </button>
           </div>
 
+          {/* Add to Cart CTA Button */}
           <button
             onClick={handleAddToCart}
             disabled={isAddingLocal}
-            className="flex-1 h-8 bg-black hover:bg-black/90 disabled:bg-black/60 text-white text-[10px] font-bold uppercase tracking-wider rounded transition-all shadow-sm flex items-center justify-center gap-1.5"
+            className="flex-1 w-full h-11 sm:h-12 px-5 sm:px-6 bg-[#8A1B28] hover:bg-[#721620] active:bg-[#5C111A] disabled:opacity-60 text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
           >
             {isAddingLocal ? (
               <>
-                <Loader2 className="h-3 w-3 animate-spin" />
-                Adding...
+                <Loader2 className="h-4.5 w-4.5 animate-spin" />
+                <span>Adding...</span>
               </>
             ) : (
-              "Add to Cart"
+              <>
+                <ShoppingBag className="h-4.5 w-4.5 stroke-[2]" />
+                <span>Add to Cart</span>
+              </>
             )}
           </button>
         </div>
       </div>
+
+
+
+
+
 
       {/* Variant Selection Modal */}
       <AnimatePresence>

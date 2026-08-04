@@ -18,7 +18,9 @@ import {
   Share2,
   Star,
   Loader2,
+  ShoppingBag,
 } from "lucide-react";
+
 import { useState, useEffect, useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCreateReviewMutation } from "@/api/hooks/review.hooks";
@@ -909,17 +911,21 @@ export default function ProductDetail() {
                       ? activeVariant.quantity > 0
                       : product.inStock)
                   }
-                  className="flex-1 h-12 bg-black hover:bg-black/90 disabled:bg-black/60 text-white text-xs lg:text-sm font-bold uppercase tracking-widest rounded shadow-sm flex items-center justify-center gap-2"
+                  className="flex-1 h-12 sm:h-14 bg-[#8A1B28] hover:bg-[#721620] active:bg-[#5C111A] disabled:opacity-60 text-white text-xs lg:text-sm font-extrabold uppercase tracking-widest rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
                 >
                   {isAdding ? (
                     <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Adding...
+                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <span>Adding...</span>
                     </>
                   ) : (
-                    "Add to Cart"
+                    <>
+                      <ShoppingBag className="h-5 w-5 stroke-[2]" />
+                      <span>Add to Cart</span>
+                    </>
                   )}
                 </button>
+
 
                 {/* Wishlist Heart Button next to Add to Cart */}
                 <button
