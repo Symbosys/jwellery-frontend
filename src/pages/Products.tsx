@@ -47,12 +47,15 @@ export default function ProductsPage() {
   const selectedBrandId = searchParams.get("brandId");
   const searchQuery = searchParams.get("search") || searchParams.get("q");
 
-
   // Fetch from backend
   const { data: categoriesData } = useCategoriesQuery({ limit: 100 });
   const { data: brandsData } = useBrandsQuery({ limit: 100 });
-  const { data: productsData, isLoading, isFetching } = useProductsQuery({
-    limit: 100,
+  const {
+    data: productsData,
+    isLoading,
+    isFetching,
+  } = useProductsQuery({
+    limit: 20,
     brandId: selectedBrandId || undefined,
   });
 
@@ -193,7 +196,6 @@ export default function ProductsPage() {
     sort,
   ]);
 
-
   const updateFilter = (key: string, value: string | null) => {
     const newParams = new URLSearchParams(searchParams);
     if (value) {
@@ -261,7 +263,9 @@ export default function ProductsPage() {
           {searchQuery && (
             <div className="mb-6 flex items-center justify-between bg-[#8A1B28]/10 border border-[#8A1B28]/30 rounded-xl p-4 text-xs text-[#8A1B28] font-semibold shadow-xs">
               <div className="flex items-center gap-2">
-                <span>Search results for: <strong>"{searchQuery}"</strong></span>
+                <span>
+                  Search results for: <strong>"{searchQuery}"</strong>
+                </span>
                 <span className="text-[10px] bg-[#8A1B28] text-white px-2 py-0.5 rounded-full font-bold">
                   {displayProducts.length} items
                 </span>
@@ -280,13 +284,14 @@ export default function ProductsPage() {
           <div className="flex items-center justify-between border-b border-border pb-5 mb-8">
             <div>
               <h1 className="font-display text-2xl lg:text-3xl font-bold text-foreground uppercase">
-                {searchQuery ? `Search: "${searchQuery}"` : selectedCategory || "All Products"}
+                {searchQuery
+                  ? `Search: "${searchQuery}"`
+                  : selectedCategory || "All Products"}
               </h1>
               <p className="text-xs text-muted-foreground tracking-wide mt-1">
                 Showing {displayProducts.length} unique products
               </p>
             </div>
-
 
             {/* Filter Toggle Button */}
             <button
