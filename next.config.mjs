@@ -53,7 +53,7 @@ if (fs.existsSync(exchangeSourceImg)) {
 }
 
 // Copy footer logo
-const logoSource = 'C:\\Users\\Rashi\\.gemini\\antigravity\\brain\\116ff34c-fff7-458e-bb9b-46fb0f063121\\media__1783337811308.jpg';
+const logoSource = 'C:\\Users\\hp\\.gemini\\antigravity-ide\\brain\\3a3f9fd7-15a6-418f-ad0c-80c8b20d1c29\\scratch\\crop_preview.png';
 const logoDest = path.join(__dirname, 'public', 'logo.jpg');
 if (fs.existsSync(logoSource)) {
   try {

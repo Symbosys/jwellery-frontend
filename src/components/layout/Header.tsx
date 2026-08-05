@@ -113,12 +113,11 @@ export default function Header() {
                 to="/"
                 className="flex items-center gap-2 group flex-shrink-0"
               >
-                <div className="w-[50px] h-[50px] lg:w-[62px] lg:h-[62px] rounded-full overflow-hidden flex-shrink-0 relative border border-[#D4AF37]/20 shadow-sm bg-[#0C3225]">
+                <div className="w-[68px] h-[68px] lg:w-[84px] lg:h-[84px] rounded-full overflow-hidden flex-shrink-0 relative border border-[#D4AF37]/30 shadow-md bg-[#0C3225] transition-transform hover:scale-105">
                   <img
                     src={typeof logo === 'string' ? logo : logo.src}
-                    alt="Aura Fine Jewellery Logo"
-                    className="absolute w-full h-[150%] top-0 left-0 object-cover scale-[1.05]"
-                    style={{ transform: "translateY(-16.67%)" }}
+                    alt="Sakhio Fine Jewellery Logo"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               </Link>

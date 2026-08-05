@@ -20,12 +20,11 @@ export default function Footer() {
         {/* Footer Top Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 pb-10 border-b border-white/10 mb-12">
           {/* Logo */}
-          <div className="w-[82px] h-[82px] bg-[#0c3225] flex items-center justify-center p-0 rounded-md overflow-hidden relative border border-white/10 shadow-inner">
+          <div className="w-[110px] h-[110px] bg-[#0c3225] flex items-center justify-center p-0 rounded-full overflow-hidden relative border border-[#D4AF37]/30 shadow-md">
             <img
               src="/logo.jpeg"
-              alt="Aura Fine Jewellery Logo"
-              className="absolute w-full h-[150%] top-0 left-0 object-cover"
-              style={{ transform: "translateY(-16.67%)" }}
+              alt="Sakhio Fine Jewellery Logo"
+              className="w-full h-full object-cover"
             />
           </div>
 

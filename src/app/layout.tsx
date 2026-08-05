@@ -16,8 +16,18 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Aura Fine Jewellery | Premium Gold & Diamonds",
+  title: "Sakhio Fine Jewellery | Premium Gold & Diamonds",
   description: "Discover exquisite gold, diamond, and solitaire jewellery crafted to perfection.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
