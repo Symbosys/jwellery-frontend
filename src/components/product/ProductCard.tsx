@@ -284,9 +284,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
       {/* Action Block outside Link */}
       <div className="p-3 sm:p-4 pt-0">
-        <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center pt-2.5 border-t border-gray-100">
+        <div className="flex items-center gap-2 pt-2.5 border-t border-gray-100">
           {/* Quantity Stepper */}
-          <div className="flex items-center justify-between sm:justify-center border border-[#E5D5B5] rounded-xl bg-[#FAF9F6] h-11 sm:h-12 px-2.5 flex-shrink-0 shadow-xs">
+          <div className="flex items-center justify-between border border-[#E5D5B5] rounded-lg bg-[#FAF9F6] h-10 px-1.5 flex-shrink-0 shadow-2xs">
             <button
               type="button"
               onClick={(e) => {
@@ -294,12 +294,12 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.stopPropagation();
                 setQuantity(Math.max(1, quantity - 1));
               }}
-              className="h-8 w-8 flex items-center justify-center rounded-lg text-[#555] hover:text-[#8A1B28] hover:bg-[#8A1B28]/10 transition-colors"
+              className="h-7 w-7 flex items-center justify-center rounded-md text-[#555] hover:text-[#8A1B28] hover:bg-[#8A1B28]/10 transition-colors"
               aria-label="Decrease quantity"
             >
-              <Minus className="h-4 w-4 stroke-[2.5]" />
+              <Minus className="h-3.5 w-3.5 stroke-[2.5]" />
             </button>
-            <span className="w-8 text-center text-xs sm:text-sm font-bold text-[#2C2C2C]">
+            <span className="w-6 text-center text-xs font-bold text-[#2C2C2C]">
               {quantity}
             </span>
             <button
@@ -309,10 +309,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 e.stopPropagation();
                 setQuantity(quantity + 1);
               }}
-              className="h-8 w-8 flex items-center justify-center rounded-lg text-[#555] hover:text-[#8A1B28] hover:bg-[#8A1B28]/10 transition-colors"
+              className="h-7 w-7 flex items-center justify-center rounded-md text-[#555] hover:text-[#8A1B28] hover:bg-[#8A1B28]/10 transition-colors"
               aria-label="Increase quantity"
             >
-              <Plus className="h-4 w-4 stroke-[2.5]" />
+              <Plus className="h-3.5 w-3.5 stroke-[2.5]" />
             </button>
           </div>
 
@@ -320,17 +320,19 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
           <button
             onClick={handleAddToCart}
             disabled={isAddingLocal}
-            className="flex-1 w-full h-11 sm:h-12 px-5 sm:px-6 bg-[#8A1B28] hover:bg-[#721620] active:bg-[#5C111A] disabled:opacity-60 text-white text-xs sm:text-sm font-extrabold uppercase tracking-wider rounded-xl shadow-md hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer active:scale-[0.98]"
+            aria-label="Add to Cart"
+            title="Add to Cart"
+            className="flex-1 min-w-0 h-10 px-2 sm:px-3 bg-[#8A1B28] hover:bg-[#721620] active:bg-[#5C111A] disabled:opacity-60 text-white text-xs font-extrabold uppercase tracking-wider rounded-lg shadow-sm hover:shadow transition-all duration-200 flex items-center justify-center gap-1.5 cursor-pointer whitespace-nowrap active:scale-[0.98]"
           >
             {isAddingLocal ? (
               <>
-                <Loader2 className="h-4.5 w-4.5 animate-spin" />
-                <span>Adding...</span>
+                <Loader2 className="h-4 w-4 animate-spin flex-shrink-0" />
+                <span className="hidden sm:inline">Adding...</span>
               </>
             ) : (
               <>
-                <ShoppingBag className="h-4.5 w-4.5 stroke-[2]" />
-                <span>Add to Cart</span>
+                <ShoppingBag className="h-4 w-4 stroke-[2] flex-shrink-0" />
+                <span className="hidden sm:inline">Add to Cart</span>
               </>
             )}
           </button>
