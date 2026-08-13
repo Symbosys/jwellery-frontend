@@ -86,10 +86,18 @@ export interface ProductsResponse {
 // Params accepted by GET /product
 export interface GetProductsParams {
   categoryId?: string;
+  category?: string;
   subCategoryId?: string;
+  subcategory?: string;
   minPrice?: number;
   maxPrice?: number;
+  priceRange?: string;
+  stock?: string;
+  inStock?: string;
+  weight?: string;
+  karat?: string;
   search?: string;
+  q?: string;
   brand?: string;
   brandId?: string;
   page?: number;
