@@ -36,7 +36,7 @@ export default function CheckoutPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
-  const { items, subtotal, clearCart } = useCart();
+  const { items, subtotal } = useCart();
   
   const createOrderMutation = useCreateOrderMutation();
   const verifyPaymentMutation = useVerifyPaymentMutation();
@@ -115,7 +115,6 @@ export default function CheckoutPage() {
                       onSuccess: () => {
                         setOrderNumber(data.order.orderNumber);
                         setIsComplete(true);
-                        clearCart();
                         toast.success("Payment verified and order placed successfully!");
                       },
                       onError: (err: any) => {
@@ -143,7 +142,6 @@ export default function CheckoutPage() {
           } else {
             setOrderNumber(data.order.orderNumber);
             setIsComplete(true);
-            clearCart();
             toast.success("Order placed successfully!");
           }
         },
