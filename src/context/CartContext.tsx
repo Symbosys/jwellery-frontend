@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useMemo } from 'react';
 import { toast } from 'sonner';
+import { isUserLoggedIn, showLoginRequiredToast } from '@/lib/auth-toast';
 import {
   useCartQuery,
   useAddToCartMutation,
@@ -70,6 +71,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }, [backendCart]);
 
   const addItem = async (item: Omit<CartItem, 'quantity' | 'productId'> & { id: string; quantity?: number; variantId?: string }) => {
+    if (!isUserLoggedIn()) {
+      showLoginRequiredToast();
+      return Promise.reject(new Error("User not logged in"));
+    }
+
     // When adding from ProductCard/ProductDetail, item.id is product.id.
     return addToCartMutation.mutateAsync(
       {
@@ -87,7 +93,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         onError: (err: any) => {
           const status = err.response?.status;
           if (status === 401) {
-            toast.error("Please log in to add items to your bag");
+            showLoginRequiredToast();
           } else {
             toast.error(err.response?.data?.message || "Failed to add item to bag");
           }

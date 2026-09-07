@@ -1,5 +1,6 @@
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, ShoppingBag, Plus, Minus, X, Loader2 } from "lucide-react";
@@ -71,6 +72,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
   const { addItem } = useCart();
   const { isInWishlist, toggleItem } = useWishlist();
+  const { requireAuth } = useAuth();
 
   // Variant selector states
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -83,6 +85,10 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
+
+    if (!requireAuth()) {
+      return;
+    }
 
     if (product.variants && product.variants.length > 0) {
       setSelectedVariantId(product.variants[0].id);
@@ -124,6 +130,11 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   };
 
   const handleConfirmAdd = async () => {
+    if (!requireAuth()) {
+      setIsModalOpen(false);
+      return;
+    }
+
     const selectedVariant = product.variants?.find(
       (v) => v.id === selectedVariantId,
     );

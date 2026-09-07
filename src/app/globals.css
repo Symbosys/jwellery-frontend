@@ -359,3 +359,16 @@
   animation-play-state: paused;
 }
 
+/* Fix Sonner custom toast wrapper background and borders */
+[data-sonner-toast]:has(.custom-auth-toast),
+[data-sonner-toast]:has([data-custom-toast="true"]),
+li[data-sonner-toast].custom-auth-toast-wrapper,
+.custom-auth-toast-wrapper {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  outline: none !important;
+}
+

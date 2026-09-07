@@ -7,6 +7,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import ProductCard from "@/components/product/ProductCard";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
+import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import {
   AlertCircle,
@@ -21,7 +22,7 @@ import {
   ShoppingBag,
 } from "lucide-react";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useCreateReviewMutation } from "@/api/hooks/review.hooks";
 
@@ -43,10 +44,7 @@ export default function ProductDetail() {
 
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
-
-  const isLoggedIn =
-    typeof window !== "undefined" &&
-    (!!localStorage.getItem("user_token") || !!localStorage.getItem("token"));
+  const { isLoggedIn, requireAuth } = useAuth();
 
   // Extract logged-in user's full name
   const userStr =
@@ -85,46 +83,48 @@ export default function ProductDetail() {
     );
   };
 
-  const processImageUrl = (url: string) => {
+  const processImageUrl = useCallback((url: string) => {
     if (!url) return "";
     if (url.startsWith("http://") || url.startsWith("https://") || url.startsWith("data:")) return url;
     const baseUrl = process.env.NEXT_PUBLIC_API_URL
       ? process.env.NEXT_PUBLIC_API_URL.replace("/api", "")
       : "http://localhost:4000";
     return `${baseUrl}${url.startsWith("/") ? "" : "/"}${url}`;
-  };
+  }, []);
 
-  const product = dbProduct
-    ? {
-        id: dbProduct.id,
-        name: dbProduct.name,
-        price: Number(dbProduct.price),
-        description: dbProduct.description || "",
-        images: (Array.isArray(dbProduct.images) && dbProduct.images.length > 0
-          ? dbProduct.images
-          : dbProduct.image
-            ? [dbProduct.image]
-            : []
-        ).map(processImageUrl),
-        category: dbProduct.category?.name || "Uncategorized",
-        subcategory: dbProduct.subCategory?.name || "",
-        brandName: dbProduct.brand?.name || "Sakhio",
-        rating: dbProduct.rating || 5,
-        reviews: dbProduct.numReviews || 0,
-        sizes: Array.isArray(dbProduct.sizes) ? dbProduct.sizes : [],
-        colors: Array.isArray(dbProduct.colors) ? dbProduct.colors : [],
-        tags: [],
-        inStock: dbProduct.quantity > 0,
-        netWeight: dbProduct.weight
-          ? `${dbProduct.weight}${dbProduct.weightUnit ? " " + dbProduct.weightUnit : ""}`
-          : undefined,
-        countryOfOrigin: dbProduct.countryOfOrigin || "India",
-        idealFor: dbProduct.idealFor || "",
-        material: dbProduct.material || "",
-        packOf: dbProduct.packOf ?? 1,
-        productType: dbProduct.productType || "",
-      }
-    : undefined;
+  const product = useMemo(() => {
+    if (!dbProduct) return undefined;
+    return {
+      id: dbProduct.id,
+      name: dbProduct.name,
+      price: Number(dbProduct.price),
+      description: dbProduct.description || "",
+      images: (Array.isArray(dbProduct.images) && dbProduct.images.length > 0
+        ? dbProduct.images
+        : dbProduct.image
+          ? [dbProduct.image]
+          : []
+      ).map(processImageUrl),
+      category: dbProduct.category?.name || "Uncategorized",
+      subcategory: dbProduct.subCategory?.name || "",
+      brandName: dbProduct.brand?.name || "Sakhio",
+      rating: dbProduct.rating || 5,
+      reviews: dbProduct.numReviews || 0,
+      sizes: Array.isArray(dbProduct.sizes) ? dbProduct.sizes : [],
+      colors: Array.isArray(dbProduct.colors) ? dbProduct.colors : [],
+      tags: [],
+      inStock: dbProduct.quantity > 0,
+      netWeight: dbProduct.weight
+        ? `${dbProduct.weight}${dbProduct.weightUnit ? " " + dbProduct.weightUnit : ""}`
+        : undefined,
+      countryOfOrigin: dbProduct.countryOfOrigin || "India",
+      idealFor: dbProduct.idealFor || "",
+      material: dbProduct.material || "",
+      packOf: dbProduct.packOf ?? 1,
+      productType: dbProduct.productType || "",
+    };
+  }, [dbProduct, processImageUrl]);
+
   const { addItem, openCart } = useCart();
   const { isInWishlist, toggleItem } = useWishlist();
 
@@ -146,13 +146,12 @@ export default function ProductDetail() {
   });
 
   // Variant states
-  // Variant states
   const [isAdding, setIsAdding] = useState(false);
   const [selectedAttributes, setSelectedAttributes] = useState<
     Record<string, string>
   >({});
 
-  const variants = dbProduct?.variants || [];
+  const variants = useMemo(() => dbProduct?.variants || [], [dbProduct?.variants]);
   const hasVariants = variants.length > 0;
 
   // Group all attribute values by attribute name across all variants & product attributes
@@ -312,6 +311,7 @@ export default function ProductDetail() {
   const [currentMainImage, setCurrentMainImage] = useState<string>("");
   const [lastVariantId, setLastVariantId] = useState<string>("");
 
+  const productImagesList = product?.images;
   useEffect(() => {
     if (product) {
       const currentVarId = activeVariant?.id || "";
@@ -342,10 +342,12 @@ export default function ProductDetail() {
     }
   }, [
     dbProduct?.id,
-    activeVariant?.id,
+    activeVariant,
     lastVariantId,
     currentMainImage,
-    product?.images?.join(","),
+    product,
+    productImagesList,
+    processImageUrl,
   ]);
 
   if (isLoading || (!dbProduct && isFetching)) {
@@ -849,6 +851,9 @@ export default function ProductDetail() {
                 {/* Add to Cart Button */}
                 <button
                   onClick={async () => {
+                    if (!requireAuth()) {
+                      return;
+                    }
                     setIsAdding(true);
                     try {
                       if (hasVariants && activeVariant) {

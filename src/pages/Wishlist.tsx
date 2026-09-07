@@ -4,12 +4,17 @@ import { Link } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import { useWishlist } from '@/context/WishlistContext';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/hooks/use-auth';
 
 export default function WishlistPage() {
   const { items, removeItem, isLoading } = useWishlist();
   const { addItem } = useCart();
+  const { requireAuth } = useAuth();
 
   const handleAddToCart = (item: (typeof items)[0]) => {
+    if (!requireAuth()) {
+      return;
+    }
     addItem({ id: item.id, name: item.name, price: item.price, image: item.image });
   };
 

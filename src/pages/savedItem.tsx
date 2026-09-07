@@ -6,14 +6,20 @@ import MainLayout from '@/components/layout/MainLayout';
 import { Button } from '@/components/ui/button';
 import { useWishlist } from '@/context/WishlistContext';
 import { useCart } from '@/context/CartContext';
+import { useAuth } from '@/hooks/use-auth';
 
 import { toast } from 'sonner';
 
 const SavedItems = () => {
     const { items, removeItem } = useWishlist();
     const { addItem } = useCart();
+    const { requireAuth } = useAuth();
 
     const handleMoveToBag = (item: typeof items[0]) => {
+        if (!requireAuth()) {
+            return;
+        }
+
         addItem({
             id: item.id,
             name: item.name,
