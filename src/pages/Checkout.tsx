@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Check, CreditCard, Truck, MapPin, ChevronRight, Loader2, Plus } from 'lucide-react';
+import { Check, CreditCard, Truck, MapPin, Loader2, Plus } from 'lucide-react';
 import MainLayout from '@/components/layout/MainLayout';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
@@ -25,19 +25,13 @@ const loadRazorpayScript = () => {
 };
 
 
-const steps = [
-  { id: 'shipping', title: 'Shipping', icon: MapPin },
-  { id: 'payment', title: 'Payment', icon: CreditCard },
-  { id: 'review', title: 'Review', icon: Check },
-];
-
 export default function CheckoutPage() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
   const [orderNumber, setOrderNumber] = useState('');
   const { items, subtotal } = useCart();
-  
+
   const createOrderMutation = useCreateOrderMutation();
   const verifyPaymentMutation = useVerifyPaymentMutation();
   const { data: addresses, isLoading } = useAddressesQuery();
@@ -65,12 +59,12 @@ export default function CheckoutPage() {
   const handleComplete = () => {
     const isRazorpay = formData.paymentMethod === 'Razorpay';
     const selectedAddr = addresses?.find(a => a.id === selectedAddressId);
-    
+
     if (!selectedAddr) {
       toast.error("Please select a shipping address");
       return;
     }
-    
+
     createOrderMutation.mutate(
       {
         shippingName: selectedAddr.name,
@@ -208,31 +202,6 @@ export default function CheckoutPage() {
         <div className="container-luxe">
           <h1 className="font-display text-3xl md:text-4xl mb-8">Checkout</h1>
 
-          {/* Progress Steps */}
-          <div className="flex items-center justify-center gap-4 mb-12">
-            {steps.map((step, index) => (
-              <div key={step.id} className="flex items-center">
-                <button
-                  onClick={() => index <= currentStep && setCurrentStep(index)}
-                  className={cn(
-                    "flex items-center gap-2 px-4 py-2 rounded-full transition-colors",
-                    index === currentStep
-                      ? "bg-foreground text-background"
-                      : index < currentStep
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted text-muted-foreground"
-                  )}
-                >
-                  <step.icon className="h-4 w-4" />
-                  <span className="hidden sm:inline text-sm font-medium">{step.title}</span>
-                </button>
-                {index < steps.length - 1 && (
-                  <ChevronRight className="h-4 w-4 text-muted-foreground mx-2" />
-                )}
-              </div>
-            ))}
-          </div>
-
           <div className="grid lg:grid-cols-3 gap-8 lg:gap-16">
             {/* Form */}
             <div className="lg:col-span-2">
@@ -322,6 +291,23 @@ export default function CheckoutPage() {
                     </div>
                   )}
 
+                  <div className="pt-4 border-t border-border">
+                    <h2 className="font-display text-xl mb-6">Payment Method</h2>
+
+                    <div className="space-y-4">
+                      <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'Razorpay' ? "border-foreground" : "border-border hover:border-foreground/50")}>
+                        <input type="radio" name="paymentMethod" value="Razorpay" checked={formData.paymentMethod === 'Razorpay'} onChange={handleInputChange} className="w-4 h-4" />
+                        <CreditCard className="h-5 w-5" />
+                        <span>Pay Online (UPI, Cards, Netbanking)</span>
+                      </label>
+                      <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'COD' ? "border-foreground" : "border-border hover:border-foreground/50")}>
+                        <input type="radio" name="paymentMethod" value="COD" checked={formData.paymentMethod === 'COD'} onChange={handleInputChange} className="w-4 h-4" />
+                        <Truck className="h-5 w-5" />
+                        <span>Cash on Delivery</span>
+                      </label>
+                    </div>
+                  </div>
+
                   <Button
                     variant="hero"
                     size="lg"
@@ -334,53 +320,13 @@ export default function CheckoutPage() {
                       setCurrentStep(1);
                     }}
                   >
-                    Continue to Payment
+                    Review Order
                   </Button>
                 </motion.div>
               )}
 
-              {/* Payment Step */}
-              {currentStep === 1 && (
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  className="space-y-6"
-                >
-                  <h2 className="font-display text-xl mb-6">Payment Method</h2>
-
-                  <div className="space-y-4">
-                    <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'Razorpay' ? "border-foreground" : "border-border hover:border-foreground/50")}>
-                      <input type="radio" name="paymentMethod" value="Razorpay" checked={formData.paymentMethod === 'Razorpay'} onChange={handleInputChange} className="w-4 h-4" />
-                      <CreditCard className="h-5 w-5" />
-                      <span>Pay Online (UPI, Cards, Netbanking)</span>
-                    </label>
-                    <label className={cn("flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors", formData.paymentMethod === 'COD' ? "border-foreground" : "border-border hover:border-foreground/50")}>
-                      <input type="radio" name="paymentMethod" value="COD" checked={formData.paymentMethod === 'COD'} onChange={handleInputChange} className="w-4 h-4" />
-                      <Truck className="h-5 w-5" />
-                      <span>Cash on Delivery</span>
-                    </label>
-                  </div>
-
-
-
-                  <div className="flex gap-4 mt-8">
-                    <Button variant="outline" size="lg" onClick={() => setCurrentStep(0)}>
-                      Back
-                    </Button>
-                    <Button
-                      variant="hero"
-                      size="lg"
-                      className="flex-1"
-                      onClick={() => setCurrentStep(2)}
-                    >
-                      Review Order
-                    </Button>
-                  </div>
-                </motion.div>
-              )}
-
               {/* Review Step */}
-              {currentStep === 2 && (
+              {currentStep === 1 && (
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -410,7 +356,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="flex gap-4 mt-8">
-                    <Button variant="outline" size="lg" onClick={() => setCurrentStep(1)}>
+                    <Button variant="outline" size="lg" onClick={() => setCurrentStep(0)}>
                       Back
                     </Button>
                     <Button
