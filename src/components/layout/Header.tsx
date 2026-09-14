@@ -319,7 +319,7 @@ export default function Header() {
               <div className="p-5">
                 <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
                   <span className="font-display text-lg font-black text-black uppercase">
-                    Aura
+                    sakhio
                   </span>
                   <button onClick={() => setIsMenuOpen(false)} className="p-2">
                     <X className="h-6 w-6 text-black" />

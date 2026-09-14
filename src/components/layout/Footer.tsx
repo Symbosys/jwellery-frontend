@@ -113,12 +113,12 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+        <div className="flex flex-col md:flex-row justify-between items-start gap-10 lg:gap-12">
           {/* Column 1: Brand & Contact Info */}
-          <div className="space-y-6">
+          <div className="space-y-6 max-w-sm">
             <Link to="/" className="flex items-center gap-2 group">
               <span className="font-display text-xl lg:text-2xl font-black tracking-wider text-[#D4AF37] group-hover:text-white transition-colors uppercase">
-                AURA FINE JEWELLERY
+                sakhio FINE JEWELLERY
               </span>
             </Link>
 
@@ -162,7 +162,7 @@ export default function Footer() {
           </div>
 
           {/* Column 2: Categories — dynamic, max 6 */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-[160px]">
             <h4 className="font-display text-base font-bold text-[#D4AF37] border-b border-white/10 pb-2 uppercase">
               Categories
             </h4>
@@ -189,7 +189,7 @@ export default function Footer() {
           </div>
 
           {/* Column 3: Quick Links */}
-          <div className="space-y-6">
+          <div className="space-y-6 min-w-[160px]">
             <h4 className="font-display text-base font-bold text-[#D4AF37] border-b border-white/10 pb-2 uppercase">
               POLICIES
             </h4>
@@ -236,46 +236,12 @@ export default function Footer() {
               </li>
             </ul>
           </div>
-
-          {/* Column 4: App Download */}
-          <div className="space-y-6">
-            <h4 className="font-display text-base font-bold text-[#D4AF37] border-b border-white/10 pb-2 uppercase">
-              Download Our App
-            </h4>
-            <p className="text-xs text-white/50 leading-relaxed">
-              Exclusive App, Access Premium Designs & Gold Rates Daily!
-            </p>
-
-            {/* Store Badges */}
-            <div className="flex flex-col gap-3">
-              <a
-                href="#"
-                className="inline-block transition-transform hover:scale-105"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                  alt="Get it on Google Play"
-                  className="h-10 object-contain"
-                />
-              </a>
-              <a
-                href="#"
-                className="inline-block transition-transform hover:scale-105"
-              >
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg"
-                  alt="Download on the App Store"
-                  className="h-10 object-contain"
-                />
-              </a>
-            </div>
-          </div>
         </div>
 
         {/* Footer bottom */}
         <div className="border-t border-white/10 mt-12 pt-6 text-center text-xs text-white/40">
           <p>
-            © {new Date().getFullYear()} AURA FINE JEWELLERY. All rights
+            © {new Date().getFullYear()} sakhio FINE JEWELLERY. All rights
             reserved.
           </p>
           <p className="mt-2 font-semibold tracking-wide text-white/60 flex items-center justify-center gap-1.5">

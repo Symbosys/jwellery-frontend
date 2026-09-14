@@ -36,7 +36,7 @@ export default function ChatSupport() {
     return [
       {
         id: '__welcome__',
-        text: "Hi! 👋 Welcome to Aura Fine Jewellery support. I'm here to help you with your orders, custom sizes, BIS certifications, or any questions you have.",
+        text: "Hi! 👋 Welcome to sakhio Fine Jewellery support. I'm here to help you with your orders, custom sizes, BIS certifications, or any questions you have.",
         sender: 'agent',
         timestamp: new Date(Date.now() - 60000),
       },

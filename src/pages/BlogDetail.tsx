@@ -46,7 +46,7 @@ const MOCK_BLOGS: DBBlog[] = [
       </blockquote>
     `,
     image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=1000&auto=format&fit=crop",
-    author: "Aura Jewellery Experts",
+    author: "sakhio Jewellery Experts",
     tags: ["Guides", "Rings", "Sizing"],
     isActive: true,
     viewsCount: 154,

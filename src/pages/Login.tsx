@@ -118,7 +118,7 @@ export default function Login() {
       <div className="hidden lg:block lg:w-1/2 relative overflow-hidden h-screen select-none">
         <img
           src="https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?q=80&w=1200&auto=format&fit=crop"
-          alt="Aura Fine Jewellery Editorial"
+          alt="sakhio Fine Jewellery Editorial"
           className="w-full h-full object-cover brightness-[0.85] contrast-[1.05]"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
@@ -132,7 +132,7 @@ export default function Login() {
             </span>
           </div>
           <h2 className="text-4xl xl:text-5xl font-display font-light leading-tight tracking-wide uppercase">
-            Aura Fine <br />
+            sakhio Fine <br />
             <span className="font-semibold text-[#D4AF37]">Jewellery</span>
           </h2>
           <p className="text-gray-300 font-light text-base xl:text-lg max-w-md leading-relaxed">
@@ -140,7 +140,7 @@ export default function Login() {
             harvesting schemes, and explore curated, certified diamonds.
           </p>
           <div className="pt-4 border-t border-white/10 flex items-center justify-between text-xs text-gray-400 font-semibold tracking-wider uppercase">
-            <span>© {new Date().getFullYear()} Aura Jewellery</span>
+            <span>© {new Date().getFullYear()} sakhio Jewellery</span>
             <span>BIS 100% Hallmarked</span>
           </div>
         </div>
@@ -239,7 +239,7 @@ export default function Login() {
         {/* Footer Links */}
         <div className="text-center space-y-4">
           <p className="text-xs text-gray-400 font-light max-w-sm mx-auto leading-relaxed">
-            By proceeding, you agree to Aura Fine Jewellery's{" "}
+            By proceeding, you agree to sakhio Fine Jewellery's{" "}
             <Link
               to="/terms-conditions"
               className="text-black font-semibold underline hover:text-[#B8933D] transition-colors"

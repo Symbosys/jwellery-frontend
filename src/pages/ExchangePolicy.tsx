@@ -44,7 +44,7 @@ export default function ExchangePolicy() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  At Aura Fine Jewellery, we take utmost care in crafting and delivering premium-quality gold and diamond jewellery. If you receive a damaged, defective, or incorrect piece, you may request an exchange according to the policy outlined below.
+                  At sakhio Fine Jewellery, we take utmost care in crafting and delivering premium-quality gold and diamond jewellery. If you receive a damaged, defective, or incorrect piece, you may request an exchange according to the policy outlined below.
                 </p>
                 <p>
                   Exchange requests are subject to product certification verification, purity inspection, and approval by our support team.
@@ -181,7 +181,7 @@ export default function ExchangePolicy() {
                   ))}
                 </ul>
                 <p>
-                  Aura Fine Jewellery will cover the fully-insured return shipping costs.
+                  sakhio Fine Jewellery will cover the fully-insured return shipping costs.
                 </p>
                 <p>
                   Additional transit insurance and shipping charges may apply for exchanges requested due to sizing alterations.
@@ -201,7 +201,7 @@ export default function ExchangePolicy() {
               </div>
               <div className="text-gray-600 text-lg lg:text-xl leading-relaxed space-y-4 font-light text-left">
                 <p>
-                  All exchange requests are reviewed individually by our quality control lab. Aura Fine Jewellery reserves the right to reject exchange requests if:
+                  All exchange requests are reviewed individually by our quality control lab. sakhio Fine Jewellery reserves the right to reject exchange requests if:
                 </p>
                 <ul className="space-y-2.5">
                   {[
@@ -262,11 +262,11 @@ export default function ExchangePolicy() {
                   For exchange-related assistance, please contact:
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <a href="mailto:support@aurafinejewellery.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
+                  <a href="mailto:support@sakhiofinejewellery.com" className="flex items-center gap-3 p-4 bg-gray-50 rounded-xl hover:bg-gray-100 border border-gray-100 transition-colors group">
                     <Mail className="h-5 w-5 text-[#D4AF37]" />
                     <div>
                       <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Email Us</p>
-                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@aurafinejewellery.com</p>
+                      <p className="text-sm font-semibold text-black group-hover:text-[#D4AF37] transition-colors">support@sakhiofinejewellery.com</p>
                     </div>
                   </a>
                   
