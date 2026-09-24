@@ -469,7 +469,7 @@ export default function ProductDetail() {
                         setCurrentMainImage(img);
                       }}
                       className={cn(
-                        "w-16 h-16 md:w-20 md:h-20 rounded border-2 overflow-hidden transition-all bg-white shadow-sm flex-shrink-0",
+                        "w-16 h-16 md:w-20 md:h-20 rounded-lg border-2 overflow-hidden transition-all bg-[#8A1B28]/5 shadow-sm flex-shrink-0 flex items-center justify-center p-1",
                         selectedImage === idx
                           ? "border-[#8A1B28] ring-2 ring-[#8A1B28]/10"
                           : "border-[#E5D5B5]/60 hover:border-[#8A1B28]",
@@ -478,20 +478,20 @@ export default function ProductDetail() {
                       <img
                         src={img}
                         alt=""
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                       />
                     </button>
                   ))}
                 </div>
 
                 {/* Main Image Frame */}
-                <div className="flex-1 order-1 md:order-2 bg-card border border-border rounded-xl overflow-hidden relative aspect-square shadow-sm flex items-center justify-center p-3">
+                <div className="flex-1 order-1 md:order-2 bg-[#8A1B28]/5 border border-[#E5D5B5]/60 rounded-xl overflow-hidden relative aspect-square shadow-sm flex items-center justify-center p-4">
                   <img
                     src={currentMainImage || product.images[selectedImage]}
                     alt={product.name}
                     className={cn(
-                      "w-full h-full object-cover rounded-lg",
-                      zoomScale ? "scale-150 cursor-zoom-out" : "scale-100",
+                      "w-full h-full object-contain rounded-lg transition-transform duration-300",
+                      zoomScale ? "scale-150 cursor-zoom-out" : "scale-100 cursor-zoom-in",
                     )}
                     onClick={() => setZoomScale(!zoomScale)}
                   />
@@ -742,11 +742,11 @@ export default function ProductDetail() {
                               )}
                             >
                               {hasImg && (
-                                <span className="w-5 h-5 rounded overflow-hidden border border-black/10 flex-shrink-0">
+                                <span className="w-5 h-5 rounded overflow-hidden border border-black/10 flex-shrink-0 flex items-center justify-center p-0.5 bg-gray-50">
                                   <img
                                     src={processImageUrl(val.image!)}
                                     alt={val.value}
-                                    className="w-full h-full object-cover"
+                                    className="w-full h-full object-contain"
                                   />
                                 </span>
                               )}

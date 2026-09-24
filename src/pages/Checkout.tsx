@@ -337,11 +337,13 @@ export default function CheckoutPage() {
                   <div className="space-y-4">
                     {items.map((item) => (
                       <div key={item.id} className="flex gap-4 p-4 bg-secondary/30 rounded-lg">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-16 h-20 object-cover rounded"
-                        />
+                        <div className="w-16 h-20 bg-white rounded border border-gray-100 p-1 flex-shrink-0 flex items-center justify-center">
+                          <img
+                            src={item.image}
+                            alt={item.name}
+                            className="w-full h-full object-contain rounded"
+                          />
+                        </div>
                         <div className="flex-1">
                           <p className="font-medium">{item.name}</p>
                           <p className="text-sm text-muted-foreground">

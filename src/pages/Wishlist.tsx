@@ -89,12 +89,12 @@ export default function WishlistPage() {
                     className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:border-gray-200 transition-all"
                   >
                     {/* Image */}
-                    <div className="relative aspect-square overflow-hidden bg-gray-50">
-                      <Link to={`/product/${item.id}`}>
+                    <div className="relative aspect-square overflow-hidden bg-gray-50 flex items-center justify-center p-2">
+                      <Link to={`/product/${item.id}`} className="w-full h-full flex items-center justify-center">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                         />
                       </Link>
 

@@ -59,12 +59,12 @@ export default function CartPage() {
                   >
                     <Link
                       to={`/product/${item.productId}`}
-                      className="w-24 h-32 bg-[#FAF9F6] border border-gray-100 p-1 flex-shrink-0 rounded-lg"
+                      className="w-24 h-32 bg-[#FAF9F6] border border-gray-100 p-1 flex-shrink-0 rounded-lg flex items-center justify-center"
                     >
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                       />
                     </Link>
 

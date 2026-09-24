@@ -90,11 +90,11 @@ export default function CartDrawer() {
                       transition={{ delay: index * 0.1 }}
                       className="flex gap-4 border-b border-gray-100 pb-6 last:border-0 bg-white"
                     >
-                      <div className="w-24 h-32 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100">
+                      <div className="w-24 h-32 bg-gray-50 rounded-lg overflow-hidden flex-shrink-0 border border-gray-100 p-1 flex items-center justify-center">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                         />
                       </div>
                       <div className="flex-1">

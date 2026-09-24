@@ -213,11 +213,11 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Product Image Frame */}
-        <div className="relative aspect-square bg-[#8A1B28]/5 overflow-hidden border-b border-[#E5D5B5]/30">
+        <div className="relative aspect-square bg-[#8A1B28]/5 overflow-hidden border-b border-[#E5D5B5]/30 flex items-center justify-center p-2">
           <img
             src={product.images[0]}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
           />
 
           {/* Second Image Hover Switch */}
@@ -226,7 +226,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               src={product.images[1]}
               alt={product.name}
               className={cn(
-                "absolute inset-0 w-full h-full object-cover transition-opacity duration-500",
+                "absolute inset-0 w-full h-full object-contain p-2 transition-opacity duration-500",
                 isHovered ? "opacity-100" : "opacity-0",
               )}
             />
@@ -418,7 +418,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                         )}
                       >
                         <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 rounded bg-gray-50 border overflow-hidden flex-shrink-0">
+                          <div className="h-10 w-10 rounded bg-gray-50 border overflow-hidden flex-shrink-0 flex items-center justify-center p-0.5">
                             <img
                               src={
                                 processImageUrl(
@@ -428,7 +428,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                                 ""
                               }
                               alt={displayName}
-                              className="h-full w-full object-cover"
+                              className="h-full w-full object-contain"
                             />
                           </div>
                           <div>
