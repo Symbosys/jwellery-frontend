@@ -13,6 +13,7 @@ import {
   Settings,
   Shield,
   Bell,
+  Landmark,
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useMemo, useState } from 'react';
@@ -28,7 +29,7 @@ const quickLinks = [
   { icon: Heart, label: 'Wishlist', desc: 'Items you love', href: '/wishlist', color: 'bg-rose-50 text-rose-600' },
   { icon: MessageCircle, label: 'Support', desc: '24/7 assistance', href: '/support', color: 'bg-violet-50 text-violet-600' },
   { icon: Truck, label: 'Track Order', desc: 'Real-time tracking', href: '/track-order', color: 'bg-amber-50 text-amber-600' },
-  // { icon: Shield, label: 'Security', desc: 'Password & security', href: '/account/security', color: 'bg-gray-50 text-gray-600' },
+  { icon: Landmark, label: 'Bank Account', desc: 'Manage bank details', href: '/account/bank-details', color: 'bg-indigo-50 text-indigo-600' },
 ];
 
 export default function AccountPage() {
@@ -296,6 +297,13 @@ export default function AccountPage() {
                     className="flex items-center justify-between px-5 py-3 text-xs font-semibold text-gray-500 hover:text-black hover:bg-gray-50 transition-colors"
                   >
                     <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" />Manage Addresses</span>
+                    <ChevronRight className="w-3.5 h-3.5 text-gray-300" />
+                  </Link>
+                  <Link
+                    to="/account/bank-details"
+                    className="flex items-center justify-between px-5 py-3 text-xs font-semibold text-gray-500 hover:text-black hover:bg-gray-50 transition-colors"
+                  >
+                    <span className="flex items-center gap-2"><Landmark className="w-3.5 h-3.5" />Bank Account Details</span>
                     <ChevronRight className="w-3.5 h-3.5 text-gray-300" />
                   </Link>
                 </div>

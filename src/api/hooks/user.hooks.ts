@@ -9,6 +9,11 @@ export interface UserDetail {
   phoneNumber: string | null;
   dateOfBirth?: string | null;
   gender?: string | null;
+  accountHolderName?: string | null;
+  bankName?: string | null;
+  accountNumber?: string | null;
+  ifscCode?: string | null;
+  upiId?: string | null;
   createdAt?: string;
   updatedAt?: string;
 }
@@ -40,6 +45,11 @@ export interface UpdateUserParams {
   phoneNumber?: string;
   dateOfBirth?: string;
   gender?: string;
+  accountHolderName?: string | null;
+  bankName?: string | null;
+  accountNumber?: string | null;
+  ifscCode?: string | null;
+  upiId?: string | null;
 }
 
 export const userKeys = {
