@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import { apiClient } from "../apiclient/apiClient";
 
 export interface DBAttributeValue {
@@ -213,6 +218,35 @@ export const useProductsQuery = (
         data: ProductsResponse;
       }>("/product", { params });
       return response.data.data;
+    },
+    enabled,
+    retry: 1,
+    refetchOnWindowFocus: false,
+  });
+};
+
+/**
+ * GET /product (Infinite)
+ * Fetch infinite paginated products for continuous scrolling.
+ */
+export const useInfiniteProductsQuery = (
+  params?: Omit<GetProductsParams, "page">,
+  enabled = true,
+) => {
+  return useInfiniteQuery<ProductsResponse>({
+    queryKey: [...productKeys.all, "infinite", params],
+    queryFn: async ({ pageParam = 1 }) => {
+      const response = await apiClient.get<{
+        success: boolean;
+        data: ProductsResponse;
+      }>("/product", { params: { ...params, page: pageParam } });
+      return response.data.data;
+    },
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => {
+      if (!lastPage?.pagination) return undefined;
+      const { page, totalPages } = lastPage.pagination;
+      return page < totalPages ? page + 1 : undefined;
     },
     enabled,
     retry: 1,
