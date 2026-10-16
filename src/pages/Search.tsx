@@ -75,10 +75,10 @@ export default function SearchPage() {
 
   return (
     <MainLayout>
-      <div className="pt-32 pb-16 bg-[#FAF9F6] min-h-screen">
+      <div className="pt-4 sm:pt-6 lg:pt-8 pb-16 bg-[#FAF9F6] min-h-screen">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           {/* Search Form */}
-          <div className="max-w-2xl mx-auto mb-12">
+          <div className="max-w-2xl mx-auto mb-8 sm:mb-12">
             <form onSubmit={handleSearchSubmit} className="relative">
               <Search className="absolute left-0 top-1/2 -translate-y-1/2 h-6 w-6 text-gray-400" />
               <input

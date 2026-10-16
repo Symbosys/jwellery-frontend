@@ -147,7 +147,7 @@ export default function HeroSlider() {
         </AnimatePresence>
 
         {/* Navigation Arrows */}
-        <button
+        {/* <button
           onClick={prev}
           className="absolute left-4 sm:left-6 top-[calc(50%+30px)] -translate-y-1/2 p-3 bg-black/30 backdrop-blur-sm border border-white/20 rounded-full hover:bg-black/50 text-white z-20 transition-all shadow-lg"
           aria-label="Previous slide"
@@ -160,7 +160,7 @@ export default function HeroSlider() {
           aria-label="Next slide"
         >
           <ChevronRight className="h-5 w-5" />
-        </button>
+        </button> */}
 
         {/* Dots Indicator */}
         <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2.5 z-20">
