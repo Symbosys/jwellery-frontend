@@ -76,10 +76,10 @@ export default function HeroSlider() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto px-4 lg:px-8 pt-24 sm:pt-28 lg:pt-32">
+    <section className="w-full relative overflow-hidden">
       <div
-        className="relative w-full overflow-hidden bg-black rounded-3xl"
-        style={{ height: "clamp(360px, 55vw, 750px)" }}
+        className="relative w-full overflow-hidden bg-black"
+        style={{ height: "clamp(450px, 55vw, 750px)" }}
       >
         <AnimatePresence initial={false} custom={direction}>
           <motion.div
@@ -104,7 +104,7 @@ export default function HeroSlider() {
                     : (slides[current].image as any)?.src || (slides[current].image as any)
                 }
                 alt={slides[current].title}
-                className="w-full h-full object-cover object-center opacity-90 transition-transform duration-700 hover:scale-[1.02]"
+                className="w-full h-full object-cover object-center transition-transform duration-700 hover:scale-[1.02]"
               />
               {!slides[current].hideTextOverlay && (
                 <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent" />
@@ -113,7 +113,7 @@ export default function HeroSlider() {
 
             {/* Content */}
             {!slides[current].hideTextOverlay && (
-              <div className="relative z-10 h-full flex items-center pt-8 lg:pt-12">
+              <div className="relative z-10 h-full flex items-center pt-28 sm:pt-36 lg:pt-40">
                 <div className="w-full px-6 sm:px-12 lg:px-16">
                   <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -149,14 +149,14 @@ export default function HeroSlider() {
         {/* Navigation Arrows */}
         <button
           onClick={prev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/30 text-white z-20 transition-all"
+          className="absolute left-4 sm:left-6 top-[calc(50%+30px)] -translate-y-1/2 p-3 bg-black/30 backdrop-blur-sm border border-white/20 rounded-full hover:bg-black/50 text-white z-20 transition-all shadow-lg"
           aria-label="Previous slide"
         >
           <ChevronLeft className="h-5 w-5" />
         </button>
         <button
           onClick={next}
-          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full hover:bg-white/30 text-white z-20 transition-all"
+          className="absolute right-4 sm:right-6 top-[calc(50%+30px)] -translate-y-1/2 p-3 bg-black/30 backdrop-blur-sm border border-white/20 rounded-full hover:bg-black/50 text-white z-20 transition-all shadow-lg"
           aria-label="Next slide"
         >
           <ChevronRight className="h-5 w-5" />

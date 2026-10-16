@@ -40,6 +40,18 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${outfit.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              if (typeof window !== 'undefined' && 'scrollRestoration' in history) {
+                history.scrollRestoration = 'manual';
+                window.scrollTo(0, 0);
+              }
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <Providers>
           <Suspense fallback={<div className="min-h-screen bg-[#111111] flex items-center justify-center text-xs uppercase tracking-widest text-[#FFF] animate-pulse">Loading sakhio Fine Jewellery...</div>}>

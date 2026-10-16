@@ -1,4 +1,6 @@
-import { ReactNode } from 'react';
+"use client";
+
+import { ReactNode, useEffect } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import MobileNav from './MobileNav';
@@ -10,6 +12,15 @@ interface MainLayoutProps {
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = "manual";
+      }
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />

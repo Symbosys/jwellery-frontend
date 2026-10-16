@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { Heart, ShoppingBag, Plus, Minus, X, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 /**
@@ -82,6 +82,32 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   // Loading states
   const [isAddingLocal, setIsAddingLocal] = useState(false);
   const [isAddingModal, setIsAddingModal] = useState(false);
+
+  // Extract unique valid image URLs for automatic sliding
+  const validImages = Array.from(
+    new Set(
+      (product.images || [])
+        .map(processImageUrl)
+        .filter(
+          (img): img is string => typeof img === "string" && img.trim().length > 0
+        )
+    )
+  );
+  const displayImages =
+    validImages.length > 0
+      ? validImages
+      : ["https://images.unsplash.com/photo-1579722820308-d74e571900a9?w=800"];
+
+  const [currentImgIndex, setCurrentImgIndex] = useState(0);
+
+  useEffect(() => {
+    if (displayImages.length <= 1) return;
+    const intervalTime = 2500 + (index % 4) * 350;
+    const interval = setInterval(() => {
+      setCurrentImgIndex((prev) => (prev + 1) % displayImages.length);
+    }, intervalTime);
+    return () => clearInterval(interval);
+  }, [displayImages.length, index]);
 
   const handleAddToCart = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -214,26 +240,39 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
       >
         {/* Product Image Frame */}
         <div className="relative aspect-square bg-[#8A1B28]/5 overflow-hidden border-b border-[#E5D5B5]/30 flex items-center justify-center p-2">
-          <img
-            src={product.images[0]}
-            alt={product.name}
-            className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
-          />
-
-          {/* Second Image Hover Switch */}
-          {product.images[1] && (
+          {displayImages.map((imgSrc, i) => (
             <img
-              src={product.images[1]}
-              alt={product.name}
+              key={i}
+              src={imgSrc}
+              alt={`${product.name} - ${i + 1}`}
               className={cn(
-                "absolute inset-0 w-full h-full object-contain p-2 transition-opacity duration-500",
-                isHovered ? "opacity-100" : "opacity-0",
+                "absolute inset-0 w-full h-full object-contain p-2 transition-opacity duration-700 ease-in-out group-hover:scale-105",
+                i === currentImgIndex
+                  ? "opacity-100 z-10"
+                  : "opacity-0 z-0 pointer-events-none",
               )}
             />
+          ))}
+
+          {/* Slide Indicator Dots when more than 1 image */}
+          {displayImages.length > 1 && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 z-20 pointer-events-none">
+              {displayImages.map((_, i) => (
+                <span
+                  key={i}
+                  className={cn(
+                    "h-1 rounded-full transition-all duration-300",
+                    i === currentImgIndex
+                      ? "w-3 bg-[#8A1B28]"
+                      : "w-1 bg-[#8A1B28]/30",
+                  )}
+                />
+              ))}
+            </div>
           )}
 
           {/* Discount/New Badges */}
-          <div className="absolute top-2 left-2 flex flex-col gap-1 z-10">
+          <div className="absolute top-2 left-2 flex flex-col gap-1 z-20">
             {product.isNew && (
               <span className="px-2 py-0.5 bg-[#8A1B28] text-white text-[9px] font-bold uppercase tracking-wider rounded-sm shadow-sm">
                 New
