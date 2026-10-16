@@ -239,14 +239,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         onMouseLeave={() => setIsHovered(false)}
       >
         {/* Product Image Frame */}
-        <div className="relative aspect-square bg-[#8A1B28]/5 overflow-hidden border-b border-[#E5D5B5]/30 flex items-center justify-center p-2">
+        <div className="relative aspect-square bg-[#FAF9F6] overflow-hidden border-b border-[#E5D5B5]/30">
           {displayImages.map((imgSrc, i) => (
             <img
               key={i}
               src={imgSrc}
               alt={`${product.name} - ${i + 1}`}
               className={cn(
-                "absolute inset-0 w-full h-full object-contain p-2 transition-opacity duration-700 ease-in-out group-hover:scale-105",
+                "absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-105",
                 i === currentImgIndex
                   ? "opacity-100 z-10"
                   : "opacity-0 z-0 pointer-events-none",
